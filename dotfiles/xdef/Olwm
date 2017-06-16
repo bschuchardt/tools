@@ -1,0 +1,23 @@
+!olwm.WorkspaceColor:  #b7e5e5
+olwm.WorkspaceColor:  #8fcfcf
+olwm.AutoInputFocus: true
+!olwm.PaintWorkspace: false
+olwm.RunSlaveProcess: false
+olwm.ServerGrabs: false
+olwm.SetInput: followmouse
+!olwm.SetInput: select
+olwm.ShowResizeGeometry: true
+olwm.TitleFont: -adobe-helvetica-medium-o-normal--14-140-75-75-p-78-iso8859-1
+olwm.TransientsSaveUnder: false
+olwm.TransientsTitled: false
+!olwm.Use3DFrames: true
+!olwm.Use3DResize: true
+olwm.FocusLenience: true
+
+olwm.IconLocation:	right
+olwm.SelectDisplaysMenu:	False
+olwm.MultiClickTimeout:	4
+olwm.Beep:	notices
+olwm.ScrollbarPlacement:	right
+olwm.PopupJumpCursor:	False
+

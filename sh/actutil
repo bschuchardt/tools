@@ -1,0 +1,1 @@
+$GEMSTONE/bin/java com.gemstone.CORBA.util.activatorUtil $@

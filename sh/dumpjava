@@ -1,0 +1,11 @@
+#jjobs=`/usr/ucb/ps -xwww | grep java | cut -c 1-6`
+me=`whoami`
+jjobs=`pgrep -u ${me} java`
+if [ x"$jjobs" != x ]; then
+  for x in $jjobs; do
+#    set -x
+    echo "--- pid $x -----------------------------------------------------------------"
+    jstack -l $x
+    set +x
+  done
+fi

@@ -1,0 +1,10 @@
+#! /bin/sh
+#set -x
+while [ "$1" != "" ]; do
+  cp $1 $1.bruce
+  if [ $? -eq 0 ]; then
+    rm $1
+    mv $1.bruce $1
+  fi
+  shift
+done

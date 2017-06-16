@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+if [ x$1 = xam -a x$2 = xi ]; then
+  echo "silly"
+  exit 0
+fi
+for x in $@; do
+  file `which $x`
+done

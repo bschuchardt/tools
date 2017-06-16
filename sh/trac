@@ -1,0 +1,4 @@
+#!/bin/sh
+firefox  https://svn.gemstone.com/trac/gemfire/ticket/${1}&
+
+

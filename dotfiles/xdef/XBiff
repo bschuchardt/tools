@@ -1,0 +1,13 @@
+xbiff*reverseVideo:     off
+xbiff*shapeWindow:      true
+#xbiff*background:       #ffdfcf
+#xbiff*foreground:       black
+xbiff*fullPixmap:       /engr/users/bruce/usr/lib/bitmaps/billopen.bm
+xbiff*fullPixmapMask:   /engr/users/bruce/usr/lib/bitmaps/bill_shape.bm
+xbiff*emptyPixmap:      /engr/users/bruce/usr/lib/bitmaps/bill.bm
+xbiff*emptyPixmapMask:  /engr/users/bruce/usr/lib/bitmaps/bill_shape.bm
+xbiff*width:            80
+xbiff*height:           90
+! xbiff*file:             /usr/spool/mail/bruce
+xbiff*flip:             false
+

@@ -1,0 +1,15 @@
+#!/bin/bash
+#$GEMFIRE/vsd/bin/vsd "$@"
+
+if [ $mtype = 50 ]; then
+  if [ `hostname` == carlos ]; then
+    $HOME/usr/vsd50.old/bin/vsd "$@"
+    exit 0
+  fi
+  $HOME/usr/vsd50/bin/vsd "$@"
+elif [ $mtype = 10 ]; then
+  /gcm/where/vsd/sparc.Solaris/bin/vsd "$@"
+else
+  echo "you don't have a vsd build for $OSTYPE"
+  exit 1
+fi

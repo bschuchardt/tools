@@ -1,0 +1,91 @@
+E-x bind-to-key | bind-to-key | M1-b
+M1-b make-macro | M1-m
+
+M1-m only-other | :
+  E-x forw-window Return
+  E-x only-window Return
+  :
+
+M1-m del-to-bol | :
+  E-x set-mark Return
+  E-x goto-bol Return
+  E-x kill-region Return
+  :
+
+M1-m cindent | :
+  E-x numeric-arg Return
+  2
+  E-x set-tab-width Return
+  :
+
+M1-m textindent | :
+  E-x numeric-arg Return
+  8
+  E-x set-tab-width Return
+  :
+
+M1-m frp | @ E-x goto-bol Return "> " E-x forw-line Return E-x goto-bol Return @
+
+M1-m java-comment | @ Home "//" Down @
+
+M1-m down-some | @ E-x numeric-arg Return 8 E-x down-window Return @
+M1-m up-some | @ E-x numeric-arg Return 8 E-x up-window Return @
+
+M1-b frp | ^-.
+M1-b java-comment | ^-/
+
+M1-b back-del-char | BackSpace
+M1-b delete-line   | ^-BackSpace
+M1-b back-del-word | S-BackSpace
+
+M1-b file-save | ^-Return
+
+M1-b back-page | Prior
+M1-b forw-page | Next
+M1-b select-eob | ^-S-Next
+M1-b select-bob | ^-S-Prior
+ 
+M1-b del-to-bol | ^-Home
+M1-b kill-line | ^-End
+
+M1-b yank | Insert
+M1-b copy-region | ^-Insert
+M1-b press-paste | S-Insert
+
+M1-b bind-macro | ^-KP_Add
+
+M1-b execute-macro | S-F4
+
+M1-b ins-nl-and-indent | Return
+M1-b ins-nl | Linefeed
+
+M1-b case-sense | KP_Multiply
+M1-b select-line | S-Return
+
+M1-b set-file-name | M1-F2
+
+M1-b set-mark | Select
+M1-b select-region | S-Select
+M1-b unselect-all | ^-Select
+
+M1-b delete-curbuf | Print
+M1-b only-other | S-Print
+M1-b line-shell-cmd | M1-Return
+
+M1-b down-some | ^-F9
+M1-b up-some | ^-F7
+
+M1-b back-page | M2-Up
+M1-b forw-page | M2-Down
+M1-b goto-bol | M2-Left
+M1-b goto-eol | M2-Right
+M1-b press-past | M2-v
+M1-b goto-bob | ^-M2-Up
+M1-b goto-eob | ^-M2-Down
+
+E-x push-newlines Return
+E-x set-fill-double Return
+E-x scroll-toggle Return
+E-x cindent Return
+E-x auto-back Return
+E-x toggle-tabs-on-indent Return

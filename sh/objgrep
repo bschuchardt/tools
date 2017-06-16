@@ -1,0 +1,34 @@
+#!/bin/sh
+# used in hydra test analysis to search merged logs for a specific object, like Object_1
+file=${2:-"merged.txt"}
+if [ ! -r ${file} -a ${file} == "merged.txt" ]; then
+  file=mergedLogs.txt
+  if [ ! -r ${file} ]; then
+    echo "can't find merged.txt or mergedLogs.txt"
+    exit 1
+  fi
+fi
+if [ ! -r ${file} ]; then
+  echo "can't find ${file}"
+  exit 1
+fi
+grep Object_${1} ${file} | grep -v Object_${1}[0-9]
+echo ""
+echo ""
+
+#if [ x == y ]; then
+echo "xxx process taking snapshot:"
+# most tests use this
+result=`grep "is the concurrentLeader" ${file} | tail -1`
+if [ x"$result" == x ]; then
+ result=`grep "Writing regionSnapshot" ${file} | tail -1`
+  if [ x"$result" == x ]; then
+#   newWan
+    result=`grep "writing region snapshot" ${file} | tail -1`
+  fi
+fi
+echo $result
+echo ""
+echo ""
+grep -A 10 TestException ${file} | head -10
+#fi

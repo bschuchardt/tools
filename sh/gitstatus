@@ -1,0 +1,6 @@
+#!/bin/sh
+git status -s
+if [ -d open ]; then
+  cd open
+  git status -s
+fi

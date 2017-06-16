@@ -1,0 +1,11 @@
+#!/bin/sh
+second=
+for x in "$@"; do
+  if [ x$second != x ]; then
+    sleep 2
+  fi
+  second=xx
+  echo ${x}
+  exec ssh -X ${x}.gemstone.com usr/sh/remoteterm&
+done
+

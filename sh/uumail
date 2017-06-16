@@ -1,0 +1,36 @@
+#!/usr/bin/bash
+#  uumail dest-addr file [file ...]
+#set -v
+#set -x
+if [ "x$1" = "x" -o "x$1" = "x-h" -o "x$1" = "xhelp" ]; then
+  echo "uumail dest-addr file [file...]"
+  exit
+fi
+
+dest="$1"
+shift
+
+while [ "x$1" != "x" ]; do
+echo $1
+rm -rf /tmp/outgoing
+mkdir /tmp/outgoing
+outdir=/tmp/outgoing
+out=$outdir/part.
+uuencode $1 $1 | split -b100k - $out
+olddir=$PWD
+cd $outdir
+last=`ls -1 | tail -1 | cut -c6,7`
+#echo $PWD
+echo "last component for $1 is $last"
+for x in * ; do
+  if [ "x$x" != "x" ]; then
+    this=`echo $x | cut -c6,7`
+    echo $this/$last
+    cat $x | mailx -s "(uu) $1 :: $this/$last" $dest
+  fi
+done
+cd $olddir
+rm $outdir/*
+shift
+done
+rm -rf $outdir

@@ -1,0 +1,159 @@
+#!/bin/bash
+
+blcl=$build/tests/classes
+
+defns=""
+while [ "${1:0:2}" == "-D" ]; do
+  defns="$defns $1"
+  shift 1
+done
+#echo "definitions = \'${defns}\'"
+
+if [ x$1 == x ]; then
+  if [ -r tests.bt ]; then
+    file=tests.bt
+  else
+    file=`ls *.bt | head -1`
+  fi
+else
+  file=$1
+fi
+
+target=$file
+if [ ! -r $file ]; then
+  if [ -r $blcl/$file ]; then
+    target=$blcl/$file
+  else
+     echo "can't find test file '$file' here or in the build directory"
+    exit 1
+  fi
+fi
+
+xd=`grep gemfirexd $target`
+sql=`grep sql $target`
+if [ x"$sql" != x -o x"$xd" != x ]; then
+  echo "detected sqlfire test.  Setting product to gemfireXD."
+#  PRODUCT="-Dproduct=sqlfire"
+  PRODUCT="-Dproduct=gemfireXD"
+fi
+
+localconf=""
+#if [ -r local.conf ]; then
+#  localconf="-Dlocal.conf=$PWD/local.conf"
+#fi
+
+# for 64bit scaleperf runs use more memory in master controller
+#MASTERMB="-DmasterHeapMB=3000"
+MASTERMB=""
+
+there=$PWD
+touch oneliner.txt
+cd $layer
+
+echo "running test ${file}"
+
+#REMOVE_PASSES="-Dbt.removePassedTest=true"
+
+export NO_BUILD_LOG=true
+./build.sh execute-battery-nobuild $localconf \
+  -Djavac.primary=$JAVA_HOME \
+  -DtestJVM=$JAVA_HOME/bin/java \
+  -DnumTimesToRun=1 \
+  -DreportToWRT=false \
+  -DnukeHungTest=true \
+  -Dbt.result.dir=$there \
+  -Dskip.hydra.clean=true \
+  -DmergeLogFiles=false \
+  -DEXTRA_JTESTS=$build/GemFireXDTests/classes \
+  $REMOVE_PASSES \
+  $MASTERMB \
+  $defns \
+  $PRODUCT \
+  -Dbt.file=$target >$there/build.log
+
+cd $there
+echo "checking oneliner.txt"
+if [ -r oneliner.txt ]; then
+  grep " F " oneliner.txt
+  grep " H " oneliner.txt
+else
+  echo "could not locate oneliner.txt in $there"
+  ls
+fi
+exit
+
+### old script from pre-7.5 #############################################
+defns=""
+while [ "${1:0:2}" == "-D" ]; do
+  defns="$defns $1"
+  shift 1
+done
+#echo "definitions = \'${defns}\'"
+
+if [ x$1 == x ]; then
+  if [ -r tests.bt ]; then
+    file=tests.bt
+  else
+    file=`ls *.bt | head -1`
+  fi
+else
+  file=$1
+fi
+
+blcl=$build/tests/classes
+
+target=$file
+if [ ! -r $file ]; then
+  if [ -r $blcl/$file ]; then
+    target=$blcl/$file
+  else
+     echo "can't find test file '$file' here or in the build directory"
+    exit 1
+  fi
+fi
+
+#cho "cleaning"
+#cleanhydra
+
+#GREPLOGS="-DgrepLogs=true"
+#REMOVEPASSES="-DremovePassedTest=true"
+#TESTJVM="-DtestJVM=path to java executable"
+MOVEDIRS="-DmoveRemoteDirs=true"
+
+echo "running test $file"
+
+CLASSPATH=$GEMFIRE/lib/gemfire.jar:$GEMFIRE/lib/antlr.jar:$blcl
+CLASSPATH=$CLASSPATH:$JAVA_HOME/lib/tools.jar
+CLASSPATH=$CLASSPATH:$GEMFIRE/lib/mail.jar
+#CLASSPATH=$CLASSPATH:$GEMFIRE/lib/spring-core*.jar:$GEMFIRE/lib/spring-shell*.jar:$GEMFIRE/lib/jansi.jar:$GEMFIRE/lib/jline.jar
+CLASSPATH=$CLASSPATH:/gcm/where/java/junit/junit3.8.1/junit.jar:/gcm/where/java/JavaConTest/Lib/ConTest.jar
+
+sql=`grep sql $file`
+if [ x"$sql" != x ]; then
+  CLASSPATH=$build/product-sqlf/lib/sqlfire.jar:$CLASSPATH
+#  echo "classpath is $CLASSPATH" >classpath.txt
+fi
+
+
+
+export CLASSPATH
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$build/hidden/lib
+
+java -DGEMFIRE=$GEMFIRE \
+  -Dgemfire.home=$GEMFIRE \
+  $GREPLOGS $REMOVEPASSES $TESTJVM $MOVEDIRS \
+  -DJTESTS=$blcl \
+  -DnumTimesToRun=1 \
+  -DreportToWRT=false \
+  -DnukeHungTest=true \
+  -DtestFileName=$target \
+  $defns \
+  batterytest.BatteryTest
+
+if [ -r oneliner.txt ]; then
+  grep " F " oneliner.txt
+  grep " H " oneliner.txt
+else
+  echo "could not locate oneliner.txt"
+fi

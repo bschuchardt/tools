@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ x"$2" = x ]; then
+  echo "basscp file1 file2 ... targetdir"
+  exit 1
+fi
+for (( i=0; i<$#; i++ )) ; do
+  files="$files $1"
+  shift 1
+done
+#set +v
+echo scp -p ${files} bass.pune.gemstone.com:${1}
+scp -p ${files} bass.pune.gemstone.com:${1}

@@ -1,0 +1,7 @@
+#!/bin/sh
+# svn diff -rA:B --diff-cmd paralleldiff filename
+# svn will give a -u as first arg.  The rest of the args are fine
+if [ $1 = -u ]; then
+  shift 1
+fi
+diff -r --left-column -x "*svn*" -y -W 240 "$@"

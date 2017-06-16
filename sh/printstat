@@ -1,0 +1,9 @@
+#!/bin/sh
+# display stats from one or more gemfire gfs files
+# printstat statType.statName file1 file2 ..
+stat=${1}
+shift
+for x in "$@"; do
+  archives="$archives -archive=$x"
+done
+gemfire stats ++:$stat -nofilter -details $archives

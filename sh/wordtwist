@@ -1,0 +1,7 @@
+#!/bin/sh
+cd $HOME/windir/Documents/sources/mine/wordscan
+if [ x"$1" = x-e ]; then
+  /cygdrive/c/usr/notgnu/ntnot wordtwist*.txt&
+  shift 1
+fi
+java wordtwist

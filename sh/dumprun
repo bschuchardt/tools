@@ -1,0 +1,9 @@
+#!/bin/sh
+# runs dumprun.sh in the current directory, because I'm too lazy to type
+# ./dumprun.sh
+if [ -r ./dumprun.sh ]; then
+  ./dumprun.sh
+else
+  echo "there is no dumprun.sh in this directory"
+fi
+

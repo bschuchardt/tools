@@ -1,0 +1,13 @@
+#!/bin/bash
+# starts a simple http server using python
+#
+#   httpServer -p <port>
+# 
+# port defaults to 8080
+
+port=8080
+if [ x"$1" == "-p" ]; then
+  port=$2
+fi
+
+python -m SimpleHTTPServer $port

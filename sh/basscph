@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ x"$2" = x ]; then
+  echo "basscph file1 file2 ... targetdir"
+  exit 1
+fi
+for (( i=1; i<$#; i++ )) ; do
+  files="$files bass.pune.gemstone.com:$1"
+  shift 1
+done
+targetdir=$1
+#set +v
+echo scp -p ${files} $targetdir
+scp -p ${files} $targetdir
+

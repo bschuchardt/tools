@@ -1,0 +1,17 @@
+#!/bin/bash
+STATUS=~/tmp/gitstatus.tmp
+FILES=~/tmp/gitchangedfiles.tmp
+rm -f $STATUS $FILES
+LANG=en_US.UTF-8
+git status -s >$STATUS
+cat $STATUS | grep "RM " | cut -d ">" -f 2 >>$FILES
+cat $STATUS | grep "M " | grep -v "RM " | cut -c3- >>$FILES
+cat $STATUS | grep "UU " | cut -c3- >>$FILES
+if [ x"$git_include_deletes" == xy ]; then
+  cat $STATUS | grep "D " | cut -c3- >>$FILES
+fi
+cat $STATUS | grep "R " | cut -d ">" -f 2 >>$FILES
+cat $STATUS | grep "A " | cut -c3- >>$FILES
+cat $STATUS | fgrep "?? " | fgrep ".java" | grep -v "/\$" | cut -c3- >>$FILES
+rm $STATUS
+grep -v "\.log" $FILES

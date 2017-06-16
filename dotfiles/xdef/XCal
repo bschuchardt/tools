@@ -1,0 +1,31 @@
+XCal*Font: lucidasanstypewriter-12
+XCal*info.Font: lucidasans-10
+XCal.fontToday: lucidasanstypewriter-12
+XCal.MarkForeground: Black
+XCal.MarkBackground: White
+XCal.edit.geometry: 300x150
+XCal*text.scrollVertical: WhenNeeded
+XCal*text.scrollHorizontal: WhenNeeded
+XCal*text.autoFill: True
+XCal*help.geometry: 600x300
+XCal*helpText.scrollVertical: Always
+XCal*helpText.scrollHorizontal: WhenNeeded
+XCal*helpText.autoFill: True
+XCal*back.Label: <
+XCal*quit.Label: Quit
+XCal*next.Label: >
+XCal*help.Label: Help
+XCal*newdate.Label: Enter mmm yyyy?
+XCal*newdate.ok.Label: ok
+XCal*newdate.cancel.Label: cancel
+XCal*exit.Label: Really exit?
+XCal*exit.yes.Label: yes
+XCal*exit.no.Label: no
+XCal*noedit.ok.Label: ok
+XCal*edit.quit.Label: quit
+XCal*edit.save.Label: save
+XCal*edit.help.Label: help
+XCal*check.Label: Save file?
+XCal*check.yes.Label: yes
+XCal*check.no.Label: no
+XCal*help*helpQuit.Label: quit

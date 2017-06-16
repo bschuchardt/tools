@@ -1,0 +1,15 @@
+#!/bin/sh
+function mkdh {
+  if [ x"${1}" != x  -a ! -d ${1} ]; then
+    mkdh `dirname ${1}`
+    mkdir ${1}
+  fi
+}
+there=`pwd`
+thedir=`dirname where/${1}`
+cd /c/gcm
+mkdh $thedir
+cd $there
+set -x
+set -v
+scp -r india.gemstone.com:/gcm/where/${1} /c/gcm/where/${1}

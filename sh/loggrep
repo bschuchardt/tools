@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ -r /usr/bin/fgrep ]; then
+  fgrep=/usr/bin/fgrep
+else
+  fgrep=/bin/fgrep
+fi
+if [ x"$1" = x"-i" ]; then
+  dashi="-i"
+  shift 1
+fi
+for x in "$@"; do
+  find . -name "*.log" -exec $fgrep -l $dashi "$x" {} \;
+done

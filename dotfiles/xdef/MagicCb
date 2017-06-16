@@ -1,0 +1,59 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! 
+!The following references were used:
+!   "The X Window System Programming And Applications with Xt
+!   OSF/MOTIF EDITION"
+!   by Douglas A Young 
+!   Prentice-Hall, 1990.
+!   ISBN 0-13-642786-3!
+!
+!   "Mastering Rubik's Cube"
+!   by Don Taylor
+!   An Owl Book; Holt, Rinehart and Winston, New York, 1980
+!   ISBN 0-03-059941-5!
+!!
+!-------------------------------------------------------------------
+!Copyright (C) 1993 by Pierre A. Fleurant
+!Permission is granted to copy and distribute this program
+!without charge, provided this copyright notice is included
+!!2in the copy.
+!This Software is distributed on an as-is basis. There will be
+!ABSOLUTELY NO WARRANTY for any part of this software to work
+!correct. In no case will the author be liable to you for damages
+!caused by the usage of this software.
+!
+!*geometry:                 585x375
+MagicCb.geometry:  585x375+260+210
+!*Init_.geometry:  400x440+45+200
+!*ldfile_popup*geometry:  400x440+45+200
+!*XmRowColumn*background:   light blue
+*XmDrawingArea*background: white
+*topShadowColor:           azure
+*bottomShadowColor:        dark slate grey
+*ldfile_popup*dirMask:     seq*.*
+!*fontList: -adobe-helvetica-bold-r-normal--12-*-*-*-*-*-iso8859-1
+!
+!Accelerators
+!
+*Pristine.accelerators: #override \n\
+   : <Key>a : ArmAndActivate()
+*rotate.accelerators: #override \n\
+   : <Key>r : ArmAndActivate()
+*spin.accelerators: #override \n\
+   : <Key>s : ArmAndActivate()
+*flip.accelerators: #override \n\
+   : <Key>f : ArmAndActivate()
+*Quit.accelerators: #override \n\
+   : <Key>q : ArmAndActivate()
+*!front.accelerators: #override \n\
+   : <Key>t : ArmAndActivate()
+*!left.accelerators: #override \n\
+   : <Key>y : ArmAndActivate()
+*!right.accelerators: #override \n\
+   : <Key>u : ArmAndActivate()
+*!back.accelerators: #override \n\
+   : <Key>i : ArmAndActivate()
+*!top.accelerators: #override \n\
+   : <Key>o : ArmAndActivate()
+*!bottom.accelerators: #override \n\
+   : <Key>p : ArmAndActivate()

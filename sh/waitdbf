@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+#set -v
+#set -x
+if [ ! "$GEMSTONE" ]; then
+  echo "Using GEMSTONE=l266fdaily4"
+  GEMSTONE=`tranlog l266fdaily4`
+fi
+
+param=${1:-"$GEMSTONE/data/gemserver30"}
+dbfdir=`dirname $param`
+dbfname=`basename $param`
+myname=`basename $0`
+
+if [ ! -r $param.dbf ]; then
+  echo "there is no file $param.dbf"
+  exit 2
+fi
+
+waitstone $dbfname
+exit $?

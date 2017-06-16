@@ -1,0 +1,134 @@
+/* g l o b a l   v a r i a b l e   d e f i n i t i o n s  */
+
+
+/*
+ * name - %M%
+ * ccsid - %W% - %G% %U%
+ * from  - %F%
+ * date  - %H% %T%
+ */
+
+  /* side-effect variables */
+
+#ifdef MSDOS
+unsigned char videoAttr = 0x07;
+#endif
+
+int repCount;			/* set as a side-effect in getCommand */
+int lastRepCount = 1;          /* set by doCommand() */
+int lastCommand = 27;
+boolean defaultRep;		/* TRUE if no rep count entered */
+boolean lastDefRep;
+int cmdDirection = '>';
+char sString[2049];		/* search string */
+int sSize = -1;		/*  and its size */
+char rString[2049];		/* replacement string */
+int rSize = -1;		/*  and its size */
+boolean newLine;		/* set by next/lastChar on skip to new line */
+boolean redrawStatus = FALSE;	/* set to redisplay the status after next
+				   command keypress */
+int numFilesNotFound;
+int numFilesNotLocked;
+boolean quitProgram;
+boolean initializing = TRUE;
+boolean intAbort = FALSE;	/* interrupt abort flag */
+int tabColumn = 0;
+int lastColumn = 0;
+boolean keepColumn = FALSE;
+char *mode;
+char overmode[40];
+
+boolean caseSensitive = TRUE;   /* default to case sensitive searches */
+boolean backupFiles = TRUE;
+boolean regularExpressions = FALSE;  /* default to no regular expressions */
+
+aBuffer *buffers = NULL;
+aBuffer *currentBuffer, *cutBuffer;
+aWindow *windows = NULL;
+aWindow *currentWindow;
+
+int statusColumn = 0;
+char lineBuff[stdTextSize];
+char tempBuff[stdTextSize];        /* for fleeting local use only */
+
+char deletedChar = ' ';
+
+char delLin[stdTextSize];
+int delLinSize = -1;
+
+boolean wrapOn = FALSE;
+int wrapMargin = 65;
+
+boolean autoIndent = TRUE;
+boolean lockFiles = FALSE;
+boolean useTabs = FALSE;
+/* is backspace key  or ^? */
+boolean BS8 = FALSE;
+
+boolean recording = FALSE;  /* record keystrokes */
+char recordBuffer[stdTextSize];
+int  recordSize = 0;
+boolean playback = FALSE;   /* playback keystrokes */
+int  playbackIdx = 0;
+
+#ifdef MSDOS
+int terminalLines = 24;
+#else
+int terminalLines = 23;    /* last term line, starting at 0 */
+#endif
+int saveTerminalLines;
+int terminalColumns = 79;   /* last term column, starting at 0 */
+int promptLine = 22;
+
+int leftColumn = 0;         /* left column position of virtual window */
+
+/* define the screen memory */
+char * screen[MaxScreenLines+1];
+
+/* define terminal type */
+int termType = VT100TERM;
+
+/* define escape sequences for vt100 */
+char term_cleol[]    = {Esc, '[', 'K', 0};
+char term_position[] = {Esc, '[', '%', 'd', ';', '%', 'd', 'H', 0};
+char term_line_position[] = {Esc, '[', '%', 'd', 'H', 0};
+char term_clear[]    = {Esc, '[', '2', 'J', 0};
+char term_up[]       = {Esc, 'M', 0};
+char term_scrollingRegion[] = {Esc, '[', '%', 'd', ';', '%', 'd', 'r', 0};
+char term_inverse[]  = {Esc, '[', '7', 'm', 0};
+/* char term_inverse[]  = {Esc, '[', '1', ';', '7', 'm', 0}; */
+char term_bold[]     = {Esc, '[', '1', 'm', 0};
+char term_normal[]   = {Esc, '[', '0', 'm', 0};
+
+char term_alternate[] = {Esc, '7', Esc, '[', '?', '4', '7', 'h', 0};
+char term_primary[]  = {Esc, '[', '?', '4', '7', 'l', Esc, '8', 0};
+
+/* color terminal ISO 6429 escape sequences
+   see: http://www.vtt.fi/tte/EuroBridge/Xew/iso6429.html
+ */
+char fg_black[]      = {Esc, '[', '3', '0', 'm', 0};
+char fg_red[]        = {Esc, '[', '3', '1', 'm', 0};
+char fg_green[]      = {Esc, '[', '3', '2', 'm', 0};
+char fg_yellow[]     = {Esc, '[', '3', '3', 'm', 0};
+char fg_blue[]       = {Esc, '[', '3', '4', 'm', 0};
+char fg_magenta[]    = {Esc, '[', '3', '5', 'm', 0};
+char fg_cyan[]       = {Esc, '[', '3', '6', 'm', 0};
+char fg_white[]      = {Esc, '[', '3', '7', 'm', 0};
+char fg_default[]    = {Esc, '[', '3', '9', 'm', 0};
+
+char bg_black[]      = {Esc, '[', '4', '0', 'm', 0};
+char bg_red[]        = {Esc, '[', '4', '1', 'm', 0};
+char bg_green[]      = {Esc, '[', '4', '2', 'm', 0};
+char bg_yellow[]     = {Esc, '[', '4', '3', 'm', 0};
+char bg_blue[]       = {Esc, '[', '4', '4', 'm', 0};
+char bg_magenta[]    = {Esc, '[', '4', '5', 'm', 0};
+char bg_cyan[]       = {Esc, '[', '4', '6', 'm', 0};
+char bg_white[]      = {Esc, '[', '4', '7', 'm', 0};
+char bg_default[]    = {Esc, '[', '4', '9', 'm', 0};
+
+int isColor = 0;
+
+char separators[] =  " \n	\"\\,./<?>;:'`~[({!@%^&*-+_=})]|";
+/*		      1 23	4 5 6789012345678901234567890123 */
+int  seplen = 33;		/* number of chars in 'separators' */
+

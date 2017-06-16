@@ -1,0 +1,49 @@
+
+Mwm*configFile:         .Mwmrc
+
+Mwm*transientDecoration:  border
+
+#ifdef COLOR
+Mwm*client*title*foreground: black
+Mwm*client*title*activeForeground: black
+Mwm*client*title*activeBackground: #e0e0f0
+#ifdef FLAT
+Mwm*client*title*activeTopShadowPixmap: background
+Mwm*client*title*activeBottomShadowPixmap: foreground
+#endif
+Mwm*iconImageBackground:    #fbb0b0
+Mwm*icon*background:    #e0e0f0
+Mwm*menu*foreground:    black
+Mwm*menu*background:    #00d4ff
+Mwm*activeBackground:   #f07070
+Mwm*activeForeground:   black
+Mwm*background:         #e0e0f0
+Mwm*foreground:         black
+Mwm*colormapFocusPolicy: pointer
+#endif
+
+Mwm*bitmapDirectory:    /engr/users/bruce/lib/bitmaps
+Mwm*XTerm.iconImage:    terminal
+Mwm*iconImage:          defaulticon.xbm
+
+Mwm*iconPlacement:      left bottom
+Mwm*iconClick:          False
+
+Mwm*positionIsFrame:    False
+Mwm*fontList:           -adobe-helvetica-medium-o-normal--14-140-75-75-p-78-iso8859-1
+Mwm*maximumMaximumSize:  1024x864
+
+Mwm*resizeCursors: false
+Mwm*startupKeyFocus: true
+
+#ifdef POINTER_FOCUS
+Mwm*keyboardFocusPolicy: pointer
+Mwm*focusAutoRaise:      true
+Mwm*autoRaiseDelay:      300
+#else
+Mwm*keyboardFocusPolicy: explicit
+#endif
+
+
+Mwm*keyBindings:        MyKeyBindings
+Mwm*buttonBindings:     MyButtonBindings

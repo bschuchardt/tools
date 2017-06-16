@@ -1,0 +1,7 @@
+notifier*foreground:		#000000
+notifier*colStd:		#c7c7c7
+notifier*fontList:         *-helvetica-medium-r-normal--*-120-75-75-*-*-iso8859-1
+! core dumps if you try to set the title's font
+!notifier*title.fontList:   -*-times-*-*-*-*-17-*
+notifier*message.fontList: *-helvetica-bold-r-normal--*-140-75-75-*-*-iso8859-1
+

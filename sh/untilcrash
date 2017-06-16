@@ -1,0 +1,21 @@
+#!/bin/sh
+exec 2>&1
+exec >untilfail.log
+thisdir=$PWD
+typeset -i i
+i=0
+rm -f stop.txt
+while [ ! -r stop.txt ]; do
+i=$((i + 1))
+thetime=`date`
+echo "run #$i------------------------ $thetime"
+hydra@
+sleep 360
+killjava only
+if [ -r *-*-*/hs*.log ]; then
+  echo "found a crash"
+  exit 0
+fi
+rm -f batterytest.log batterytest.bt summ-B*.txt
+rm -rf *-*-*
+done

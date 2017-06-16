@@ -1,0 +1,74 @@
+#!/bin/bash
+if [ -d $layer/build-artifacts/linux/tests/results64 ]; then
+  cd $layer/build-artifacts/linux/tests/results64
+else
+  cd $layer/build-artifacts/linux/tests/results
+fi
+hn=`hostname`
+output=~/tmp/unittests_${hn}.txt
+rm -f $output
+today=`date`
+echo "Unit test results from $layer on $today" >$output
+there=`pwd`
+ddir=`ls -td dunit/dunit-tests-* | head -n 1`
+if [ -r $ddir/hang.txt ]; then
+  echo "dunit tests HUNG" >> $output
+elif [ -r $ddir/failures ]; then
+  numfailures=`ls $ddir/failures | wc -l`
+  echo "dunit failures: $numfailures" >> $output
+else
+  echo "dunit failures: 0" >> $output
+fi
+for x in java/failures/*.txt; do
+  jfail="y"
+done
+numjfailures=0
+if [ x"$jfail" != x ]; then
+  numjfailures=`ls java/failures/*.txt | wc -l`
+  echo "junit failures: $numjfailures" >>$output
+fi
+qsfailed="n"
+if [ -r quickstart/failures -o -r quickstart/failure ]; then
+  numfailures=`ls quickstart/failure* | wc -l`
+  echo "quickstart failures: $numfailures" >> $output
+  qsfailed="y"
+elif [ -d quickstart ]; then
+  echo "quickstart failures: 0" >>$output
+fi
+if [ -r $there/smoke ]; then
+  cd $there/smoke
+  numpass=`grep -c " P " oneliner.txt`
+  numhangs=`grep -c " H " oneliner.txt`
+  numfailures=`grep -c " F " oneliner.txt`
+  echo "smoketest: ${numpass} passed, ${numhangs} hanged, ${numfailures} failed" >> $output
+fi
+if [ -r $there/sqlf-smoke ]; then
+  cd $there/sqlf-smoke
+  numpass=`grep -c " P " oneliner.txt`
+  numhangs=`grep -c " H " oneliner.txt`
+  numfailures=`grep -c " F " oneliner.txt`
+  echo "sqlf-smoke: ${numpass} passed, ${numhangs} hanged, ${numfailures} failed" >> $output
+fi
+if [ -r $there/container/virgo/failure* ]; then
+  numfailures=`ls container/virgo/failure* | wc -l`
+  echo "container failures: $numfailures" >> $output
+fi
+cd $there
+if [ -r $ddir/failures ]; then
+  echo "" >>$output
+  echo "failed dunit tests:" >>$output
+  ls $ddir/failures >>$output
+fi
+if [ x"$numjfailures" != x0 ]; then
+  echo "" >>$output
+  echo "failed junit tests:" >>$output
+  ls java/failures >>$output
+fi
+if [ $qsfailed == "y" ]; then
+  echo "" >>$output
+  echo "failed quickstart tests:" >>$output
+  ls quickstart/failures >>$output
+fi
+#emx $output */error.grep */*/error.grep 
+emx $output java/failure*/* quickstart/failure*/*
+rm -f $output

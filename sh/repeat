@@ -1,0 +1,6 @@
+#!/bin/bash
+while [ 1 -eq 1 ]; do
+    clear
+    "$@" | cut -c 1-79
+    sleep 5
+done

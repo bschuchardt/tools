@@ -1,0 +1,7 @@
+#!/bin/bash
+rm -f untilhang.log
+at now <<END
+untilhang
+END
+sleep 2
+watchuntil

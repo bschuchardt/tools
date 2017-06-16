@@ -1,0 +1,3 @@
+#!/bin/sh
+cd $HOME
+exec xinit -- -ar1 350 -ar2 25 -nobanner; kbd_mode -a

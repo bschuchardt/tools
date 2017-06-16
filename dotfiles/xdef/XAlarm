@@ -1,0 +1,51 @@
+XAlarm*font:				-adobe-new century schoolbook-bold-r-*-*-12-*
+XAlarm*resizable:			True
+!XAlarm.geometry:			+10+300
+XAlarm.at:				-1
+XAlarm.in:				-1
+XAlarm*Command.ShapeStyle:		rectangle
+XAlarm.alarm.background:		Black
+XAlarm.alarm.message.label:		Alarm Call!!!
+XAlarm.alarm.message.font:		-adobe-new century schoolbook-bold-i-*-*-24-*
+XAlarm.alarm.message.internalWidth:	10
+XAlarm.alarm.message.internalHeight:	5
+
+XAlarm.alarm.buttonbox.quit.label:	Quit
+XAlarm.alarm.buttonbox.snooze.label:	Snooze
+XAlarm.alarm.buttonbox.snooze1.label:	+1 min
+XAlarm.alarm.buttonbox.snooze5.label:	+5 mins
+XAlarm.alarm.buttonbox.snooze15.label:	+15 mins
+XAlarm.alarm.buttonbox.clear.label:	Time to alarm
+XAlarm.alarm.buttonbox.snooze.fromHoriz:	quit
+XAlarm.alarm.buttonbox.snooze1.fromHoriz:	snooze
+XAlarm.alarm.buttonbox.snooze5.fromHoriz:	snooze1
+XAlarm.alarm.buttonbox.snooze15.fromHoriz:	snooze5
+XAlarm.alarm.buttonbox.clear.fromHoriz:		snooze15
+
+!XAlarm.When?.geometry:			+10+10
+XAlarm.When?.when.background:		Black
+XAlarm.When?.when.ok.label:		Ok
+XAlarm.When?.when.toggle.label:		Toggle at/in selection
+XAlarm.When?.when.quit.label:		Quit xalarm
+XAlarm.When?.when.label:		Time to wakeup at: [h]hmm
+XAlarm.When?.when.value:		
+XAlarm.When?.when.value.translations:	#override <Key>Return: SetTime()
+
+!XAlarm.Warning!.geometry:			+10+10
+XAlarm.Warning!.warning.background:		Black
+XAlarm.Warning!.warning.dismiss.label:		Dismiss
+XAlarm.Warning!.warning.message.fromHoriz:	dismiss
+XAlarm.Warning!.warning.quit.label:		Quit xalarm
+XAlarm.Warning!.warning.quit.fromHoriz:		message
+
+#ifdef COLOR
+XAlarm*background:			LightYellow
+XAlarm*foreground:			IndianRed
+XAlarm*Command.background:		IndianRed
+XAlarm*Command.foreground:		LightYellow
+#else
+XAlarm*background:			White
+XAlarm*foreground:			Black
+XAlarm*Command.background:		Black
+XAlarm*Command.foreground:		White
+#endif

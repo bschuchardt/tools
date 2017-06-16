@@ -1,0 +1,140 @@
+
+! bruce's menu colors
+!*mainMenu*background: white
+!*vtMenu*background:   white
+!*fontMenu*background: white
+! was using user9x17 for default font
+*backarrowKeyIsErase: true
+*cursorColor: red
+! add ctrl-[1-6] for font toggling, and add explicit pgup/down/home/end
+! translations to get past error in most xterm sources that messes
+! these keys up
+*VT100.translations: #override \
+    Ctrl<Key>0: set-vt-font(e, nil2, nil2) \n\
+    Ctrl<Key>1: set-vt-font(d) \n\
+    Ctrl<Key>2: set-vt-font(1) \n\
+    Ctrl<Key>3: set-vt-font(2) \n\
+    Ctrl<Key>4: set-vt-font(3) \n\
+    Ctrl<Key>5: set-vt-font(4) \n\
+    Ctrl<Key>6: set-vt-font(e, -sony-fixed-medium-r-normal--24-230-75-75-c-120-iso8859-1, -sony-fixed-medium-r-normal--24-230-75-75-c-120-iso8859-1) \n\
+    ! <Key> F29: string(0x1b) string("[216z") \n\
+    ! <Key> F35: string(0x1b) string("[222z") \n\
+    ! <Key> F27: string(0x1b) string("[214z") \n\
+    ! <Key> R13: string(0x1b) string("[220z") \n\
+ Shift<KeyPress>Prior:scroll-back(1,halfpage) \n\
+  Shift<KeyPress>Next:scroll-forw(1,halfpage) \n\
+Shift<KeyPress>Select:select-cursor-start() select-cursor-end(PRIMARY, CLIPBOARD) \n\
+Shift<KeyPress>Insert:insert-selection(PRIMARY, CLIPBOARD) \n\
+        <KeyPress>Prior:insert-seven-bit() \n\
+        <KeyPress>Next:insert-seven-bit() \n\
+        <KeyPress>Home:insert-seven-bit() \n\
+        <KeyPress>End:insert-seven-bit() \n\
+       ~Meta <KeyPress>:insert-seven-bit() \n\
+        Meta <KeyPress>:insert-eight-bit() \n\
+       !Ctrl <Btn1Down>:popup-menu(mainMenu) \n\
+  !Lock Ctrl <Btn1Down>:popup-menu(mainMenu) \n\
+       ~Meta <Btn1Down>:select-start() \n\
+     ~Meta <Btn1Motion>:select-extend() \n\
+       !Ctrl <Btn2Down>:popup-menu(vtMenu) \n\
+  !Lock Ctrl <Btn2Down>:popup-menu(vtMenu) \n\
+ ~Ctrl ~Meta <Btn2Down>:ignore() \n\
+   ~Ctrl ~Meta <Btn2Up>:insert-selection(PRIMARY, CUT_BUFFER0) \n\
+       !Ctrl <Btn3Down>:popup-menu(fontMenu) \n\
+  !Lock Ctrl <Btn3Down>:popup-menu(fontMenu) \n\
+ ~Ctrl ~Meta <Btn3Down>:start-extend() \n\
+     ~Meta <Btn3Motion>:select-extend()	\n\
+                <BtnUp>:select-end(PRIMARY, CUT_BUFFER0) \n\
+	      <BtnDown>:bell(0) \
+
+*scrollKey: true
+*scrollTtyOutput: false
+
+*SimpleMenu*BackingStore: NotUseful
+*SimpleMenu*menuLabel.font: -adobe-helvetica-bold-r-normal--*-120-*-*-*-*-iso*-*
+*SimpleMenu*menuLabel.vertSpace: 	100
+*SimpleMenu*HorizontalMargins: 16
+*SimpleMenu*Sme.height:	16
+
+*SimpleMenu*Cursor: left_ptr
+*mainMenu.Label:  Main Options
+*mainMenu*securekbd*Label:  Secure Keyboard
+*mainMenu*allowsends*Label:  Allow SendEvents
+*mainMenu*logging*Label:  Log to File
+*mainMenu*redraw*Label:  Redraw Window
+*mainMenu*suspend*Label:  Send STOP Signal
+*mainMenu*continue*Label:  Send CONT Signal
+*mainMenu*interrupt*Label:  Send INT Signal
+*mainMenu*hangup*Label:  Send HUP Signal
+*mainMenu*terminate*Label:  Send TERM Signal
+*mainMenu*kill*Label:  Send KILL Signal
+*mainMenu*quit*Label:  Quit
+
+*vtMenu.Label:  VT Options
+*vtMenu*scrollbar*Label:  Enable Scrollbar
+*vtMenu*jumpscroll*Label:  Enable Jump Scroll
+*vtMenu*reversevideo*Label:  Enable Reverse Video
+*vtMenu*autowrap*Label:  Enable Auto Wraparound
+*vtMenu*reversewrap*Label:  Enable Reverse Wraparound
+*vtMenu*autolinefeed*Label:  Enable Auto Linefeed
+*vtMenu*appcursor*Label:  Enable Application Cursor Keys
+*vtMenu*appkeypad*Label:  Enable Application Keypad
+*vtMenu*scrollkey*Label:  Scroll to Bottom on Key Press
+*vtMenu*scrollttyoutput*Label:  Scroll to Bottom on Tty Output
+*vtMenu*allow132*Label: Allow 80/132 Column Switching
+*vtMenu*cursesemul*Label:  Enable Curses Emulation
+*vtMenu*visualbell*Label:  Enable Visual Bell
+*vtMenu*marginbell*Label:  Enable Margin Bell
+*vtMenu*altscreen*Label:  Show Alternate Screen
+*vtMenu*softreset*Label:  Do Soft Reset
+*vtMenu*hardreset*Label:  Do Full Reset
+*vtMenu*tekshow*Label:  Show Tek Window
+*vtMenu*tekmode*Label:  Switch to Tek Mode
+*vtMenu*vthide*Label:  Hide VT Window
+
+*fontMenu.Label:  VT Fonts
+*fontMenu*fontdefault*Label:	Default
+*fontMenu*font1*Label:	5x7
+*VT100*font1:		5x7
+*fontMenu*font2*Label:	6x10
+*VT100*font2:		6x10
+*fontMenu*font3*Label:	8x13(default)
+*VT100*font3:	        8x13
+*fontMenu*font4*Label:	9x15
+*VT100*font4:		9x15
+*fontMenu*fontescape*Label:	Escape Sequence
+*fontMenu*fontsel*Label:		Selection
+!fontescape and fontsel overridden by application
+
+*tekMenu.Label:  Tek Options
+*tekMenu*tektextlarge*Label:  Large Characters
+*tekMenu*tektext2*Label:  #2 Size Characters
+*tekMenu*tektext3*Label:  #3 Size Characters
+*tekMenu*tektextsmall*Label:  Small Characters
+*tekMenu*tekpage*Label:  PAGE
+*tekMenu*tekreset*Label:  RESET
+*tekMenu*tekcopy*Label:  COPY
+*tekMenu*vtshow*Label:  Show VT Window
+*tekMenu*vtmode*Label:  Switch to VT Mode
+*tekMenu*tekhide*Label:  Hide Tek Window
+
+*tek4014*fontLarge: user9x17
+*tek4014*font2: 8x13
+*tek4014*font3: 6x13
+*tek4014*fontSmall: 6x10
+
+*scrollbar.background: #f0ffff
+
+*color1:      Red
+*color2:    Green
+*color3:   Yellow
+*color4:     Blue
+*color5:  Magenta
+*color6:     Cyan
+
+! colors 0 & 7 are ignored by my color_xterm - use foreground/background
+! instead
+
+*color0: Black
+*color7: White
+!*color7: FloralWhite
+

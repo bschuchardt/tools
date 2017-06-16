@@ -1,0 +1,457 @@
+!------------------------------------------------------------------------------
+!   Application Defaults file for Sos
+!------------------------------------------------------------------------------
+
+
+! general resources
+
+
+!! always dither graphics
+! sos.alwaysDither:  false
+
+!! always match color requests to the best fit instead of allocating
+!! new colors
+!! It is best to install default cmap with xstdcmap if you set this to true,
+!! but Sos will create a standard colormap from the current colormap if
+!! you do not do this.
+! sos.alwaysMatchColors: false
+
+!! create a private colormap as the default colormap for Sos windows.
+!! Match and Dither options are still applied.  On machines that support
+!! more than one installed colormap, such as some HP 9000/712's, this should
+!! be set to true.
+! sos.privateColormap: false
+
+!! specify a number of colors that will be copied from the default
+!! colormap to private colormaps used by forms and fields
+! sos.reservedColorCount: 0
+
+!! Some window managers, such as fvwm, can handle color icons.  If your
+!! window manager can do this, uncomment the following line to enable
+!! color X-Windows icons in Sos.
+! sos.useColorIcons: true
+
+
+!! if Sos icons appear reversed with your window manager, it's probably
+!! because your window manager is doing its job right.  Unfortunately,
+!! many otherwise top-notch window managers don't function properly with
+!! bitmaps created other than through the C convenience routines and make
+!! some faulty assumptions about the values of bits in icons passed to them.
+!! Uncommenting this option will reverse the image of icons so they will
+!! display properly with your window manager.
+! sos.reverseMonoIcons: true
+
+!! for audio recording, audioRecordCutoffSize sets a limit on the size
+!! of recordings in bytes.  Zero means unlimited recording length.
+!! Note that Sun audio format (u-law) is a compressed format and the limit
+!! applies to the compressed bytes, not the uncompressed bytes.
+! sos.audioRecordCutoffSize: 200000
+
+!! if your machine appears to have audio but does not you may need to
+!! set the hasAudio resource to false.  HPUX 8.07 libraries can cause
+!! Sos to exit with an "unknown interface" error if audio connections
+!! are attempted when no audio server is available.  The default is to
+!! look for and use audio services.
+! sos.hasAudio: true
+
+
+!! break requests are normally generated with Control-Shift-C.  This is
+!! a "hard" break in GCI lingo.
+!! Use the following to override this.  (state integers give the modifier
+!! key mask, and can be obtained from the xev program or by looking at
+!! /usr/include/X11/X.h for Mask definitions).
+! sos.breakState: 5
+! sos.breakKey:   C
+
+!! Sos tools often allow double-click actions.  This defines the
+!! amount of time in milliseconds (hundredths of a second) that can
+!! elapse and still have two clicks be considered a double-click
+! sos*doubleClickInterval: 500
+
+!! default code font.  This is a Sos font specifier, and may use Sos
+!! logical font names and modifiers
+! sos*defaultFont: Helvetica Bold 12
+
+!! Motif key bindings for this platform
+sos*defaultVirtualBindings:	\n\
+osfCancel	:		<Key>Escape	\n\
+osfLeft		:		<Key>Left	\n\
+osfUp		:		<Key>Up		\n\
+osfRight	:		<Key>Right	\n\
+osfDown		:		<Key>Down	\n\
+osfEndLine	:		<Key>F7		\n\
+osfBeginLine	:		<Key>Home	\n\
+osfPageUp	:		<Key>Prior	\n\
+osfPageDown	:		<Key>Next	\n\
+osfBackSpace	:		<Key>BackSpace	\n\
+osfDelete	:		<Key>hpDeleteChar	\n\
+osfInsert	:		<Key>hpInsertChar	\n\
+osfAddMode	:Shift		<Key>F8		\n\
+osfHelp		:		<Key>F1		\n\
+osfMenu		:		<Key>F4		\n\
+osfMenuBar	:		<Key>F10	\n\
+osfSelect	:		<Key>Select	\n\
+osfClear	:		<Key>Clear	\n\
+osfUndo		:		<Key>Undo	\n\
+osfPrimaryPaste	:		<Key>hpInsertLine	\n\
+osfQuickPaste	:		<Key>hpDeleteLine
+
+!! Font families for this platform
+
+sos.fontFamilies:	  helvetica	Helvetica  bold     o p - \
+     times		  Times			   bold     i p - \
+     lucida		  Lucida		   bold     i p - \
+     'new century schoolbook' 'New Century Schoolbook' bold     i p - \
+     lucidabright	  'Lucida Bright'	   demibold i p - \
+     charter		  Charter		   bold     i p - \
+     courier		  Courier		   bold     o m - \
+     fixed		  Fixed			   bold     i c - \
+     clean		  Clean			   bold     i c - \
+     lucidatypewriter	  'Lucida Typewriter'	   bold     i m -
+
+
+! Variable declarations
+
+
+
+
+!   Defaults for all GsTool pulldown menu hierarchies
+
+
+sos*foreground:                       black
+sos*background:			grey80
+sos*XmDrawingArea.background:		grey80
+sos*XmScale.background:		grey80
+sos*XmText.background:		grey95
+sos*XmComboBox*background:		grey95
+sos*XmList.background:		grey95
+sos*XmScrolledList.background:	grey95
+
+sos*GsTopLevel*gPopup*background:	grey80
+sos*GsTopLevel*gPopup*foreground:	black
+
+sos*XmPushButton.background:		grey75
+
+sos*Emx.background:			white
+
+sos*GsObjectHandle.background:	grey80
+sos*GsObjectHandle.borderColor:	red
+
+sos*Commands*background:		grey80
+sos*defaultFormMenu*background:	grey80
+sos*menuBar*background:		grey80
+
+sos*toolbar.background:		grey90
+sos*toolbar*button.background:	grey75
+
+sos*AshTree.background:		grey90
+sos*AshTree.boxBorderHighlightColor:	blue
+sos*AshTree.boxBorderColor:   	black
+sos*AshTree.lineColor:		black
+sos*AshTree.boxBackground:		white
+sos*AshTree.indicatorColor:		black
+
+
+
+sos*borderColor:        black
+
+
+sos*highlight:          blue
+sos*highlightColor:     blue
+
+
+
+sos*highlightThickness: 2
+sos*XmLabel*highlightThickness: 0
+sos*highlightOnEnter:   True
+
+
+sos*toolbar*highlightThickness:	1
+
+! image editor color buttons
+sos*zzzcolorcanvas*highlightThickness: 0
+
+
+sos*AshTree.boxGap:			6
+sos*AshTree.clusterGap:		32
+sos*AshTree.scrollIncrement:		12
+sos*AshTree.font:			8x13
+
+
+sos*Emx.defaultMode:			SmallTalk
+
+
+
+! Global resources - resources for all widgets that have not otherwise
+!                    been specified
+
+sos*fontList: *-helvetica-medium-r-normal-*-*-120-75-75-*-*-iso8859-1
+sos*font: *-helvetica-medium-r-normal-*-*-120-75-75-*-*-iso8859-1
+
+! Use exact names so colors aren't inherited by forms in the designer
+
+
+sos*Class Graph Designer*foreground:		#ffffff
+sos*Class Graph Designer*background:		#78a0bd
+sos*Class Graph Designer.menuBar*background:	#cdd8e6
+sos*Class Graph Designer.menuBar*foreground:	#000000
+sos*Class Graph Designer*canvas*background:	#ffffff
+sos*Class Graph Designer*canvas*foreground:	#000000
+
+
+sos*Schema Designer*foreground:		#ffffff
+sos*Schema Designer*background:		#78a0bd
+sos*Schema Designer.menuBar*background:	#cdd8e6
+sos*Schema Designer.menuBar*foreground:	#000000
+sos*Schema Designer*Class Graph Designer*canvas*background: #ffffff
+sos*Schema Designer*Class Graph Designer*canvas*foreground: #000000
+
+
+
+! need to have tab put a tab in text fields
+sos*GsTopLevel*XmText.translations:	#augment \n\
+~Ctrl ~Shift ~Meta ~Alt <Key>Tab : process-tab()
+
+sos*FormsDesigner*itemList.translations:	#override	\n\
+  ~Ctrl	       ~Meta ~Alt <Btn2Down>:	ListBeginSelect() ListEndSelect() \n\
+			  <Btn2Motion>:	\n\
+			  <Btn2Up>:
+
+
+sos*codePane.background:			white
+
+sos*browser*NameText.foreground:		blue
+sos*browser.background:			grey90
+sos*browser*browserTextSW.background:		grey90
+sos*browser*XmList.background:		white
+
+sos*fragspace*XmList.background:		white
+sos*workspace*status.background:		white
+
+sos*debugger*XmList.background:		white
+
+
+
+sos*codePane.columns:		80
+
+sos*debugger*tempValueText.rows:	9
+sos*debugger*tempValueText.columns:	57
+
+
+
+
+
+! Accelerators are defined in Smalltalk
+
+!sos*browser*Commands*Commit.accelerator:		Ctrl<Key>s
+!sos*browser*Commands*Commit.acceleratorText:	Ctrl+s
+!sos*browser*Commands*Close.accelerator:		Ctrl<Key>c
+!sos*browser*Commands*Close.acceleratorText:	Ctrl+c
+!sos*browser*Commands*Show Class Methods.accelerator:		Ctrl<Key>m
+!sos*browser*Commands*Show Class Methods.acceleratorText:		Ctrl+m
+!sos*browser*Commands*Selector*Select From Text.accelerator:	Ctrl<Key>f
+!sos*browser*Commands*Selector*Select From Text.acceleratorText:	Ctrl+f
+!sos*browser*Commands*Compile.accelerator:			Ctrl<Key>a
+!sos*browser*Commands*Compile.acceleratorText:		Ctrl+a
+!sos*browser*Commands*Accept Changes.accelerator:		Ctrl<Key>a
+!sos*browser*Commands*Accept Changes.acceleratorText:	Ctrl+a
+!sos*browser*Commands*Do It.accelerator:			Ctrl<Key>e
+!sos*browser*Commands*Do It.acceleratorText:		Ctrl+e
+!sos*browser*Commands*Print It.accelerator:			Ctrl<Key>p
+!sos*browser*Commands*Print It.acceleratorText:		Ctrl+p
+!sos*browser*Commands*Inspect It.accelerator:		Ctrl<Key>t
+!sos*browser*Commands*Inspect It.acceleratorText:		Ctrl+t
+!sos*browser*Commands*Next Method Step.accelerator:		Ctrl<Key>n
+!sos*browser*Commands*Next Method Step.acceleratorText:	Ctrl+n
+!sos*browser*Commands*Previous Method Step.accelerator:	Ctrl<Key>b
+!sos*browser*Commands*Previous Method Step.acceleratorText:	Ctrl+b
+!sos*browser*Commands*Load All Methods.accelerator:		Ctrl<Key>l
+!sos*browser*Commands*Load All Methods.acceleratorText:	Ctrl+l
+!sos*browser*Commands*Find.accelerator:			Ctrl<Key>z
+!sos*browser*Commands*Find.acceleratorText:			Ctrl+z
+!sos*browser*Commands*Select From Current Method.accelerator:	Ctrl<Key>o
+!sos*browser*Commands*Select From Current Method.acceleratorText:	Ctrl+o
+
+
+!sos*debugger*Commands*Close.accelerator:			Ctrl<Key>c
+!sos*debugger*Commands*Close.acceleratorText:		Ctrl+c
+!sos*debugger*Commands*Commit.accelerator:			Ctrl<Key>s
+!sos*debugger*Commands*Commit.acceleratorText:		Ctrl+s
+!sos*debugger*Commands*Step Into.accelerator:		Ctrl<Key>i
+!sos*debugger*Commands*Step Into.acceleratorText:		Ctrl+i
+!sos*debugger*Commands*Step Over.accelerator:		Ctrl<Key>o
+!sos*debugger*Commands*Step Over.acceleratorText:		Ctrl+o
+!sos*debugger*Commands*Dump Stack To File.accelerator:	Ctrl<Key>f
+!sos*debugger*Commands*Dump Stack To File.acceleratorText:	Ctrl+f
+!sos*debugger*Commands*Compile.accelerator:		Ctrl<Key>a
+!sos*debugger*Commands*Compile.acceleratorText:	Ctrl+a
+!sos*debugger*Execute*Do it.accelerator:			Ctrl<Key>e
+!sos*debugger*Execute*Do it.acceleratorText:		Ctrl+e
+!sos*debugger*Execute*Print it.accelerator:			Ctrl<Key>p
+!sos*debugger*Execute*Print it.acceleratorText:		Ctrl+p
+!sos*debugger*Execute*Inspect It.accelerator:		Ctrl<Key>t
+!sos*debugger*Execute*Inspect It.acceleratorText:		Ctrl+t
+
+
+!sos*workspace*Commands*Commit.accelerator:		Ctrl<Key>s
+!sos*workspace*Commands*Commit.acceleratorText:	Ctrl+s
+!sos*workspace*Commands*Close.accelerator:		Ctrl<Key>c
+!sos*workspace*Commands*Close.acceleratorText:	Ctrl+c
+!sos*workspace*Commands*Do It.accelerator:		Ctrl<Key>e
+!sos*workspace*Commands*Do It.acceleratorText:	Ctrl+e
+!sos*workspace*Commands*Print It.accelerator:	Ctrl<Key>p
+!sos*workspace*Commands*Print It.acceleratorText:	Ctrl+p
+!sos*workspace*Commands*Inspect It.accelerator:		Ctrl<Key>t
+!sos*workspace*Commands*Inspect It.acceleratorText:	Ctrl+t
+!!! Ctrl+g prevents abort of emx commands
+!!!sos*workspace*Commands*Grab It.accelerator:	Ctrl <Key>g
+!!!sos*workspace*Commands*Grab It.acceleratorText:	Ctrl+g
+!sos*workspace*Commands*Save Fragment.accelerator:		Ctrl<Key>f
+!sos*workspace*Commands*Save Fragment.acceleratorText:	Ctrl+f
+
+
+!sos*treeInspector*Commands*Commit.accelerator:	Ctrl<Key>s
+!sos*treeInspector*Commands*Commit.acceleratorText:	Ctrl+s
+!sos*treeInspector*Commands*Close.accelerator:		Ctrl<Key>c
+!sos*treeInspector*Commands*Close.acceleratorText:	Ctrl+c
+!sos*treeInspector*Commands*Do It.accelerator:		Ctrl<Key>e
+!sos*treeInspector*Commands*Do It.acceleratorText:	Ctrl+e
+!sos*treeInspector*Commands*Print It.accelerator:	Ctrl<Key>p
+!sos*treeInspector*Commands*Print It.acceleratorText:	Ctrl+p
+!sos*treeInspector*Commands*Inspect It.accelerator:	Ctrl<Key>t
+!sos*treeInspector*Commands*Inspect It.acceleratorText:  Ctrl+t
+!!! Ctrl+g prevents abort of emx commands
+!!!sos*treeInspector*Commands*Grab It.accelerator:	Ctrl<Key>g
+!!!sos*treeInspector*Commands*Grab It.acceleratorText:	Ctrl+g
+
+
+!sos*fileBrowser*Commands*Commit.accelerator:		Ctrl<Key>s
+!sos*fileBrowser*Commands*Commit.acceleratorText:	Ctrl+s
+!sos*fileBrowser*Commands*Close.accelerator:		Ctrl<Key>c
+!sos*fileBrowser*Commands*Close.acceleratorText:	Ctrl+c
+!sos*fileBrowser*Commands*Do It.accelerator:		Ctrl<Key>e
+!sos*fileBrowser*Commands*Do It.acceleratorText:	Ctrl+e
+!sos*fileBrowser*Commands*Print It.accelerator:	Ctrl<Key>p
+!sos*fileBrowser*Commands*Print It.acceleratorText:	Ctrl+p
+!sos*fileBrowser*Commands*Inspect It.accelerator:		Ctrl<Key>t
+!sos*fileBrowser*Commands*Inspect It.acceleratorText:	Ctrl+t
+!sos*fileBrowser*Commands*Save Fragment.accelerator:	Ctrl<Key>f
+!sos*fileBrowser*Commands*Save Fragment.acceleratorText:	Ctrl+f
+!sos*fileBrowser*Commands*File It In.accelerator:           Ctrl<Key>i
+!sos*fileBrowser*Commands*File It In.acceleratorText:       Ctrl+i
+!sos*fileBrowser*Commands*Update Lists.accelerator:         Ctrl<Key>q
+!sos*fileBrowser*Commands*Update Lists.acceleratorText:     Ctrl+q
+!
+
+
+! Login screen resources
+
+sos*login.title:				GemStone Login
+sos*login*fontList:				$BOLDFONT
+
+sos*login*form.width:				500
+sos*login*form.height:			310
+sos*login*form.marginHeight:			50
+
+sos*login*XmLabel.rightPosition:		38
+
+sos*login*XmText.leftPosition:		41
+sos*login*XmText.shadowThickness:		3
+
+sos*login*XmPushButton.height:		30
+sos*login*XmPushButton.shadowThickness:	3
+
+sos*login*stoneform.leftOffset:		5
+sos*login*stoneform.rightOffset:		5
+sos*login*remoteform.leftOffset:		5
+sos*login*remoteform.rightOffset:		5
+
+sos*login*servioicon.topOffset:		10
+
+sos*login*bannerlabel.leftPosition:		41
+sos*login*bannerlabel.labelString:		GemStone Login
+sos*login*bannerlabel.topOffset:		34
+
+sos*login*stonelabel.labelString:		Stone Name
+sos*login*stonelabel.topOffset:		27
+
+sos*login*stonetext.topOffset:		20
+sos*login*stonetext.width:			250
+
+sos*login*userlabel.labelString:		Gem User Name
+sos*login*userlabel.topOffset:		17
+
+sos*login*usertext.topOffset:			10
+sos*login*usertext.width:			180
+
+sos*login*pwlabel.labelString:		Gem User Password
+sos*login*pwlabel.topOffset:			17
+
+sos*login*pwtext.topOffset:			10
+sos*login*pwtext.width:			100
+
+sos*login*pwsetlabel.topOffset:		17
+sos*login*pwsetlabel.leftPosition:		63
+
+sos*login*pwclear.labelString:		Clear
+sos*login*pwclear.topOffset:			12
+sos*login*pwclear.leftPosition:		73
+
+sos*login*remotesep.topOffset:		10
+sos*login*remotesep.leftPosition:		30
+sos*login*remotesep.rightPosition:		70
+
+sos*login*netidlabel.labelString:		Gem Net ID
+sos*login*netidlabel.topOffset:		17
+
+sos*login*netidtext.topOffset:		10
+sos*login*netidtext.width:			250
+
+sos*login*hostuserlabel.labelString:		Host User Name
+sos*login*hostuserlabel.topOffset:		17
+
+sos*login*hostusertext.topOffset:		10
+sos*login*hostusertext.width:			180
+
+sos*login*hostpwlabel.labelString:		Host User Password
+sos*login*hostpwlabel.topOffset:		17
+
+sos*login*hostpwtext.topOffset:		10
+sos*login*hostpwtext.width:			100
+
+sos*login*hostpwsetlabel.topOffset:		17
+sos*login*hostpwsetlabel.leftPosition:	63
+
+sos*login*hostpwclear.labelString:		Clear
+sos*login*hostpwclear.topOffset:		12
+sos*login*hostpwclear.leftPosition:		73
+
+sos*login*reasonlabel.topOffset:		15
+sos*login*reasonlabel.leftOffset:		5
+sos*login*reasonlabel.rightOffset:		5
+
+sos*login*loginpb.labelString:		Login
+sos*login*loginpb.topOffset:			15
+sos*login*loginpb.bottomOffset:		10
+sos*login*loginpb.rightPosition:		20
+sos*login*loginpb.width:			55
+
+sos*login*remotepb.labelString:		Remote Parameters
+sos*login*remotepb.topOffset:			15
+sos*login*remotepb.bottomOffset:		10
+sos*login*remotepb.rightPosition:		70
+sos*login*remotepb.leftPosition:		30
+
+sos*login*exitpb.labelString:			Exit
+sos*login*exitpb.topOffset:			15
+sos*login*exitpb.bottomOffset:		10
+sos*login*exitpb.leftPosition:		80
+sos*login*exitpb.width:			55
+
+sos*login*buttons.leftOffset:			2
+sos*login*buttons.rightOffset:		2
+
+sos*login.background:				grey80
+sos*login*servioicon.foreground:		firebrick
+sos*login*XmText.background:			grey95
+sos*login*XmPushButton.background:		grey75

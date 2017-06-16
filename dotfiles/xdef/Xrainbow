@@ -1,0 +1,259 @@
+   xrainbow.app - Resource file for XRainbow.  This file defines most of the
+                  widget hierarchy and values for the widgets.
+
+   Copyright 1991, David Nedde
+
+   Permission to use, copy, modify, and distribute this software
+   and its documentation for any purpose and without fee is granted
+   provided that the above copyright notice appears in all copies.
+   It is provided "as is" without express or implied warranty.
+
+
+xrainbow.wcChildren:	mform
+xrainbow.wcPopups:	sort_popup
+xrainbow.title:		XRainbow
+xrainbow.iconName:      XRainbow
+xrainbow*input:         True
+
+*mform.wcClass:		formWidgetClass
+*mform.wcChildren:	quit,about1,author1,sort,viewport
+
+*quit.wcClass:		commandWidgetClass
+*quit.label:		Quit
+*quit.callback:		WcExitCB
+
+*about1.wcClass:	commandWidgetClass
+*about1.fromHoriz:	*quit
+*about1.label:		XRainbow V1.0
+*about1.callback:	WcCreateChildrenCB(xrainbow, about),\
+					WcManageCB(*about_form), \
+					WcPopupGrabCB(*about)
+
+*author1.wcClass:	commandWidgetClass
+*author1.fromHoriz:	*about1
+*author1.label:		by David Nedde 
+*author1.callback:	WcCreateChildrenCB(xrainbow,author),\
+					WcManageCB(*author_form), \
+					WcPopupGrabCB(*author)
+
+*sort.wcClass:		commandWidgetClass
+*sort.fromHoriz:	*author1
+*sort.label:		Sort
+*sort.callback:		WcManageCB(*sort_form), \
+			WcPopupCB(*sort_popup)
+
+*viewport.wcClass:	viewportWidgetClass
+*viewport.wcChildren:	aform
+*viewport.fromVert:	*quit
+*viewport.allowVert:	True
+*viewport.allowHoriz:	True
+*viewport.height:	500
+*viewport.width:	400
+
+
+! Aform holds the form, drawingArea, and label widgets displaying the colors
+*aform.wcClass:				formWidgetClass
+*aform.borderWidth:			0
+*aform.defaultDistance:			1
+!*aform.Form.borderWidth:		0
+*aform.Form.resizable:			True
+*aform.Form.Label.resizable: 		True
+*aform.Form.Label.borderWidth: 		0
+*aform.Form.DrawingArea.width:		100
+*aform.Form.DrawingArea.borderWidth:	0
+
+
+#=-=-=-=-=-=-=-= 'About' popup definition =-=-=-=-=-=-=-=-=-=-=
+*about.wcClass:			transientShellWidgetClass
+*about.wcChildren:		about_form
+*about.popupCallback:		PlaceWindow(*about1,-1,20)
+*about.wcManaged:		False
+*about.title:			About Popup
+
+*about_form.wcClass:		formWidgetClass
+*about_form.wcChildren:		ok_button,about_label,pop_mess
+
+*ok_button.wcClass:		commandWidgetClass
+*ok_button.label:		OK
+*ok_button.callback:		WcPopdownCB( *about )
+
+*about_label.wcClass:		labelWidgetClass
+*about_label.borderWidth:	0
+*about_label.label:		About XRainbow
+*about_label.fromHoriz:		*ok_button
+*about_label.resizable:		True
+
+*pop_mess.wcClass:		asciiTextWidgetClass
+*pop_mess*fromVert:		*about_label
+*pop_mess*scrollHorizontal:	whenNeeded
+*pop_mess*scrollVertical:	whenNeeded
+*pop_mess*type:			string
+*about_form.pop_mess.width:	450
+*about_form.pop_mess.height:	150
+*pop_mess*string:\
+XRainbow V1.0\n\
+Written by David Nedde 5/91\n\
+\n\
+This program allows you to view standard client (rgb.txt) colors\n\
+\n\
+Copyright 1991, David Nedde\n\
+\n\
+Permission to use, copy, modify, and distribute this software\n\
+and its documentation for any purpose and without fee is granted\n\
+provided that the above copyright notice appears in all copies.\n\
+It is provided "as is" without express or implied warranty.\n
+
+
+#=-=-=-=-=-=-=-= 'Author' popup definition =-=-=-=-=-=-=-=-=-=-=
+*author.wcClass:		transientShellWidgetClass
+*author.wcChildren:		author_form
+*author.popupCallback:		PlaceWindow(*author1,-1,20)
+*author.wcManaged:		False
+*author.title:			Author Popup
+*author_form.wcClass:		formWidgetClass
+*author_form.wcChildren:	ok_button,author_label,pop_mess
+
+*author_form.ok_button.callback:WcPopdownCB( *author )
+
+*author_label.wcClass:		labelWidgetClass
+*author_label.borderWidth:	0
+*author_label.label:		Author of XRainbow
+*author_label.fromHoriz:	*ok_button
+*author_label.resizable:	True
+
+*author_form.pop_mess.width:	450
+*author_form.pop_mess.height:	60
+*author_form.pop_mess.fromVert:	*author_label
+*author_form.pop_mess*string:\
+David Nedde, Computer Science Dept.\n\
+daven@{maxine|wpi}.wpi.edu\n\
+Worcester Polytechnic Institute\n\
+Worcester, MA 01609\n
+
+
+!-=-=-=-=-=- Sort popup =-=-=-=-=-=-=-=-==-
+*sort_popup.wcClass:	topLevelShellWidgetClass
+*sort_popup.wcChildren:	sort_form
+*sort_popup.wcManaged:	False
+*sort_popup.title:	Sort Control Panel
+*sort_popup.allowShellResize: True
+*sort_popup.iconName:	XRainbow Sort
+
+*sort_form.wcClass:	panedWidgetClass
+*sort_form.wcChildren:	sort_top,sort_lists,sort_intensity
+*sort_form.internalBorderWidth:	2
+*sort_form*showGrip:	False
+!-----
+*sort_top.wcClass:	formWidgetClass
+*sort_top.wcChildren:	sort_ok, sort_apply, sort_title
+
+*sort_ok.wcClass:	commandWidgetClass
+*sort_ok.label:		Close
+*sort_ok.callback:	WcPopdownCB(*sort_popup)
+
+*sort_apply.wcClass:	commandWidgetClass
+*sort_apply.label:	Apply
+*sort_apply.fromHoriz:	*sort_ok
+*sort_apply.callback:	resort_list()
+
+*sort_title.wcClass:	labelWidgetClass
+*sort_title.label:	XRainbow Sort Control Panel
+*sort_title.fromHoriz:	*sort_apply
+*sort_title.borderWidth:0
+!-----
+*sort_lists.wcClass:	formWidgetClass
+*sort_lists.wcChildren:	left_form,right_form
+*sort_lists.borderWidth:0
+
+*left_form.wcClass:	formWidgetClass
+*left_form.wcChildren:	left_label,left_list
+*left_form.borderWidth:	0
+
+*left_label.wcClass:	labelWidgetClass
+*left_label.label:	Sort Keys Available:
+*left_label.borderWidth:0
+*left_label*translations: #augment \
+		<Key>Return:	WcSetValueACT(*left_label.label: gotit)
+
+*left_list.wcClass:	listWidgetClass
+*left_list.wcCallback:	setup_lists(left)
+*left_list.resizable:	True
+*left_list.fromVert:	*left_label
+*left_list.borderWidth:	0
+*left_list.forceColumns:True
+*left_list.defaultColumns: 1
+*left_list.callback:	list_callback(left)
+
+*right_form.wcClass:	formWidgetClass
+*right_form.wcChildren:	right_label,right_list
+*right_form.borderWidth:0
+*right_form.fromHoriz:	*left_form
+*right_form.resizable:	True
+
+*right_label.wcClass:	labelWidgetClass
+*right_label.label:	Keys to Sort On:
+*right_label.borderWidth:0
+
+*right_list.wcClass:	listWidgetClass
+*right_list.resizable:	True
+*right_list.wcCallback:	setup_lists(right)
+*right_list.fromVert:	*left_label
+*right_list.borderWidth:0
+*right_list.forceColumns:True
+*right_list.defaultColumns: 1
+*right_list.callback:	list_callback(right)
+!-----
+*sort_intensity.wcClass:formWidgetClass
+*sort_intensity.wcChildren: int_label,red_label,red_value,green_label,\
+				green_value,blue_label,blue_value
+*sort_intensity.borderWidth: 0
+
+*int_label.wcClass:	labelWidgetClass
+*int_label.borderWidth: 0
+*int_label.label:	Intensity Scale:
+
+*red_label.wcClass:	labelWidgetClass
+*red_label.borderWidth:	0
+*red_label.label:	Red
+*red_label.fromHoriz:	*int_label
+*red_value.wcClass:	asciiTextWidgetClass
+*red_value*string:	
+*red_value*editType:	edit
+*red_value.width:	40
+*red_value.fromHoriz:	*red_label
+*red_value.translations:#override \
+				<Key>Return:	EndAsciiValAction(red_value)\n\
+				<Leave>:	EndAsciiValAction(red_value)\n\
+				<Key>space:	no-op(RingBell)\n\
+				<Key>Tab:	no-op(RingBell)
+
+*green_label.wcClass:	labelWidgetClass
+*green_label.borderWidth:	0
+*green_label.label:	Green
+*green_label.fromHoriz:	*red_value
+*green_value.wcClass:	asciiTextWidgetClass
+*green_value*string:	
+*green_value*editType:	edit
+*green_value.width:	40
+*green_value.fromHoriz:	*green_label
+*green_value.translations:#override \
+				<Key>Return:  EndAsciiValAction(green_value)\n\
+				<Leave>:      EndAsciiValAction(green_value)\n\
+				<Key>space:	no-op(RingBell)\n\
+				<Key>Tab:	no-op(RingBell)
+
+*blue_label.wcClass:	labelWidgetClass
+*blue_label.borderWidth:	0
+*blue_label.label:	Blue
+*blue_label.fromHoriz:	*green_value
+*blue_value.wcClass:	asciiTextWidgetClass
+*blue_value*string:	
+*blue_value*editType:	edit
+*blue_value.width:	40
+*blue_value.fromHoriz:	*blue_label
+*blue_value.translations:#override \
+				<Key>Return: EndAsciiValAction(blue_value)\n\
+				<Leave>:     EndAsciiValAction(blue_value)\n\
+				<Key>space:	no-op(RingBell)\n\
+				<Key>Tab:	no-op(RingBell)
+

@@ -1,0 +1,10 @@
+
+$(TARGET):	$(OBJECTS)
+	$(CC) $(CFLAGS) $(FLAGS) -o $(TARGET) $(OBJECTS) $(LIBS)
+
+fast:	$(SOURCES)
+	$(CC) $(CFLAGS) $(FLAGS) -o $(TARGET) $(SOURCES) $(LIBS)
+
+# $(OBJECTS):	$(INCLUDES)
+
+# $(SOURCES):	$(INCLUDES)

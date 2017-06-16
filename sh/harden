@@ -1,0 +1,10 @@
+#! /bin/sh
+# harden one or more links (convert it to a singly linked file)
+for x in $*; do
+  if [ -h $x ]; then
+    echo $x
+    cp $x $x.foo
+    rm -f $x
+    mv $x.foo $x
+  fi
+done

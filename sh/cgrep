@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ -e /usr/bin/fgrep ]; then
+  fgrep=/usr/bin/fgrep
+else
+  fgrep=/bin/fgrep
+fi
+if [ x"$1" = x"-i" ]; then
+find . -name "*.c*" -follow -exec $fgrep -li "$2" $3 $4 {} \;
+else
+find . -name "*.c*" -follow -exec $fgrep -l "$1" $2 $3 {} \;
+fi

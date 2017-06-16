@@ -1,0 +1,10 @@
+#!/bin/sh
+
+tmpfile=${TMPDIR:-/tmp}/dux`whoami`.tmp
+mt=${mtype:-`suntype`}
+if [ mt = "7" ]; then
+  arg1="-x"
+fi
+du $arg1 $* | awk -f `dirname $0`/dux.awk | sort -k 2n -k 1rn -k 3 >$tmpfile
+emx $tmpfile
+rm -f $tmpfile

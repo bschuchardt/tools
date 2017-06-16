@@ -1,0 +1,147 @@
+/*  t y p e   d e f i n i t i o n s   f o r   a l l   m o d u l e s------- */
+
+
+/*
+ * name - %M%
+ * ccsid - %W% - %G% %U%
+ * from  - %F%
+ * date  - %H% %T%
+ */
+
+
+#ifdef __MSDOS__
+#define MSDOS
+#define PC_VIDEO        /* define for direct video memory manipulation */
+#endif
+
+#ifdef MSDOS
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <alloc.h>
+#endif
+
+#ifdef UBUNTU
+#include <stdlib.h>
+#include <string.h>
+#endif
+
+#ifdef VMS
+#include <descrip>			/* VMS descriptor definitions */
+#include <ssdef>			/* system status codes */
+#endif
+
+#ifdef AIX
+#include <sys/vm_types.h>
+#endif
+
+#include <signal.h>
+#include <stdio.h>
+#include <errno.h>
+#ifdef SUN
+#include <malloc.h>
+#endif
+#ifdef ULTRIX
+#include <malloc.h>
+#endif
+#ifdef IBMRT
+extern char *malloc();
+#endif
+
+#ifdef CYGNUS
+#include <stdlib.h>
+#include <string.h>
+#include <malloc.h>
+#endif
+
+extern char *myalloc();
+
+
+typedef int            boolean;
+typedef unsigned char  byte;
+typedef unsigned short word;
+typedef unsigned long  dword;
+
+#define Bell  7
+#define Esc  27
+
+#define numDots 11
+
+#define VT100TERM 1
+#define SUNTERM   2
+
+#ifdef MSDOS
+#define NIGGLE_DOC "c:\\usr\\bin\\niggle.doc"
+#else
+#if defined(MACOS)
+#define NIGGLE_DOC "/Users/bschuchardt/usr/lib/niggle.doc"
+#else
+#define NIGGLE_DOC "/home/bruce/usr/lib/niggle.doc"
+#endif
+#endif
+
+#ifndef FALSE
+#define FALSE 0
+#define TRUE  1
+#endif
+
+#define stdTextSize 102401
+#define MaxScreenLines 400
+
+
+#if defined(MSDOS)
+/* 32 bit Windows only, for now */
+#include <windows.h>
+
+#ifndef _INC_WCHAR
+#include <wchar.h>
+#endif
+
+#else
+
+#ifndef _WCHAR_H
+#include <wchar.h>
+#endif
+#endif  /* MSDOS */ 
+
+
+
+/* s t r u c t u r e   d e f i n i t i o n s  */
+
+
+typedef struct lineTag {
+  char *value;
+  int  sz;   /* size of text in line (excluding newLine) */
+  boolean isEof;
+  struct lineTag *next, *last;
+  } aLine;
+
+
+typedef struct bufferTag {
+  char fileName[102400];
+  unsigned short fileProt;
+  aLine *firstLine, *lastLine, *dotLine;
+  int dotPos;
+  boolean modified;
+  int  aDot[numDots+1];	/* for saving character positions */
+  struct bufferTag *next, *last;
+  boolean readOnly;
+  boolean notSaveable;
+  boolean crlf; /* are there any crlf terminated lines? */
+  boolean locked;
+  FILE *lockedFP;
+  } aBuffer;
+
+
+typedef struct windowTag {
+  aBuffer *buffer;
+  int firstLine, lastLine, labelLine, numLines;
+  struct windowTag *next, *last;
+  int cursorLine, cursorColumn;
+  int horzScroll;
+  char name[102400];
+  } aWindow;
+
+
+
+

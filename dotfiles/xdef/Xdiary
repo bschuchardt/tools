@@ -1,0 +1,50 @@
+*diary.width:                   267
+*diary.height:                  302
+*diary*text*autoFill:           on
+*diary*text*wrap:               word
+*diary*text*scrollHorizontal:   never
+*diary*text*scrollVertical:     always
+!*diary*Command.shapeStyle: oval
+!*Command.shapeStyle: oval
+*diary*Command.highlightThickness: 0
+*Command.highlightThickness: 0
+
+*menu*background: burlywood1
+*diary*MenuButton*background: burlywood1
+*diary*text*background: ivory
+*Command.background: burlywood1
+*diary*MenuButton*background: burlywood1
+*full*MenuButton*background: burlywood1
+*single*MenuButton*background: burlywood1
+*diary*background: lemonChiffon
+*full*background: lemonChiffon
+*single*background: lemonChiffon
+*full*Calendar.background: ivory
+*single*Calendar.background: ivory
+
+
+*menu*foreground: black
+*diary*Command.foreground: black
+*diary*text*foreground: black
+*Command.foreground: black
+*diary*MenuButton*foreground: black
+*full*MenuButton*foreground: black
+*single*MenuButton*foreground: black
+*diary*foreground: black
+*full*foreground: black
+*single*foreground: black
+*full*Calendar.foreground: black
+*single*Calendar.foreground: black
+
+!*full*Calendar*foreground: white
+!*single*Calendar*.foreground: white
+!*diary*Text*foreground: white
+
+
+*Command*font:	-adobe-helvetica-bold-r-normal--12-*-*-*-*-*-*-*
+*Label*font:	-adobe-helvetica-bold-r-normal--12-*-*-*-*-*-*-*
+*MenuButton*font: -adobe-helvetica-bold-r-normal--14-*-*-*-*-*-*-*
+*menu*font: -adobe-helvetica-bold-r-normal--14-*-*-*-*-*-*-*
+*Menu*font:	-adobe-helvetica-medium-r-normal--12-*-*-*-*-*-*-*
+*Text*font:	-b&h-lucidatypewriter-medium-r-normal-*-12-*-*-*-*-*-*-*
+

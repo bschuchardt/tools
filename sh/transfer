@@ -1,0 +1,39 @@
+#!/bin/sh
+PATH=/bin:/usr/bin:/c/usr/sh:/c/usr/bin
+export PATH
+archive=pc.zip
+if [ x"$1" == xpause ]; then
+  pause=true
+  shift 1
+fi
+if [ x"$1" != x ]; then
+  cd /c/devel/gf${1}
+fi
+srcname=`/c/usr/bin/filename $PWD`
+destdir=devel/$srcname
+#destdir=/jade1e2/users/bruces/devel/gftrunk
+remotehost=ent.gemstone.com
+thedate=`date +"%g%m%d"`
+
+echo "finding changed files"
+files=`svn status | grep ^[A,M] | cut -c8-`
+rm -f $archive
+
+echo "archiving changed files"
+svn info >./svninfo.txt
+zip -q $archive $files ./svninfo.txt
+count=`echo $files | wc -w`
+
+echo "transfering changed files archive to ${remotehost}"
+scp ${archive} bschuchardt@${remotehost}:$destdir/$archive
+
+echo "unpacking archive on ${remotehost}"
+ssh bschuchardt@${remotehost} cd ${destdir}\; svn -Rq revert .\; unzip -o ${archive}\; \
+cp ${archive} /home/bschuchardt/backup/${thedir}${thedate}${srcname}.zip
+now=`date`
+echo "${count} files transfered to ${destdir} on ${remotehost} at ${now}"
+echo "archive file backed up to /home/bschuchardt/backup/${thedir}${thedate}${srcname}.zip"
+if [ x"$pause" == xtrue ]; then
+  echo -n "press Enter to continue"
+  read aline
+fi

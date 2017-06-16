@@ -1,0 +1,14 @@
+#!/bin/sh
+# man with emx
+exec 2>&1
+if [ -z "$TMPDIR" ]; then
+  TMPDIR=/tmp
+fi
+tmpfile=$TMPDIR/max.`whoami`
+man "$@" 2>&1 >$tmpfile
+#  have to put it in a file first to make sure the page was found by man
+if [ -s $tmpfile ]; then
+  cat $tmpfile | emx -m -
+fi
+rm -f $tmpfile
+

@@ -1,0 +1,13 @@
+#!/bin/sh
+#xrdb -merge <<HERE
+#Emxw*background:	FloralWhite
+#Emxw*font:	6x10
+#Emxw*foreground:	black
+#Emxw*rows:	35
+#HERE
+#emxw -xrm "Emxw*font: 6x13" "$@" doesn't work
+EMXSIZE="35x250"; export EMXSIZE
+#emx -font 6x13 "$@"
+emx -font fixed "$@"
+#emx -font 7x13 "$@"
+

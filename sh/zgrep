@@ -1,0 +1,22 @@
+#!/bin/sh
+subj=$1
+dashi=""
+dashl=""
+if [ x"$subj" = x"-i" ]; then
+    shift
+    subj=$1
+    dashi="-i"
+fi
+if [ x"$subj" = x"-l" ]; then
+    shift
+    subj=$1
+    dashl="-l"
+fi
+shift
+for x in $*; do
+    res=`zcat $x | fgrep $dashi $dashl "$subj"`
+    if [ x"$res" != x ]; then
+        echo "---------- $x"
+        echo $res
+    fi
+done

@@ -1,0 +1,11 @@
+Dtwm*0*ws0*title: A
+Dtwm*0*ws1*title: B
+Dtwm*0*ws2*title: C
+Dtwm*0*ws3*title: D
+Dtwm*0*ws0*backdrop*image: /engr/users/bruce/usr/lib/backdrops/mapletrails.xpm
+Dtwm*0*ws1*backdrop*image: /engr/users/bruce/usr/lib/backdrops/mapletrails.xpm
+Dtwm*0*ws2*backdrop*image: /engr/users/bruce/usr/lib/backdrops/mapletrails.xpm
+Dtwm*0*ws3*backdrop*image: /engr/users/bruce/usr/lib/backdrops/mapletrails.xpm
+Dtwm.configFile: /engr/users/bruce/.dtwmrc
+Dtwm.keyBindings:        MyKeyBindings
+Dtwm.buttonBindings:     MyButtonBindings

@@ -1,0 +1,5 @@
+while [ x"$1" != x ]; do
+    echo "listing $1 in `filename $1`.txt"
+    unzip -v $1 | awk -f $HOME/usr/sh/trim.awk > `filename $1`.txt
+    shift
+done

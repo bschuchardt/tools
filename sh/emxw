@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ $mtype -eq 50 ]; then
+    if [ -r /usr/X11R6/lib64/libXt.so ]; then
+      emx64 "$@"
+    else
+      emx32 "$@"
+    fi
+else
+    $localbin/emx "$@"
+fi

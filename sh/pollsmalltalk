@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /gcm/where/machine_use
+linuxmach=`grep -li linux *`
+#echo "linuxmach=$linuxmach"
+smallmach=`grep -li Smalltalk $linuxmach`
+#echo "smallmach=$smallmach"
+pollgroup uptime $smallmach

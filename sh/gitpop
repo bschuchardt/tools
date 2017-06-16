@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ -d ../open ]; then
+  cd ..
+fi
+git stash pop
+if [ -d open ]; then
+  cd open
+  git stash pop
+fi
+

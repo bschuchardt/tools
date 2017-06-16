@@ -1,0 +1,54 @@
+#!/bin/sh
+me=${1:-`whoami`}
+echo ">>>>>> cleaning up shared memory for ${me}"
+if [ `uname` = "Linux" ]; then
+
+region=`ipcs -m | grep $me | head -1`
+lastrgn=nothing
+while [ x"$region" != x ]; do
+    region=`echo "$region" | cut -c11-20`
+    if [ x"$region" == x"$lastrgn" ]; then
+      echo ERROR: unable to remove region $lastrgn
+      break;
+    fi
+    echo super ipcrm shm $region
+    super ipcrm shm $region
+    if [ $? -gt 0 ]; then
+      exit $?
+    fi
+    lastrgn=region
+    region=`ipcs -m | grep $me | head -1`
+done
+sema=`ipcs -s | grep $me | head -1`
+lastsem=nothing
+while [ x"$sema" != x ]; do
+    sema=`echo "$sema" | cut -c11-20`
+    if [ x"$sema" == x"$lastsem" ]; then
+      echo ERROR: unable to remove semaphore $lastsem
+      exit 1
+    fi
+    echo super ipcrm sem $sema
+    super ipcrm sem $sema
+    if [ $? -gt 0 ]; then
+      exit $?
+    fi
+    sema=`ipcs -s | grep $me | head -1`
+done
+
+else  #solaris
+
+regions=`ipcs | grep $me | head -1`
+while [ x"$regions" != x ]; do
+    echo $regions
+    regions=`echo "$regions" | cut -c4-12`
+    echo "super ipcrm -m $regions"
+    super ipcrm -m $regions
+    if [ $? -gt 0 ]; then
+        exit 2
+    fi
+    regions=`ipcs | grep $me | head -1`
+done
+
+fi
+echo "done"
+

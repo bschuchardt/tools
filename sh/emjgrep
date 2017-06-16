@@ -1,0 +1,16 @@
+#!/bin/sh
+if [ -r /usr/bin/fgrep ]; then
+  fgrep=/usr/bin/fgrep
+else
+  fgrep=/bin/fgrep
+fi
+#set -x
+files=`find . -name "*.java" -follow -exec $fgrep -l "$@" {} \;`
+if [ x"$1" = x"-i" ]; then
+  shift 1
+fi
+if [ x"$files" = x ]; then
+  echo "no files matched"
+else
+  emx -s "$1" ${files}
+fi

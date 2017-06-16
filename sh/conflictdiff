@@ -1,0 +1,3 @@
+#!/bin/sh
+# diff the working copy and merge-right copy of an svn conflict
+diff -b ${1}.working ${1}.merge-right* | emx - ${1}.working ${1}.merge-right* ${1}.merge-left*

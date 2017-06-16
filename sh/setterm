@@ -1,0 +1,9 @@
+# Set terminal type and characteristics based on system and user input
+if ( { /bin/sun }  | { /bin/dec3100 } ) then
+	set noglob; eval `tset -s -Q -m :?vt100`; unset noglob
+        exit
+endif
+if ( { /bin/ibmrt } ) then
+	setenv TERM `tset vt100`
+        exit
+endif

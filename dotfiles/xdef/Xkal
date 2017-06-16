@@ -1,0 +1,585 @@
+!
+!	Xkal.ad : Graphical appointment calendar resource file
+!
+!	George Ferguson (ferguson@cs.rochester.edu), 27 Oct 1990.
+!	Version 1.1 - 27 Feb 1991.
+!
+!	$Id: Xkal.ad,v 2.2 91/03/13 13:30:55 ferguson Exp $
+!
+
+! This has must be the first line in the "official" app-defaults file.
+Xkal.revision:                  $Revision: 2.2 $
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Options (many of which can be set on the command line)
+!
+
+! Where to get system (non-editable) appointments (can use #include)
+Xkal.systemAppoints:		/u/ferguson/lib/xkal.appoints
+
+! Where to get and save personal appointments (can use #include)
+Xkal.personalAppoints:		~/.appoints
+
+! The suffix to use when backing up personal appoints before saving.
+! If this is empty then no backups are performed.
+Xkal.backupExtension:		~
+
+! How to write out appointments. See the man page for description of
+! the possible escape sequences.
+Xkal.outputFormat:		%w%~%d%~%m%~%y%~%t%~%l%~
+
+! If True, then todays appointments are simply listed to stdout. Using
+! xkal with this option does not require an X server connection. This
+! is usually invoked with the "-listOnly" or "-l" command line argument.
+! The exit status is the number of appointments for the day (see also
+! exitUsesLevels below).
+Xkal.listOnly:			False
+
+! If True, then like listOnly but only the exit status is set. This
+! also does not require an X server connection and can be set with the
+! "-silent" or "-s" command line argument.
+Xkal.silent:			False
+
+! If True, then the exit status for "listOnly" or "silent" modes is the
+! sum of the criticality levels of the appointments, rather than the number
+! of them. This can be set with the "-exitUsesLevels" or "-e" argument.
+Xkal.exitUsesLevels:		False
+
+! If True, then the xkal version and patchlevel are printed to stdout
+! and xkal exits. This also not require an X server connection and
+! can be set with the "-version" or "-v" command line argument.
+Xkal.version:			False
+
+! If true, then the day's appointments are shown next to the month(s)
+! display. If false, then clicking on a day pops up it's entries.
+Xkal.bothShown:			True
+
+! If true, the titlebar of the main window and any popup day windows is
+! changed to reflect the selected day.
+Xkal.useTitlebar:		True
+
+! Can be 1, 2, 3, or 12, indicating the number of months to display upon
+! startup.
+Xkal.numMonths:			1
+
+! If true, the day number is drawn opaquely in its box in the month display.
+! This may be clearer on mono displays with certain stipple patterns (see
+! "shades" below.
+Xkal.opaqueDates:		True
+
+! If true, then the top of each month's columns is labelled with the
+! appropriate day-of-the-week.
+Xkal.dowLabels:			False
+
+! The number of minutes between automatic checkpointing (saving) of the
+! appointments.  If this is zero, then no automatic checkpointing is done.
+Xkal.checkpointInterval:	5
+
+! The characters that delimit the "criticality level" of an appointment
+! in an appointments file.
+Xkal.levelDelim:	@@
+
+! The default level of criticality when an appointment is added.
+Xkal.defaultLevel:	1
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! These resources allow you customize the names of days-of-the-week and
+! months for other languages. The "dowOffset" resource indicates which
+! day of the week is "leftmost". This would typically be "0" for North
+! America and "1" for Europe (to put Monday at the left). If the
+! "daySlashMonth" resource is true, then dates with a slash are interpreted
+! as day/mon/year rather than the default mon/day/year.
+!
+Xkal.longDowStrings:	Sunday Monday Tuesday Wednesday Thursday Friday Saturday
+Xkal.shortDowStrings:	Sun Mon Tue Wed Thu Fri Sat
+Xkal.longMonthStrings:	January February March April May June \
+			July August September October November December
+Xkal.shortMonthStrings: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+Xkal.dowOffset:		0
+Xkal.daySlashMonth:	False
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! These resources customize how a day's appointments are presented. Entries
+! are provided starting at "appsStartTime", going by increments of
+! "appsIncrement" to "appsEndTime". These times can be given in 12- or 24-hr
+! notation; the "appsUseAmPm" resource specifies how they should be displayed.
+! Then "numNotes" entries labelled with "notesLabel" are presented.
+! The "noonStr" and "midnightStr" customize labels for the corresponding slots.
+! (You can make them "12:00pm" and "12:00am" if you just want them all to
+! look the same. Be careful that this doesn't throw off the interpretation
+! of existing appointment files.)
+!
+! Entries for times outside this range or entries that collide with other
+! entries are moved. The "rearrangeSilently" resource indicates whether or
+! not to indicate the original time in brackets before the appointment's text.
+!
+Xkal.appsStartTime:	8:00
+Xkal.appsEndTime:	17:00
+Xkal.appsIncrement:	:30
+Xkal.appsUseAmPm:	False
+Xkal.numNotes:		2
+Xkal.notesLabel:	NOTES
+Xkal.noonStr:		Noon
+Xkal.midnightStr:	Midnight
+Xkal.rearrangeSilently:	False
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The toplevel shell and form
+!
+Xkal*allowShellResize:		True
+Xkal.bothForm.defaultDistance:	2
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The menu buttons across the top of the main window.
+! These are specified using the EzMenu package.
+!
+Xkal.bothForm.fileButton.label:		File
+Xkal.bothForm.fileButton.menuName:	fileMenu
+Xkal.bothForm.fileMenu.menu:\
+	(item "File") \
+	(line) \
+	(item "[S] Save" (action "xkal-save()")) \
+	(item "[Q] Quit" (action "xkal-quit()")) \
+	(item "[X] Exit" (action "xkal-exit()"))
+
+Xkal.bothForm.viewButton.label:		View
+Xkal.bothForm.viewButton.fromHoriz:	fileButton
+Xkal.bothForm.viewButton.menuName:	viewMenu
+Xkal.bothForm.viewMenu.menu:\
+	(item "View") \
+	(line) \
+	(item "[N] Next" (action "xkal-next()")) \
+	(item "[P] Prev" (action "xkal-prev()")) \
+	(item "[T] Today" (action "xkal-today()")) \
+	(item "[1] 1 Month" (action "xkal-numMonths(1)")) \
+	(item "[2] 2 Months" (action "xkal-numMonths(2)")) \
+	(item "[3] 3 Months" (action "xkal-numMonths(3)")) \
+	(item "[12] 12 Months" (action "xkal-numMonths(12)"))
+
+Xkal.bothForm.otherButton.label:	Other
+Xkal.bothForm.otherButton.fromHoriz:	viewButton
+Xkal.bothForm.otherButton.menuName:	otherMenu
+Xkal.bothForm.otherMenu.menu:\
+	(item "Other") \
+	(line) \
+	(item "[?] Help" (action "xkal-system(xterm -title 'Xkal Help' -e man xkal)")) \
+	(item "[E] Edit defaults" (action "xkal-edit-defaults()"))
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! These resources control the layout of the (possibly multiple) months
+! and translations for all widgets having to do with months or the days
+! in them.
+!
+! Where there are four sets of entries ending in "1", "2", "3", and "12"
+! respectively, then each set applies when that number of months is being
+! displayed. Entries of the form "X_Y" apply to the Y'th month when X
+! months are being displayed.
+!
+
+! All 1, 2, 3, or 12 months are put in "allMonthsForm", which goes under
+! the menuButtons.
+Xkal.bothForm.allMonthsForm.fromVert:		fileButton
+Xkal.bothForm.allMonthsForm*defaultDistance:	0
+Xkal.bothForm.allMonthsForm*resizable:		True
+Xkal.bothForm.allMonthsForm*internalWidth:	1
+Xkal.bothForm.allMonthsForm*internalHeight:	1
+Xkal.bothForm.allMonthsForm*translations:#override\n\
+	<Key>Q:		xkal-quit() \n\
+	<Key>X:		xkal-exit() \n\
+	<Key>N:		xkal-next() \n\
+	<Key>P:		xkal-prev() \n\
+	<Key>T:		xkal-today() \n\
+	<Key>S:		xkal-save() \n\
+	<Key>?:		xkal-system("xterm -title 'Xkal Help' -e man xkal") \n\
+	<Key>E:		xkal-edit-defaults() \n\
+	<Key>1:		xkal-numMonths(1) \n\
+	<Key>2:		xkal-numMonths(2) \n\
+	<Key>3:		xkal-numMonths(3) \n\
+	<Key>1,<Key>2:	xkal-numMonths(12) \n
+
+! When only one month is being displayed its the only one, of course.
+Xkal.bothForm.allMonthsForm.monthForm1.fromHoriz:	NULL
+Xkal.bothForm.allMonthsForm.monthForm1.fromVert:	NULL
+
+! When two months are being displayed we put them vertically.
+Xkal.bothForm.allMonthsForm.monthForm2_1.fromHoriz:	NULL
+Xkal.bothForm.allMonthsForm.monthForm2_1.fromVert:	NULL
+Xkal.bothForm.allMonthsForm.monthForm2_2.fromVert:	monthForm2_1
+
+! When three months are being displayed we put them vertically.
+Xkal.bothForm.allMonthsForm.monthForm3_1.fromHoriz:	NULL
+Xkal.bothForm.allMonthsForm.monthForm3_1.fromVert:	NULL
+Xkal.bothForm.allMonthsForm.monthForm3_2.fromVert:	monthForm3_1
+Xkal.bothForm.allMonthsForm.monthForm3_3.fromVert:	monthForm3_2
+
+! When twelve months are being displayed we put them four across and
+! three down.
+Xkal.bothForm.allMonthsForm.monthForm12_1.fromHoriz:	NULL
+Xkal.bothForm.allMonthsForm.monthForm12_1.fromVert:	NULL
+Xkal.bothForm.allMonthsForm.monthForm12_2.fromHoriz:	monthForm12_1
+Xkal.bothForm.allMonthsForm.monthForm12_3.fromHoriz:	monthForm12_2
+Xkal.bothForm.allMonthsForm.monthForm12_4.fromHoriz:	monthForm12_3
+
+Xkal.bothForm.allMonthsForm.monthForm12_5.fromVert:	monthForm12_1
+Xkal.bothForm.allMonthsForm.monthForm12_6.fromHoriz:	monthForm12_5
+Xkal.bothForm.allMonthsForm.monthForm12_6.fromVert:	monthForm12_2
+Xkal.bothForm.allMonthsForm.monthForm12_7.fromHoriz:	monthForm12_6
+Xkal.bothForm.allMonthsForm.monthForm12_7.fromVert:	monthForm12_3
+Xkal.bothForm.allMonthsForm.monthForm12_8.fromHoriz:	monthForm12_7
+Xkal.bothForm.allMonthsForm.monthForm12_8.fromVert:	monthForm12_4
+
+Xkal.bothForm.allMonthsForm.monthForm12_9.fromVert:	monthForm12_5
+Xkal.bothForm.allMonthsForm.monthForm12_10.fromHoriz:	monthForm12_9
+Xkal.bothForm.allMonthsForm.monthForm12_10.fromVert:	monthForm12_6
+Xkal.bothForm.allMonthsForm.monthForm12_11.fromHoriz:	monthForm12_10
+Xkal.bothForm.allMonthsForm.monthForm12_11.fromVert:	monthForm12_7
+Xkal.bothForm.allMonthsForm.monthForm12_12.fromHoriz:	monthForm12_11
+Xkal.bothForm.allMonthsForm.monthForm12_12.fromVert:	monthForm12_8
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The month forms that display shaded/colored boxes for each day.
+! These widgets are all children of Xkal.bothForm.allMonthsForm.monthFormX_Y
+! where X is the number of months being displayed and Y is which month this
+! is of those.
+
+! The month labels in the monthForms (ie. the name of the month). The width
+! has to be specified to make it fit nicely. The best I can come up with is:
+!	monthLabelX.width = (dateWidthX+internalWidth)*7+borderWidth*12
+!
+Xkal*monthLabel1.font:		*fixed*bold*
+Xkal*monthLabel1.borderWidth:	0
+Xkal*monthLabel1.justify:	center
+Xkal*monthLabel1.width:		376
+Xkal*monthLabel1.resize:	False
+
+Xkal*monthLabel2.font:		6x9
+Xkal*monthLabel2.borderWidth:	0
+Xkal*monthLabel2.justify:	center
+Xkal*monthLabel2.width:		201
+Xkal*monthLabel2.resize:	False
+
+Xkal*monthLabel3.font:		6x9
+Xkal*monthLabel3.borderWidth:	0
+Xkal*monthLabel3.justify:	center
+Xkal*monthLabel3.width:		201
+Xkal*monthLabel3.resize:	False
+
+Xkal*monthLabel12.font:		5x8
+Xkal*monthLabel12.borderWidth:	0
+Xkal*monthLabel12.justify:	center
+Xkal*monthLabel12.width:	131
+Xkal*monthLabel12.resize:	False
+
+! The day-of-week labels (if .dowLabels is True). Again, here's a crack at
+! figuring the width:
+!	dowLabelX.width = dateWidthX+internalWidth*2
+!
+Xkal*dowLabel1.font:		*fixed*bold*
+Xkal*dowLabel1.borderWidth:	1
+Xkal*dowLabel1.width:		52
+Xkal*dowLabel1.resize:		False
+
+Xkal*dowLabel2.font:		6x9
+Xkal*dowLabel2.borderWidth:	1
+Xkal*dowLabel2.width:		27
+Xkal*dowLabel2.resize:		False
+
+Xkal*dowLabel3.font:		6x9
+Xkal*dowLabel3.borderWidth:	1
+Xkal*dowLabel3.width:		27
+Xkal*dowLabel3.resize:		False
+
+Xkal*dowLabel12.font:		5x8
+Xkal*dowLabel12.borderWidth:	1
+Xkal*dowLabel12.width:		17
+Xkal*dowLabel12.resize:		False
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! These control the individual days in the monthForms. Their height and
+! width determine, in large part, the size of the application, so adjust
+! accordingly. The "datePosition" is an offset in pixels from the top,
+! left corner. Note that "dateWidthX" and "dateHeightX" are *not* actually
+! resources of the Command widgets they are specifying. Rather, they are
+! applications resources of Xkal. This is because I can't figure out how
+! to do it any other way and still have the thing come out properly sized.
+! It doesn't really matter, since you'd have to specify it somewhere anyway.
+!
+! See also the "level of criticality" resources, below.
+!
+
+Xkal.dateFont1:			*fixed*bold*
+Xkal.datePosition1:		+10+10
+Xkal.dateWidth1:		50
+Xkal.dateHeight1:		50
+
+Xkal.dateFont2:			6x9
+Xkal.datePosition2:		+0+6
+Xkal.dateWidth2:		25
+Xkal.dateHeight2:		25
+
+Xkal.dateFont3:			6x9
+Xkal.datePosition3:		+0+6
+Xkal.dateWidth3:		25
+Xkal.dateHeight3:		25
+
+Xkal.dateFont12:		5x8
+Xkal.datePosition12:		+0+6
+Xkal.dateWidth12:		15
+Xkal.dateHeight12:		15
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! These resources control the graphical representation of the "criticality"
+! level of appointments. For mono displays this is done by shading the
+! calendar "box" with a pattern; for color displays the box is drawn in
+! the appropriate color. At most "maxLevel" levels can be distinguished;
+! levels above this use the last shade or color. If less than "maxLevel"
+! shades or colors are given in the "shades" or "colors" resources, then
+! the last entry given is used for levels for which none is specified.
+!
+! For example, if you want *any* day for which there is at least one
+! non-zero-level appointment to be shaded/colored, simply set "maxLevel"
+! to "1" and set "shades" and/or "colors" to the desired color.
+!
+! The shade bitmaps are found in the directory specified by the global
+! resource "bitmapFilePath" (/usr/staff/include/X11/bitmaps by default).
+!
+! See also "levelDelim" and "defaultLevel" above.
+!
+
+! The shade for calendar boxes without dates
+Xkal.noDayShade:	cross_weave
+
+! The number of levels of criticality (reflected by shade or color)
+Xkal.maxLevel:		7
+
+! For mono displays, the patterns reflecting the number of appointments
+Xkal.shades:	gray3 gray3 light_gray light_gray gray gray flipped_gray
+
+! For color displays, the colors reflecting the number of appointments
+Xkal.colors:	green green blue blue yellow yellow red
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The dayForm, that displays one day's appointment. See also "appsStartTime",
+! "appsEndTime", "appsIncrement", and the rest, above. This can be a
+! popup window or not, depending on "bothShown".
+!
+
+! if it's a popup
+Xkal.popupDayShell.title:				Xkal Day Window
+
+Xkal.popupDayShell.popupDayForm.defaultDistance:	2
+
+Xkal.popupDayShell.popupDayForm.dismissButton.label:	Dismiss
+Xkal.popupDayShell.popupDayForm.selectButton.label:	Select
+Xkal.popupDayShell.popupDayForm.selectButton.fromHoriz:	dismissButton
+Xkal.popupDayShell.popupDayForm.unselectButton.label:	Unselect
+Xkal.popupDayShell.popupDayForm.unselectButton.fromHoriz:selectButton
+
+Xkal.popupDayShell.popupDayForm.dayForm.fromVert:	dismissButton
+Xkal.popupDayShell.popupDayForm.dayForm.borderWidth:	0
+
+! if it's not a popup
+Xkal.bothForm.dayForm.fromHoriz:			allMonthsForm
+Xkal.bothForm.dayForm.fromVert:				fileButton
+Xkal.bothForm.dayForm.defaultDistance:			4
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! Each entry in the dayForm (popup or not) is displayed using an "appointLabel"
+! for the time of the entry and an "appointText" for the text of the entry.
+! The date of the day being displayed is set in the "dayLabel" at the top
+! of the form. Note that the dayLabel is not displayed in popup day
+! windows when "useTitlebar" is true (since is redundant then).
+!
+Xkal*dayForm*dayLabel.justify:			center
+Xkal*dayForm*dayLabel.width:			230
+Xkal*dayForm*dayLabel.borderWidth:		0
+Xkal*dayForm*dayLabel.label:			Xkal 1.1
+
+Xkal*dayForm*appointLabel.font:			fixed
+Xkal*dayForm*appointLabel.borderWidth:		0
+Xkal*dayForm*appointLabel.vertDistance:		2
+Xkal*dayForm*appointLabel.translations:#override\n\
+        <Btn1Up>(2):		xkal-edit-appoint() \n
+
+Xkal*dayForm*appointText*font:			fixed
+Xkal*dayForm*appointText.width:			200
+Xkal*dayForm*appointText.height:		20
+Xkal*dayForm*appointText.vertDistance:		3
+Xkal*dayForm*appointText.borderWidth:		0
+Xkal*dayForm*appointText.topMargin:		0
+Xkal*dayForm*appointText*editType:		edit
+Xkal*dayForm*appointText*resize:		True
+Xkal*dayForm*appointText*displayCaret:		False
+Xkal*dayForm*appointText.scrollHorizontal:	whenNeeded
+Xkal*dayForm*appointText*Scrollbar.thickness:	5
+! These translations allow the input focus to switch between entries
+! using Return and Shift-Return. You could also change them to arrow
+! keys or anything else, but I suggest making Return a no-op() then
+! to avoid losing the text in a one-line window.
+Xkal*dayForm*appointText.translations:#override\n\
+	<Enter>:		xkal-focus-this-item() \n\
+	<Leave>:		xkal-focus-no-item() \n\
+	<FocusIn>:		display-caret(True) \n\
+	<FocusOut>:		display-caret(False) \n\
+        None<Key>Return:	xkal-focus-next-item() \n\
+        Shift<Key>Return:	xkal-focus-prev-item() \n\
+        <Btn1Up>(2):		xkal-edit-appoint() \n
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The popup appointment editing panel.
+!
+Xkal.editShell.title:		Xkal Appointment Editor
+
+Xkal.editShell.editForm.applyButton.label:	Apply
+
+Xkal.editShell.editForm.revertButton.label:	Revert
+Xkal.editShell.editForm.revertButton.fromHoriz:	applyButton
+
+Xkal.editShell.editForm.deleteButton.label:	Delete
+Xkal.editShell.editForm.deleteButton.fromHoriz:	revertButton
+
+Xkal.editShell.editForm.dismissButton.label:	Dismiss
+Xkal.editShell.editForm.dismissButton.fromHoriz:deleteButton
+
+Xkal.editShell.editForm.Label.borderWidth:	0
+Xkal.editShell.editForm*Text*borderWidth:	0
+Xkal.editShell.editForm*Text*editType:		edit
+Xkal.editShell.editForm*Text*font:		fixed
+Xkal.editShell.editForm*Text*width:		200
+Xkal.editShell.editForm*Text*displayCaret:	False
+Xkal.editShell.editForm*Text.scrollHorizontal:	whenNeeded
+Xkal.editShell.editForm*Text*Scrollbar.thickness:5
+! Note that these translations use "xkal-focus-*-edit-item()".
+Xkal.editShell.editForm*Text*translations:#override\n\
+	<Enter>:		xkal-focus-this-item() \n\
+	<Leave>:		xkal-focus-no-item() \n\
+	<FocusIn>:		display-caret(True) \n\
+	<FocusOut>:		display-caret(False) \n\
+        None<Key>Return:	xkal-focus-next-edit-item() \n\
+        Shift<Key>Return:	xkal-focus-prev-edit-item() \n
+
+Xkal.editShell.editForm.dowLabel.label:		Day-of-week:
+Xkal.editShell.editForm.dowLabel.fromVert:	applyButton
+Xkal.editShell.editForm.dowText.fromHoriz:	dowLabel
+Xkal.editShell.editForm.dowText.fromVert:	applyButton
+
+Xkal.editShell.editForm.dayLabel.label:		Day:
+Xkal.editShell.editForm.dayLabel.fromVert:	dowLabel
+Xkal.editShell.editForm.dayText.fromHoriz:	dayLabel
+Xkal.editShell.editForm.dayText.fromVert:	dowLabel
+
+Xkal.editShell.editForm.monLabel.label:		Month:
+Xkal.editShell.editForm.monLabel.fromVert:	dayLabel
+Xkal.editShell.editForm.monText.fromHoriz:	monLabel
+Xkal.editShell.editForm.monText.fromVert:	dayLabel
+
+Xkal.editShell.editForm.yearLabel.label:	Year:
+Xkal.editShell.editForm.yearLabel.fromVert:	monLabel
+Xkal.editShell.editForm.yearText.fromHoriz:	yearLabel
+Xkal.editShell.editForm.yearText.fromVert:	monLabel
+
+Xkal.editShell.editForm.timeLabel.label:	Time:
+Xkal.editShell.editForm.timeLabel.fromVert:	yearLabel
+Xkal.editShell.editForm.timeText.fromHoriz:	timeLabel
+Xkal.editShell.editForm.timeText.fromVert:	yearLabel
+
+Xkal.editShell.editForm.textLabel.label:	Text:
+Xkal.editShell.editForm.textLabel.fromVert:	timeLabel
+Xkal.editShell.editForm.textText.fromHoriz:	textLabel
+Xkal.editShell.editForm.textText.fromVert:	timeLabel
+
+Xkal.editShell.editForm.levelLabel.label:	Level:
+Xkal.editShell.editForm.levelLabel.fromVert:	textLabel
+Xkal.editShell.editForm.levelText.fromHoriz:	levelLabel
+Xkal.editShell.editForm.levelText.fromVert:	textLabel
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The popup defaults editing panel.
+!
+Xkal.defaultsShell.title:		Xkal Defaults Editor
+
+Xkal.defaultsShell.defaultsForm.applyButton.label:	Apply
+
+Xkal.defaultsShell.defaultsForm.revertButton.label:	Revert
+Xkal.defaultsShell.defaultsForm.revertButton.fromHoriz:	applyButton
+
+Xkal.defaultsShell.defaultsForm.dismissButton.label:	Dismiss
+Xkal.defaultsShell.defaultsForm.dismissButton.fromHoriz:revertButton
+
+Xkal.defaultsShell.defaultsForm.Label.borderWidth:	0
+Xkal.defaultsShell.defaultsForm*Text*borderWidth:	0
+Xkal.defaultsShell.defaultsForm*Text*editType:		edit
+Xkal.defaultsShell.defaultsForm*Text*font:		fixed
+Xkal.defaultsShell.defaultsForm*Text*width:		200
+Xkal.defaultsShell.defaultsForm*Text*displayCaret:	False
+Xkal.defaultsShell.defaultsForm*Text.scrollHorizontal:	whenNeeded
+Xkal.defaultsShell.defaultsForm*Text*Scrollbar.thickness:5
+! Note that these translations use "xkal-focus-*-defaults-item()".
+Xkal.defaultsShell.defaultsForm*Text*translations:#override\n\
+	<Enter>:		xkal-focus-this-item() \n\
+	<Leave>:		xkal-focus-no-item() \n\
+	<FocusIn>:		display-caret(True) \n\
+	<FocusOut>:		display-caret(False) \n\
+	None<Key>Return:	xkal-focus-next-defaults-item() \n\
+	Shift<Key>Return:	xkal-focus-prev-defaults-item() \n
+
+Xkal.defaultsShell*personalAppointsLabel.label:		personalAppoints:
+Xkal.defaultsShell*personalAppointsLabel.fromVert:	applyButton
+Xkal.defaultsShell*personalAppointsText.fromHoriz:	personalAppointsLabel
+Xkal.defaultsShell*personalAppointsText.fromVert:	applyButton
+
+Xkal.defaultsShell*backupExtensionLabel.label:		backupExtension:
+Xkal.defaultsShell*backupExtensionLabel.fromVert:	personalAppointsLabel
+Xkal.defaultsShell*backupExtensionText.fromHoriz:	backupExtensionLabel
+Xkal.defaultsShell*backupExtensionText.fromVert:	personalAppointsLabel
+
+Xkal.defaultsShell*dateLabel.label:			date:
+Xkal.defaultsShell*dateLabel.fromVert:			backupExtensionLabel
+Xkal.defaultsShell*dateText.fromHoriz:			dateLabel
+Xkal.defaultsShell*dateText.fromVert:			backupExtensionLabel
+
+Xkal.defaultsShell*numMonthsLabel.label:		numMonths:
+Xkal.defaultsShell*numMonthsLabel.fromVert:		dateLabel
+Xkal.defaultsShell*numMonthsText.fromHoriz:		numMonthsLabel
+Xkal.defaultsShell*numMonthsText.fromVert:		dateLabel
+
+Xkal.defaultsShell*checkpointIntervalLabel.label:	checkpointInterval:
+Xkal.defaultsShell*checkpointIntervalLabel.fromVert:	numMonthsLabel
+Xkal.defaultsShell*checkpointIntervalText.fromHoriz:	checkpointIntervalLabel
+Xkal.defaultsShell*checkpointIntervalText.fromVert:	numMonthsLabel
+
+Xkal.defaultsShell*rearrangeSilentlyLabel.label:	rearrangeSilently:
+Xkal.defaultsShell*rearrangeSilentlyLabel.fromVert:	checkpointIntervalLabel
+Xkal.defaultsShell*rearrangeSilentlyText.fromHoriz:	rearrangeSilentlyLabel
+Xkal.defaultsShell*rearrangeSilentlyText.fromVert:	checkpointIntervalLabel
+
+Xkal.defaultsShell*defaultLevelLabel.label:		defaultLevel:
+Xkal.defaultsShell*defaultLevelLabel.fromVert:		rearrangeSilentlyLabel
+Xkal.defaultsShell*defaultLevelText.fromHoriz:		defaultLevelLabel
+Xkal.defaultsShell*defaultLevelText.fromVert:		rearrangeSilentlyLabel
+
+Xkal.defaultsShell*levelDelimLabel.label:		levelDelim:
+Xkal.defaultsShell*levelDelimLabel.fromVert:		defaultLevelLabel
+Xkal.defaultsShell*levelDelimText.fromHoriz:		levelDelimLabel
+Xkal.defaultsShell*levelDelimText.fromVert:		defaultLevelLabel
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! The popup alert box, if you defined USE_ALERT.
+!
+Xkal.popup.allowShellResize:		True
+Xkal.popup.alert*resizable:		True
+Xkal.popup.alert.okButton.label:	OK

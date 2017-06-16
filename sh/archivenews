@@ -1,0 +1,167 @@
+#!/bin/bash
+# archive news groups to a directory
+# usage:  archivenews [-v "word1 word2..."] [-keyword "word1 word2..."] destdir groupdir [groupdir...]
+#  -v is for removing articles with matches in -keyword searches
+# set -x
+#set -h
+unset -f
+allow_null_glob_expansion=1
+PATH=$PATH:$HOME/usr/bin4
+
+echo "---------------------------------------------------------------------"
+
+if [ x"$1" = x"-v" ]; then
+  remove=1
+  remwords="$2"
+  shift 2
+else
+  remove=0
+fi
+
+if [ x"$1" = x"-keyword" ]; then
+  grep=1
+  subjs="$2"
+  archdir=$3
+  shift 3
+  echo "archiving references to $subjs"
+else
+  archdir=$1
+  shift
+  echo "archiving $*"
+  grep=0
+fi
+
+if [ x"$1" = x"-collect" ]; then
+  collect="$2"
+  shift 2
+fi
+
+##today=`date +"%y%m"`
+archfile="archive"
+
+
+if [ ! -d $archdir ]; then
+  echo "creating $archdir"
+  mkdir $archdir
+  if [ ! -d $archdir ]; then
+    echo "could not create $archdir"
+    exit 2
+  fi
+fi
+
+# remove obsolete files
+for newsdir in $*; do
+  if [ ! -d $archdir/$newsdir ]; then
+    echo "making directories for $archdir/$newsdir"
+    mkdirhier $archdir/$newsdir
+  fi
+  cd $archdir/$newsdir
+  if [ x"[0-9]*" != x ]; then
+    for file in [0-9]*; do
+      if [ ! -r /usr/spool/news/$newsdir/$file ]; then
+        rm -f $file
+      fi
+    done
+  fi
+done
+
+# archive new files
+typeset -i count
+typeset -i tests
+for newsdir in $*; do
+  count=0
+  tests=0
+  cd /usr/spool/news/$newsdir
+  files=""
+  all=`ls -tr`
+  if [ x"$all" != x ]; then
+    for file in $all; do
+#     # weed out directories and files that have already been processed
+      if [ -f $file  -a  ! -h $archdir/$newsdir/$file ]; then
+        tests=tests+1
+#       # if grepping, have to iterate on the subjects and print results
+        if [ $grep = "1" ]; then
+          did=0
+          for str in $subjs; do
+            result=`grep -i $str $file`
+	    if [ x"$result" != x ]; then
+	      if [ $remove = "1" ]; then
+	        for rem in $remwords; do
+		  result=`echo $result | grep -vi $rem`
+		done
+	      fi
+	      if [ x"$result" != x ]; then
+#               # only add the file to the archive list once
+                if [ $did = "0" ]; then
+	          files="$files""$file "
+                  count=count+1
+                  echo -n $file": "
+		  fgrep "Subject: " $file
+	        fi
+	        echo $result | $HOME/usr/bin4/indent 4
+	        did=1
+	      fi
+            fi
+          done
+        else
+          files="$files""$file "
+	  count=count+1
+          echo -n $file" :"
+	  fgrep "Subject: " $file
+        fi
+#       # make a link to the file to show it has been processed
+        ln -s $file $archdir/$newsdir
+      fi
+    done
+  fi
+  if [ $count -gt 0 ]; then
+    for file in $files; do
+      sed \
+        -e '/^Distribution:/d' \
+        -e '/^Expires:/d' \
+        -e '/^Followup-To:/d' \
+        -e '/^In-Reply-To:/d' \
+        -e '/^In-reply-to:/d' \
+        -e '/^Lines:/d' \
+        -e '/^Message-ID:/d' \
+        -e '/^Message-Id:/d' \
+        -e '/^Path:/d' \
+        -e '/^News-Path:/d' \
+        -e '/^Posted:/d' \
+        -e '/^Posted-Date:/d' \
+        -e '/^References:/d' \
+        -e '/^Reply-To:/d' \
+        -e '/^Reply_to:/d' \
+        -e '/^Return-Path:/d' \
+        -e '/^Sender:/d' \
+        -e '/^X-Local-Date:/d' \
+        -e '/^X-Mailer:/d' \
+        -e '/^Xref:/d' \
+        -e '/^Received:/d' \
+        -e '/^	id /d' \
+        -e '/^	(.*UUNET/d' \
+        -e '/^	(queueing-rmail)/d' \
+        -e '/^Status:/d' \
+        -e '/^>From .* remote from /d' \
+        -e '/^From uucp/d' \
+        -e '/^From uunet!/d' \
+        -e '/^>From uunet!/d' \
+        -e '/^Apparently-To: /d' \
+        -e '/^Errors-To: /d' \
+        -e '/^Nntp-Posting-Host: /d' \
+        < $file | unexpand -a >>$archdir/$archfile
+      echo "" >>$archdir/$archfile
+      if [ x"$collect" != x ]; then
+        cat $file >>$collect
+	echo "" >>$collect
+      fi
+    done
+    echo "  $newsdir: $count files"
+  else
+    if [ $tests -gt 0  -a  $grep = "1" ]; then
+      echo "  $newsdir: no matching articles"
+    else
+      echo "  $newsdir: no new articles"
+    fi
+  fi
+done

@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ x$1 == x ]; then
+  echo "jdump PID outputFile"
+  exit 1
+fi
+jmap -dump:live,format=b,file=${2} ${1}

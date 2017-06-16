@@ -1,0 +1,8 @@
+! xdu*foreground:Black
+! xdu*background:White
+xdu*window.width:600
+xdu*window.height:480
+xdu.ncol:5
+xdu*font:Fixed
+xdu.showsize:True
+

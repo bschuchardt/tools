@@ -1,0 +1,11 @@
+#!/bin/sh
+# pipe an email to this script to do a whois query on the sender's address
+set -x
+set -v
+addr=`${localbin}/mailaddr`
+if [ x$addr = x ]; then
+  echo "no address found"
+else
+  whois -h whois.thur.de $addr | emx -
+fi
+

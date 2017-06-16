@@ -1,0 +1,4 @@
+#!/bin/sh
+cd $layer/closed/gemfire-test
+../gradlew distributedTest --continue | tee distributedTest.log
+

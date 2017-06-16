@@ -1,0 +1,27 @@
+#jjobs=`/usr/ucb/ps -xwww | grep java | cut -c 1-6`
+if [ x"$1" == x-a ]; then
+  jjobs=`pgrep java`
+  shift
+else
+  me=`whoami`
+  jjobs=`pgrep -u ${me} java`
+fi
+args=${1:-hfu}
+kjobs=""
+if [ x"$jjobs" != x ]; then
+  # weed out eclipse processes
+  for x in $jjobs; do
+    ecl=`ps ww $x | grep -i eclipse`
+    if [ x"$ecl" == x ]; then
+      if [ x"$kjobs" == x ]; then
+        kjobs="$x"
+      else
+        kjobs="$kjobs $x"
+      fi
+    fi
+  done
+  if [ x"$kjobs" != x ]; then
+    ps $args $kjobs
+  fi
+fi
+

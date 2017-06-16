@@ -1,0 +1,83 @@
+
+Vuewm*configFile:         .Vuewmrc
+Vuewm*workspaceList: Home Geode20 Geode25 Other
+
+/* Vuewm*transientDecoration:  border */
+
+Vuewm*moveOpaque:         true
+
+Vuewm*client*title*foreground: black
+Vuewm*client*title*activeForeground: black
+   /* the text color */
+Vuewm*client*title*activeBackground: #69b5a8
+! Vuewm*client*title*activeBackground: #2da38e
+   /* the background color */
+Vuewm*iconImageBackground:    #69b5a8
+Vuewm*iconImageForeground:    black
+Vuewm*icon*background:    #f0f0ff
+Vuewm*menu*foreground:    black
+Vuewm*menu*background:    #69b5a8
+!Vuewm*activeBackground:   #ff9780
+Vuewm*activeBackground:   #b0ffb0
+Vuewm*activeForeground:   black
+Vuewm*background:         #d0d0e0
+Vuewm*foreground:         black
+! Vuewm*colormapFocusPolicy: keyboard
+
+Vuewm*colormapFocusPolicy: pointer
+
+Vuewm*useClientIcon:     true
+Vuewm*bitmapDirectory:    /engr/users/bruce/lib/bitmaps
+Vuewm*xterm*useClientIcon: false
+Vuewm*xterm*iconImage:    terminal
+!Vuewm*console*iconImage:  onyx.bm
+
+! Vuewm*clientDecoration: -maximize
+Vuewm*transientDecoration: border
+
+! Vuewm*XBiff*clientDecoration: none
+! Vuewm*Clock*clientDecoration: none
+Vuewm*XClock*clientDecoration: border
+! Vuewm*dclock*clientDecoration: none
+! Vuewm*xmter*clientDecoration: none
+
+Vuewm*menu*mappingDelay:			0
+
+Vuewm*frameBorderWidth:   5
+Vuewm*resizeBorderWidth:  8
+
+!Vuewm*iconPlacement:      none
+!Vuewm*iconAutoPlace:      False
+Vuewm*iconPlacement:      top right
+Vuewm*iconAutoPlace:      True
+Vuewm*iconImageMaximum:   64x64
+Vuewm*iconImageMinimum:   16x16
+Vuewm*iconClick:          False
+Vuewm*fadeNormalIcon:	True
+
+
+! iconBox stuff
+!Vuewm*useIconBox:         True
+Vuewm*iconBoxSBDisplayPolicy:		vertical
+Vuewm*iconbox*vScrollBar*width:  12
+!Vuewm*iconbox*hScrollBar*height: 12
+!Vuewm*iconbox*traversalOn:		True
+Vuewm*iconbox*clientDecoration:		border
+Vuewm*iconBoxGeometry:			=3x6
+
+Vuewm*positionIsFrame:    False
+Vuewm*fontList:           *-helvetica-medium-o-normal--14-140-*
+Vuewm*icon*fontList:      -adobe-helvetica-medium-r-normal--10-100-75-75-p-56-iso8859-1
+Vuewm*menu*fontList:      -adobe-helvetica-medium-o-normal--14-100-100-100-p-78-iso8859-1
+!Vuewm*maximumMaximumSize:  1192x900
+
+Vuewm*resizeCursors: false
+Vuewm*startupKeyFocus: true
+
+!Vuewm*keyboardFocusPolicy: explicit
+Vuewm*keyboardFocusPolicy: pointer
+!Vuewm*focusAutoRaise:      true
+!Vuewm*autoRaiseDelay:      300
+
+Vuewm*backdrop*image: "none"
+Vuewm*frontPanel*.background: #69b5a8

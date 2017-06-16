@@ -1,0 +1,25 @@
+#!/bin/sh
+#set -v
+#set -x
+if [ -r /usr/bin/fgrep ]; then
+  fgrep=/usr/bin/fgrep
+else
+  fgrep=/bin/fgrep
+fi
+#emx  `find . -path .svn -prune -follow -exec $fgrep -l "$1" $2 $3 $4 {} \;`
+allfiles=`find . -type f -follow -exec $fgrep -l "$1" $2 $3 $4 {} \;`
+if [ x"$1" = x"-i" ]; then
+  shift 1
+fi
+#files=""
+#for x in $allfiles; do
+#  is=`echo $x | $fgrep -v \.svn -`
+#  if [ x"$is" != x ]; then
+#    files="$files $x"
+#  fi
+#done
+if [ x"$allfiles" != x ]; then 
+  emx -s "$1" ${allfiles}
+else
+  echo "no files matched"
+fi

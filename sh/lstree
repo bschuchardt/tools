@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function listdir
+{
+    for x in $1/*; do
+        if [ -d $x ]; then
+            echo $x
+            listdir $x
+        fi
+    done
+}
+
+listdir ${1:-.}

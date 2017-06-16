@@ -1,0 +1,15 @@
+#!/bin/bash
+if [ -d geode-assembly ]; then
+  echo "resetting only open-source"
+  sleep 2
+else
+  echo "resetting closed-source"
+  sleep 2
+fi
+git reset --hard HEAD
+if [ -d open ]; then
+  echo "resetting open-source"
+  sleep 2
+  cd open
+  git reset --hard HEAD
+fi

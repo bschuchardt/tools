@@ -1,0 +1,91 @@
+#! /usr/bin/perl -w
+# ---------------------------------------------------------------------
+# run this in your dunit test directory (where dunit-progress.txt sits)
+# to see which tests are taking the longest
+#
+# parses dunit-progress.txt and sorts it to
+# show which tests are taking the longest
+# ---------------------------------------------------------------------
+
+#&process_file("dunit-progress-host1.txt");
+
+# dunit-progress lines look like this
+#[info 2008/02/28 09:43:27.222 PST <Thread-1> tid=0x1f] END testCacheAndRegions(com.gemstone.gemfire.admin.AdminAndCacheDUnitTest) (took 1493ms)
+
+my(@timeslist);
+my(@totalslist);
+my($currentname) = "start";
+my($currentsum) = 0;
+
+for my $i (1 .. 10) {
+  my($in) = "dunit-progress-host$i.txt";
+  my($openOk) = open(IN, "<$in");
+  last unless defined($openOk);
+#  last if $openOk == 0;
+  for (;;) {
+    &get_line();
+    last unless defined($current_line);
+    next unless &is_end_line();
+    my(@parts) = split "\ ",$current_line;
+    next unless $#parts == 9;
+    # pull out the millisecond time-to-run
+    my(@time) = split "ms", $parts[9];
+    # pick apart the test name and class so we can rearrange them
+    my(@testparts) = split "[()]",$parts[7];
+    # xxx  package.classname.testname
+    my($line) = "$time[0]\t$testparts[1]\.$testparts[0]";
+    push @timeslist, $line;
+
+    # now strip off the test name, leaving the class name, and
+    # add to its total
+    if ( $testparts[1] eq $currentname ) {
+      $currentsum += $time[0];
+    }
+    else {
+      if ( $currentname ne "start" ) {
+        $line = "$currentsum\t$currentname";
+        push @totalslist, $line;
+      }
+      $currentname = $testparts[1];
+      $currentsum = $time[0];
+    }
+  }
+}
+@totalslist = sort numeric_sort @totalslist;
+my($line);
+print "Total time per test class\n";
+print "----------------------------------------------------------\n";
+foreach $line (@totalslist) {
+  print "$line\n";
+}
+  
+print "\n\n\n\n\n\n\n\n\n";
+  
+@timeslist = sort numeric_sort @timeslist;
+print "Time per test method\n";
+print "----------------------------------------------------------\n";
+foreach $line (@timeslist) {
+  print "$line\n";
+}
+
+# numeric reverse-order sort block
+sub numeric_sort {
+  my(@partsA) = split "\t",$a;
+  my(@partsB) = split "\t",$b;
+  my($timeA) = $partsA[0];
+  my($timeB) = $partsB[0];
+  # reverse sort - highest first
+  if ($timeA > $timeB)  { return -1; }
+  if ($timeA == $timeB) { return  0; }
+  return 1;
+}
+
+sub get_line() {
+  $current_line = <IN>;
+  return $current_line;
+}
+
+sub is_end_line() {
+  return $current_line =~ ".*\] END test.*";
+}
+

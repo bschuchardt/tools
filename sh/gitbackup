@@ -1,0 +1,14 @@
+#!/bin/sh
+# back up modified/untracked git files to /samba/backup/users/`whoami`
+if [ x"$1" = x ]; then
+  echo "gitbackup archivefile"
+  exit 1
+fi
+files=`gitchangedfiles`
+#archive=//samba/backup/users/`whoami`/$1
+archive=$1
+rm -f $archive
+zip -q $archive $files
+count=`echo $files | wc -w`
+scp $archive ent.gemstone.com:/export/backup/users/bschuchardt/$archive
+echo "$count files backed up to $archive in /export/backup/users/bschuchardt"

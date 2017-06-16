@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -h $1 ]; then
+  echo $1" is not a link"
+  exit 1
+fi
+if [ ! -r $1 ]; then
+  echo -n "broken link: "
+  file $1
+fi

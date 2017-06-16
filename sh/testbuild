@@ -1,0 +1,6 @@
+#!/bin/sh
+cd $layer
+if [ -h pc.zip ]; then
+  build/unzip
+fi
+build/tests

@@ -1,0 +1,154 @@
+#!/bin/bash
+#echo ".bashrc"
+#set -v
+#set -x
+
+_profile=y
+
+export PATH=~/usr/bin:~/usr/sh:~/usr/vsd/bin:$PATH
+export CDPATH=.:~:~/devel:~/Documents
+export cmds=~/usr/sh
+export ocmds=~/usr/opencmds
+export localbin=~/usr/bin
+
+export mtype=90
+
+export EDITOR=emx
+export VISUAL=emx
+export PAGER=less
+export LESS="-M -q -R"
+export CLICOLOR=true
+
+export NIGGLE=CirTW
+export COLOR_TERMINAL=1
+export EMXRC=$HOME/.emxrc
+export EMXSIZE="40x80"
+export EMXBACK=$HOME/ngbackup;
+export VDIR_VISUAL=emx
+export XAPPLRESDIR=$HOME/.xdef
+
+CLASSPATH=$HOME/usr/classes
+if [ x"$GEMFIRE" != x ]; then
+  CLASSPATH=$GEMFIRE/lib/gemfire.jar:$CLASSPATH
+fi
+export CLASSPATH
+
+there=${there:-""}
+export there
+
+
+##############################################################
+istty=`/usr/bin/tty`
+if [ x"$istty" = x"not a tty" ]; then
+    return 0
+fi
+
+
+#   emacs command line editing mode
+set -o emacs
+#   auto export new vars
+#set -a
+# allow undefine vars
+  set +u
+# lookup commands for functions (faster this way)
+  set -h
+
+  stty erase ^H
+
+#  default histsize is 500
+HISTSIZE=200
+
+# alias -x b=niggle
+alias god="cd $HOME/devel"
+function goh {
+    cd $here
+}
+function got {
+    cd $there
+}
+alias seth="here=\$PWD"
+alias sett="there=\$PWD"
+alias oldemx="export OLDEMX=y"
+alias cd..="cd .."
+alias cd1="cd .."
+alias cd2="cd ../.."
+alias cd3="cd ../../.."
+alias cd4="cd ../../../.."
+alias cls=clear
+alias more=less
+#alias vw=$HOME/usr/vw25/bin/visualworks
+alias lls="ls --color=auto"
+alias ll="ls --color=auto -l"
+if [ x"$mtype" = "x50" ]; then
+alias jpt="ps --forest -w | grep java"
+else
+alias jpt="pt `whoami` | grep java"
+fi
+alias k9="kill -9"
+alias pst="pstree -gapu `whoami`"
+alias english=`LANG=en_US.UTF-8`
+alias french=`LANG=fr_FR.UTF-8`
+
+# prompt with time, term window title, and cwd name
+#PS1="\033]2; \w \007[\t]\n\W> "
+# prompt with term window title and cwd name
+#PS1="\033]2;unix: \w \007\n\W> "
+PS1="\W> "
+
+# unset the annoying mc function created on suse 8 machines
+#unset mc
+
+#if [ x"$WINDOWID" != x ]; then
+$cmds/swn
+#fi
+
+#disable mail checking
+unset MAILCHECK
+
+function log
+{
+  if [ x"$1" = x"-a" ]; then
+    append="-a"
+    shift
+  else
+    echo "$2" "$3" "$4" "$5" "$6" "$7" "$8" "$9" >"$1"
+  fi
+  logfile=$1
+  shift
+  eval "$@" 2>&1 | tee $append $logfile
+}
+
+function redir
+{
+  logfile=$1
+  shift
+  eval "$@" 2>&1 1>$logfile
+}
+
+  #if [ "x$TERM" = xcolor_xterm -o x$COLOR_TERMINAL != x ]; then
+    #PS1="\033[40m\033[36m\w\n\033[40m\033[32m\t>\033[34m\033[47m "
+    #PS1="\033[34m\w\n\033[47m\033[34m\t> \033[40m\033[36m"
+  #fi
+
+
+function gfe
+{
+    buildlayer=${1:-trunk}
+    . $HOME/.profile
+    . $HOME/usr/sh/gfenv.sh
+}
+
+function goto
+{
+    where=`find . -name $1 -print`
+    if [ x"$where" != x ]; then
+      cd `dirname $where`
+    else
+      echo "could not find $1"
+    fi
+}
+
+if [ x"$layer" == x ]; then
+    buildlayer=dev
+    . $HOME/usr/sh/gfenv.sh
+fi

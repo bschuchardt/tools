@@ -1,0 +1,3 @@
+#!/bin/sh
+a2ps -f6.5 $* | lpr -P "$PRINTER"
+#a2ps -nf $* | lpr

@@ -1,0 +1,49 @@
+#!/bin/sh
+# remotehydracopy bugdir destdir [bugdirhost]
+#set -x -v
+host=${3:-carlos.gemstone.com}
+bugdir=${1}
+destdir=${2}
+if [ x"$destdir" == x ]; then
+  echo "you must give a destination directory"
+  exit 1
+fi
+bugdirparent=`dirname $bugdir`
+bugdirfilename=`filename $bugdir`
+
+echo "performing remote hydracopy..."
+ssh $host rm -rf tmp/tempbugdir
+ssh $host usr/sh/hydracopy $bugdir '$HOME'/tmp/tempbugdir
+
+if [ x"$NOBUGDIR" == x ]; then
+  echo "zipping remote bug directory..."
+  ssh $host cd $bugdirparent \; zip -rq '$HOME'/tmp/tempbugdir/bugdir.zip $bugdirfilename -x $bugdirfilename/mergedLogs.txt
+fi
+
+echo "copying files..."
+mkdir $destdir
+there=$PWD
+cd $destdir
+scp $host:tmp/tempbugdir/tests.bt .
+scp $host:tmp/tempbugdir/local.conf .
+
+if [ x"$NOBUGDIR" == x ]; then
+  mkdir bugdir
+  scp $host:tmp/tempbugdir/bugdir.zip ./bugdir
+
+  echo "unzipping bugdir..."
+  cd bugdir
+  unzip -q bugdir.zip
+  rm bugdir.zip
+fi
+
+cd $there
+touch $destdir
+cd $destdir
+
+echo "opening editor..."
+if [ -r tests.bt ]; then
+  emx tests.bt local.conf
+fi
+
+echo "done"

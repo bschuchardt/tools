@@ -1,0 +1,209 @@
+#set -x
+#set -v
+
+_profile=y
+
+#echo ".profile"
+#PRINTER=lp2
+PRINTER=hp8150-01
+export PRINTER
+
+cmds=$HOME/usr/sh;			export cmds
+
+unset MAIL
+
+
+mtype=`$HOME/usr/sh/suntype`
+localbin="$HOME/usr/bin$mtype";	export localbin
+
+PATH=/export/localnew/scripts:/export/herb/bugtrack:.
+PATH=$localbin:$cmds:/bin:/usr/bin:/sbin:$HOME/usr/tcl/bin:$PATH
+
+if [ x$_bashrc = "xy" -a x"$JAVA_HOME" != x ]; then
+  PATH=$JAVA_HOME/bin:$PATH
+fi
+
+MANPATH=/usr/man:$HOME/usr/man
+
+if [ $mtype = "10" ]; then
+    localdir=/export/localnew/sparc.Solaris
+    PATH=/usr/ucb:$PATH:$localdir/bin
+    LD_LIBRARY_PATH=$HOME/usr/lib:$HOME/usr/motif124/usr/lib:\
+$HOME/usr/lib/x11r5:/export/localnew/sparc.Solaris/lib
+
+    # default open file descriptors is 256!
+    if [ -d /usr/openwin ]; then
+        PATH=$PATH:/usr/openwin/bin:/usr/openwin/demo
+        OPENWINHOME=/usr/openwin; export OPENWINHOME
+        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/openwin/lib
+    fi
+    if [ -d /forte/SUNWspro/bin ]; then
+        PATH=/forte/SUNWspro/bin:$PATH
+    fi
+    PATH=$PATH:/gcm/beta/product/support30/commands10:/usr/sbin
+
+    if [ -d /forte/SUNWspro/man ]; then
+        MANPATH=/forte/SUNWspro/man:$MANPATH
+    fi
+    
+    PATH=$PATH:/techpubs/Frame/v5.5.6/bin
+
+elif [ $mtype = "50" ]; then
+    PATH=$PATH:/export/localnew/i686.Linux/bin
+    localdir=/export/localnew/i686.Linux
+    JPROBE_HOME=/export/java/users/java_share/jprobe5.2.3
+    PATH=$PATH:$JPROBE_HOME/bin
+    MAILER=/usr/bin/mailx
+    export MAILER
+
+elif [ $mtype = "7" ]; then
+    localdir=/export/localnew/hppa.hpux
+    PATH=$PATH:$HOME/usr/ucb7:$localdir/bin
+    # HPUX ANSI C compiler
+    if [ -d /opt/ansic/bin ]; then
+        PATH=/opt/ansic/bin:$PATH
+    fi
+    # bugread/bugreport/...
+    PATH=$PATH:/gcm/beta/product/support30/commands:/gcm/beta/product/support30/commands7
+
+    eval `dircolors $HOME/.dir_colors`
+fi
+
+# hrread
+PATH=$PATH:/export/gcs2/customers/bin
+
+if [ -d /usr/bin/X11 ]; then
+    PATH=$PATH:/usr/bin/X11
+fi
+if [ -d /opt/langtools/bin ]; then
+    PATH=$PATH:/opt/langtools/bin
+fi
+
+CDPATH=./:$HOME:$HOME/sb:$HOME/devel
+
+# /export/localnew/i686.Linxu/man no longer exists (7/18/07)
+#MANPATH=$MANPATH:$localdir/man
+if [ -d /usr/dt/man ]; then
+    MANPATH=/usr/dt/man:$MANPATH
+fi
+if [ -d /usr/openwin ]; then
+  MANPATH=/usr/openwin/man:${MANPATH}
+fi
+if [ -d /usr/share/man ]; then
+  MANPATH=/usr/share/man:$MANPATH
+fi
+if [ -d /usr/X11/man ]; then
+  MANPATH=/usr/X11/man:$MANPATH
+fi
+if [ -d /usr/X11R6/man ]; then
+  MANPATH=/usr/X11R6/man:$MANPATH
+fi
+
+if [ -d /usr/games ]; then
+    PATH=$PATH:/usr/games
+fi
+
+#set +x
+#set +v
+
+export PATH
+export MANPATH
+export LD_LIBRARY_PATH
+export CDPATH
+export mtype
+
+if [ x"$EDITOR" = x -o x"$EDITOR" = x/usr/dt/bin/dtpad ]; then
+    EDITOR=emx;	       		export EDITOR
+fi
+if [ x"$VISUAL" != xb ]; then
+     VISUAL=emx;         	export VISUAL
+fi
+PAGER=less;			export PAGER
+LESS="-M -q";			export LESS
+
+
+NIGGLE=CirTW;			export NIGGLE
+EMXBACK=$HOME/ngbackup;		export EMXBACK
+EMXRC=$HOME/.emxrc;		export EMXRC
+EMXSIZE="40x80";		export EMXSIZE
+VDIR_VISUAL=emx;                export VDIR_VISUAL
+LYNX_CFG=$HOME/usr/lib/lynx.cfg export LYNX_CFG
+
+
+XAPPLRESDIR=$HOME/.xdef;	export XAPPLRESDIR
+XGRABSC="-ps -sleep 2 -nolimit";	export XGRABSC
+MBOX=$HOME/Mail/mbox;		export MBOX
+###MAIL=/usr/spool/mail/bruce;	export MAIL
+BUGMAIL=mutt;			export BUGMAIL
+
+# uses the old /usr/local/bin, and so is commented out for now:
+#. /usr/local/sh/l2define.sh
+
+
+CLASSPATH=.:$HOME/usr/classes
+if [ x"$GEMFIRE" != x ]; then
+  CLASSPATH=$GEMFIRE/lib/gemfire.jar:$CLASSPATH
+fi
+export CLASSPATH
+
+#GSJ_PARAMETERS="-Dgsj.quiet -Dgsj.nrs=bjstone"
+#export GSJ_PARAMETERS
+
+CVSROOT=:ext:zeus:/cvs/repository
+export CVSROOT
+export CVS_RSH=rsh
+if [ "$mtype" != "50" ]; then  # linux=50
+  CVS_SERVER=`which cvs`
+  export CVS_SERVER
+fi
+
+# directories of miscellaneous products
+#FMHOME=/zeus3/frame; PATH=:$FMHOME/bin:$PATH; export FMHOME PATH
+#JBOSS_DIST=$HOME/devel/jboss/jboss-3.0.2
+
+# color bash
+# PROMPT_FG=4; export PROMPT_FG
+
+there=${there:-""}
+export there
+
+# set default file protection to exclude "other"
+umask 000
+
+##############################################################
+istty=`/usr/bin/tty`
+if [ x"$istty" != x"not a tty" ]; then
+
+    if [ x"$_bashrc" = x ]; then
+        . $HOME/.bashrc
+    fi
+
+    DISPLAY=${DISPLAY:-bruce-lap.gemstone.com:0.0}
+    export DISPLAY
+    if [ x"$TERM" = x ]; then
+        eval `tset -Qs xterm`
+    fi
+    if [ x"$TERM" = xxterm ]; then
+        TERM=xterm
+        export TERM
+        COLOR_TERMINAL=1
+        export COLOR_TERMINAL
+    fi
+
+    #if [ x"$PS1" = x"\$ " ]; then
+    #  PS1="> "
+    #fi
+
+    #stty erase "^H" intr "^C" kill "^U" susp "^Z"
+
+    #LANG=en_US.ISO8859-1; export LANG
+
+    if [ x"$wlkm" = x ]; then
+        wlkm=1
+        echo "Welcome to `hostname`.  DISPLAY is $DISPLAY"
+        echo ""
+    fi
+fi
+
+
+

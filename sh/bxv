@@ -1,0 +1,60 @@
+#!/usr/bin/bash
+
+#exec >>/tmp/bxv.log
+#exec 2>&1
+#echo "DISPLAY=[$DISPLAY]"
+
+allow_null_glob_expansion=1
+SPEAKER=ext; export SPEAKER
+
+if [ $1 = "-mpg" ]; then
+  shift 1
+  if [ "`mpegdither`" = "xanim" ]; then
+#    cd $HOME/usr/lib/graphics/mpg; xanim +bC1 +Ss2 +Sr $@
+    cd $HOME/usr/lib/graphics/mpg; xanim +C1 +Ss2 $@
+    exit 0
+  else
+    wav=$HOME/usr/lib/graphics/mpg/`filename $2`.wav
+    if [ ! -r $wav ]; then
+      wav=$HOME/usr/lib/graphics/mpg/`filename $3`.wav
+    fi
+    if [ -r $wav ]; then
+      SPEAKER=ext; export SPEAKER
+#    splayer -loop 2 $wav&
+    fi
+    cd $HOME/usr/lib/graphics/mpg; xviewmpg `mpegdither` -loop $@
+    exit 0
+  fi
+fi
+#if [ $1 = "-mpg" ]; then
+#  shift 1
+#  cd $HOME/usr/lib/graphics/mpg; xanim +Srs2 $@
+#fi
+if [ $1 = "-avi" ]; then
+  shift 1
+  cd $HOME/usr/lib/graphics/avi; xanim +Srs2 $@
+  exit 0
+fi
+if [ $1 = "-gl" ]; then
+  shift 1
+  cd $HOME/usr/lib/graphics/gl; xviewgl -F $@
+  exit 0
+fi
+if [ $1 = "-pmroot" ]; then
+  cd $HOME/usr/lib/xv
+  shift
+  xv -root -quit $*
+  xsetroot -fg black -bg white \
+    -cursor /usr/include/X11/bitmaps/left_ptr  /usr/include/X11/bitmaps/left_ptrmsk
+  exit 0
+fi  
+if [ $1 = "-root" ]; then
+  xv -root -clear
+  cd $HOME/usr/lib/graphics/G
+  shift
+  xv -root -quit $*
+  xsetroot -fg black -bg white \
+    -cursor /usr/include/X11/bitmaps/left_ptr  /usr/include/X11/bitmaps/left_ptrmsk
+  exit 0
+fi
+xv $@

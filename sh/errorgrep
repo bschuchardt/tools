@@ -1,0 +1,20 @@
+#!/bin/sh
+#chkout=$layer
+#if [ ! -r $chkout/release/build/grepLogs.pl ]; then
+#  echo "can't find your gemfire checkout, or it's missing release/build/grepLogs.pl"
+#  exit 1
+#fi
+#set -v
+#perl5 $chkout/release/build/grepLogs.pl ${1:-$PWD}
+
+if [ -d $build/tests/classes ]; then
+  blcl=$build/tests/classes
+else
+  blcl=$layer/closed/gemfire-test/build/classes/test:$layer/closed/gemfire-test/build/classes/hydraClasses
+fi
+
+if [ x"$1" = x ]; then
+  java -server -cp $blcl batterytest.greplogs.GrepLogs .
+else
+  java -server -cp $blcl batterytest.greplogs.GrepLogs "$@"
+fi

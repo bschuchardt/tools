@@ -1,0 +1,37 @@
+#!/bin/sh
+# back up modified svn files to /export/backup/users/`whoami`
+if [ x"$1" = x ]; then
+  echo "svnbackup archivefile"
+  exit 1
+fi
+rm -f svnbackupinfo.txt
+svn info >svnbackupinfo.txt
+files=`svn status | grep ^[A,M,C," M"] | cut -c8-`
+archive=/export/backup/users/`whoami`/$1
+if [ -r $archive ]; then
+  mv $archive $archive.bak
+fi
+typeset -i idx
+havesome=n
+idx=0
+for x in $files; do
+  if [ x$havesome == xn ]; then
+    havesome=y
+    fb="$x"
+    idx=1
+  else
+    fb="$fb $x"
+    idx=$(($idx+1))
+    if [ $idx -gt 50 ]; then
+      zip -q $archive $fb
+      fb=""
+      havesome=n
+      idx=0
+    fi
+  fi
+done
+if [ x$havesome == xy ]; then
+  zip -q $archive $fb ./svnbackupinfo.txt
+fi
+count=`echo $files | wc -w`
+echo "$count files backed up to $archive"

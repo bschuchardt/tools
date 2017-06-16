@@ -1,0 +1,52 @@
+#!/usr/bin/bash
+
+# creates new signed keystore for given user
+# arg1: username (limited to one word right now)
+# arg2: storefile password (-storepass value)
+# arg3: private key password (-keypass value)
+# 
+# It uses the ~/.gskeystore as the certificate authority.
+# 
+# This might be useful for any of you who need non-anonymous
+# second users.
+# 
+# example:
+# 
+# bash$ ./newusercerts.sh user1 very secure
+# exporting ca.certs from ~/.gskeystore
+# creating user keystore user1.keystore
+# importing ca.certs to user1.keystore
+# creating request for signature user1.request
+# signing user1.request
+# importing signed certs to user1.keystore
+# 
+# All referenced files, except ~/.gskeystore, are in the current working
+# directory. So cd somewhere before you run it.
+
+# export ca.certs
+echo "exporting ca.certs from ~/.gskeystore"
+CA="-storefile $HOME/.gskeystore -storetype bks -certfile allcerts"
+certman $CA export ca.certs
+
+NEWUSER=$1
+MYSEL="-storefile ${NEWUSER}.keystore -storepass $2 -keypass $3"
+
+# create Mysel Fandi
+echo "creating user keystore ${NEWUSER}.keystore"
+certman $MYSEL create "CN=${NEWUSER}"
+
+# import ca.certs so we can accept his signature
+echo "importing ca.certs to ${NEWUSER}.keystore"
+certman $MYSEL -alias cacerts import ca.certs
+
+# create signature request
+echo "creating request for signature ${NEWUSER}.request"
+certman $MYSEL request ${NEWUSER}.request
+
+# ca signs ${NEWUSER}'s request
+echo "signing ${NEWUSER}.request"
+certman $CA approve ${NEWUSER}.request ${NEWUSER}.signed
+
+echo "importing signed certs to ${NEWUSER}.keystore"
+certman $MYSEL import ${NEWUSER}.signed
+

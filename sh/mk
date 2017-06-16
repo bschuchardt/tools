@@ -1,0 +1,9 @@
+#! /bin/sh
+echo "making ... log will be in 'make.log'"
+if [ x"$*" = x ]; then
+  make 2>&1 | tee make.log
+else
+  fil=$1
+  shift
+  make -f $fil.mak $* 2>&1 | tee make.log
+fi

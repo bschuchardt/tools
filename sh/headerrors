@@ -1,0 +1,13 @@
+#!/bin/bash
+for x in */errors.txt; do
+echo "-----------------------------------------------------------------------------------------------------------------------------------------------"
+if [ -r oneliner.txt ]; then
+  grep `dirname $x` oneliner.txt
+else
+  echo $x
+fi
+head $x
+echo ""
+echo ""
+echo ""
+done

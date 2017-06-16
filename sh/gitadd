@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# preps all modified/removed/renamed/untracked files for "git add"
+# and pop open an emx window to execute the commands in
+
+gitchangedfiles | sed -e "s/^/git add /" | emx -

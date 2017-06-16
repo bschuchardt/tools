@@ -1,0 +1,25 @@
+! some sample settings you may want to change
+
+Fig.internalborderwidth: 2
+Fig*Text =*font: -*-times-medium-r-normal--14-*
+Fig*file_panel*mask*string:	*.fig
+Fig*export_panel*mask*string:	*.ps
+
+Fig*canvas*background: white
+Fig*canvas*foreground: black
+
+! make the F20 key paste text in the canvas
+
+Fig*translations: #override \n\
+			<Key>F20: PasteCanv()\n
+
+! Specify a private Compose key database file.  If this resource contains a "/"
+! then the wired-in name of the xfig global directory won't be prefixed to it.
+! An initial "~/" is replaced by the value of "$HOME/".
+!
+!Fig*ComposeKeyDB: ~/.xfig.Compose-key
+
+! let's make these buttons oval in the edit panel
+Fig.xfig_edit_panel*done.ShapeStyle: oval
+Fig.xfig_edit_panel*cancel.ShapeStyle: oval
+Fig.xfig_edit_panel*cancel.ShapeStyle: oval

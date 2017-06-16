@@ -1,0 +1,49 @@
+*ashtree.background:		thistle
+*ashtree.topShadowColor:	mediumpurple
+*ashtree.bottomShadowColor:	plum
+*ashtree.boxBorderHighlightColor:	slateblue
+*ashtree.boxBorderColor:   	red
+*ashtree.lineColor:		darkslategrey
+*ashtree.boxBackground:		lemonchiffon
+*ashtree.indicatorColor:	limegreen
+*ashtree.indicatorFraction:	8
+*ashtree.boxHeight:		22
+*ashtree.boxGap:		6
+*ashtree.clusterGap:		32
+*ashtree.scrollIncrement:	12
+*ashtree.boxLeftMargin:		3
+*ashtree.boxRightMargin:	2
+*ashtree.boxTopMargin:		2
+*ashtree.boxBotMargin:		2
+
+
+Tree*geometry:			800x800
+Tree*shadowThickness:		4
+Tree*traversalOn:		True
+Tree*form.background:		pink
+Tree*Quit.background:		palevioletred
+
+
+! Default values from the widget definition
+
+!*AshTree.arrangement:		CENTER_ON_PARENT
+!*AshTree.lineStyle:		BRACKET
+!*AshTree.openRoot:		TRUE
+!*AshTree.lineGap:		40
+!*AshTree.clusterGap:		40
+!*AshTree.boxGap:		10
+!*AshTree.scrollIncrement:	6
+!*AshTree.boxWidth:		100
+!*AshTree.boxHeight:		24
+!*AshTree.boxFont:		*-helvetica-medium-r-*-120-*
+!*AshTree.boxBorderWidth:		1
+!*AshTree.boxBorderHighlightWidth:	3
+!*AshTree.boxLeftMargin:		4
+!*AshTree.boxRightMargin:	4
+!*AshTree.boxTopMargin:		4
+!*AshTree.boxBotMargin:		4
+!*AshTree.boxBorderColor:		Black
+!*AshTree.boxBorderHighlightColor:	Black
+!*AshTree.lineColor:		Black
+!*AshTree.boxBackground:		White
+!*AshTree.boxForeground:		Black

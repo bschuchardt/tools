@@ -1,0 +1,11 @@
+#!/bin/sh
+# note that this does not use -follow.  I don't want to accidentally
+# delete things that have been linked into my environment (e.g., /gcm/where
+# sources)
+if [ x"$1" = x"-f" ]; then
+    find . -name "$2" -print -exec rm -f {} \;
+elif [ x"$1" = x"-rf" ]; then
+    find . -name "$2" -print -exec rm -rf {} \;
+else
+    find . -name "$1" -print -exec rm {} \;
+fi

@@ -1,0 +1,25 @@
+#/bin/sh
+
+days=${1:-7}
+
+bugsys do " \
+| b  rpt a date last activity | \
+b:=AllBugs openBugs. \
+b:=b select: [:e | e assignedTo = 'bruce' ]. \
+rpt:=String new. \
+rpt addAll: 'Bug activity for Bruce for the last ' + ($days asString) + ' days'; lf; lf; lf. \
+rpt addAll: '-----------------------'; lf. \
+activity:=SetOfBugs new. \
+date:=((DateTime now subtractDays: $days) subtractHours: 1). \
+b do: [:e | \
+ last := GsFile lastModificationOfServerFile: (e bugMailFolder). \
+ last notNil ifTrue: [ \
+   (last > date) ifTrue: [ e dateSubmitted: last. activity add: e ] ] \
+  ifFalse: [ \
+    rpt addAll: ' no bugmail file for '; addAll: (e number asString); lf ] \
+].\
+(activity sortDescending: #dateSubmitted) do: [:e | rpt addAll: e infoFormat; lf; \
+  addAll: (System performOnServer: '/home/bruce/usr/bin10/frm -v ' + e bugMailFolder + ' | tail -2'); \
+  addAll: '-----------------------'; lf].\
+System abortTransaction. \
+^rpt"

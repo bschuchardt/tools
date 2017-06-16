@@ -1,0 +1,7 @@
+Clock*Background: white
+Clock*BorderColor: coral
+Clock*hour: black
+Clock*jewel: red
+Clock*minute: black
+Clock.height: 90
+Clock.width: 90

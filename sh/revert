@@ -1,0 +1,3 @@
+#!/bin/sh
+cd $layer
+svn -R revert .

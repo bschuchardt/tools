@@ -1,0 +1,14 @@
+#!/bin/sh
+if [ ! -r $layer/release/build/grepLogs.pl ]; then
+  echo "can't find your gemfire checkout, or it's missing grepLogs.pl"
+  echo "set the environment variable 'layer' to a gemfire checkout directory"
+  echo "location and try again"
+  exit 1
+fi
+if [ x"$1" == x ]; then
+    directory=$PWD
+fi
+for x in "$directory $@"; do
+set -x
+perl5 $layer/release/build/grepLogs.pl $directory "$x"
+done

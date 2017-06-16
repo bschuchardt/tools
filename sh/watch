@@ -1,0 +1,27 @@
+#! /bin/bash
+if [ -r *est-progress.txt ]; then
+  exec watchdunit
+  exit $?
+fi
+while [ -r tests.bt -a ! -r batterytest.log ]; do
+  clear
+  echo "waiting for test to start..."
+  sleep 2
+done
+if [ -r batterytest.log ];  then
+  if [ -r untilfail.log ]; then
+    exec watchuntil
+    exit 1
+  fi
+  if [ -r untilhang.log ]; then
+    exec watchuntil
+    exit 1
+  fi
+  exec watchbt "$@"
+  exit $?
+fi
+if [ -r dunit-tests.prop -o -r  wan-dunit-tests.prop ]; then
+  exec watchdunit "$@"
+  exit $?
+fi
+echo "I don't know what I'm supposed to watch"

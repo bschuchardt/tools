@@ -1,0 +1,12 @@
+#!/bin/sh
+xrdb -merge <<HERE
+Emxw*background:	FloralWhite
+Emxw*font:	clr6x8
+Emxw*foreground:	black
+Emxw*rows:	35
+HERE
+emx $@ &
+sleep 5
+xrdb -merge <<HERE2
+Emxw*font:	8x13
+HERE2

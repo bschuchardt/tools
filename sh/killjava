@@ -1,0 +1,33 @@
+#jjobs=`/usr/ucb/ps -xwww | grep java | cut -c 1-6`
+me=`whoami`
+jjobs=`pgrep -u ${me} java`
+if [ x"$1" == xonly ]; then
+  shift 1
+else
+  ufjobs=`pgrep -u ${me} untilfail`
+  uhjobs=`pgrep -u ${me} untilhang`
+  ucjobs=`pgrep -u ${me} untilcrash`
+fi
+kjobs=""
+if [ x"$jjobs" != x ]; then
+  # weed out eclipse processes
+  for x in $jjobs; do
+    ecl=`ps ww $x | grep -i eclipse`
+    if [ x"$ecl" == x ]; then
+      if [ x"$kjobs" == x ]; then
+        kjobs="$x"
+      else
+        kjobs="$kjobs $x"
+      fi
+    fi
+  done
+  if [ x"$kjobs" != x ]; then
+    set -x
+    kill ${1:-"-9"} $kjobs $ufjobs $uhjobs $ucjobs
+  fi
+fi
+jjobs=`pgrep -u ${me} rmiregistry`
+if [ x"$jjobs" != x ]; then
+    set -x
+    kill $1 $jjobs
+fi

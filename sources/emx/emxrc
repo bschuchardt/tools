@@ -1,0 +1,102 @@
+E-x bind-to-key | bind-to-key | M1-b
+M1-b line-shell-cmd | ^-S-Return
+M1-b copy-region-to-macro | E-F16
+M1-b bind-macro | E-F14
+M1-b select-line | ^-Return
+M1-b select-line | M1-Return
+M1-b select-forw-char | M1-Right
+M1-b select-forw-word | M1-S-KP_6
+M1-b select-forw-line | M1-Down
+M1-b select-eol | M1-^-Right
+M1-b select-eob | M1-R13
+M1-b select-back-char | M1-Left
+M1-b select-back-word | M1-S-KP_4
+M1-b select-back-line | M1-Up
+M1-b select-bol | M1-^-Left
+M1-b select-bob | M1-F27
+M1-b unselect-all | M1-Delete
+M1-b paste-primary | F18
+M1-b copy-region | S-F10
+M1-b copy-region | ^-F10
+M1-b case-sense | F19
+M1-b file-save | ^-F11
+M1-b forw-del-word | S-KP_Decimal
+M1-b goto-bob | F27
+M1-b goto-eob | R13
+M1-b forw-word | S-KP_6
+M1-b back-word | S-KP_4
+M1-b forw-line | S-KP_5
+M1-b forw-line | S-KP_2
+M1-b back-line | S-KP_8
+M1-b forw-page | F35
+M1-b back-page | F29
+M1-b forw-line | F31
+M1-b forw-page | KP_Add
+M1-b back-page | KP_Subtract
+M1-b forw-buffer | F13
+M1-b back-buffer | F14
+M1-b ins-nl-and-indent | Linefeed
+M1-b scroll-left | ^-S-KP_4
+M1-b scroll-right | ^-S-KP_6
+M1-b all-win-up | ^-S-KP_8
+M1-b all-win-down | ^-S-KP_5
+M1-b all-win-down | ^-S-KP_2
+M1-b search-again | KP_Enter
+M1-b forw-para | E-F1
+M1-b back-para | E-F2
+M1-b copy-line | F16
+M1-b start-macro | F21
+M1-b end-macro | F22
+M1-b execute-macro | Num_Lock
+M1-b execute-macro | F23
+M1-b numeric-arg | F26
+M1-b numeric-arg | ^-F26
+M1-b numeric-arg | S-KP_Multiply
+M1-b cut-selected | F20
+M1-b select-region | E-1
+M1-b set-fill-column | M1-q
+M1-b set-size | F15
+
+E-x make-macro | helplines | :
+    Down Down Down F8 "--------" | Down F16 ^-Left F12 Up ^-=
+    E-Delete ^-Tab ^-Left ^-Delete F9 R13 F12 ^-x ^-x :
+
+E-x make-bound-macro | > | ^-.
+    : "> " Left Left Down :
+
+E-x make-bound-macro | opal | E-o
+    : E-x numeric-arg | 2 E-x set-tab-width | :
+
+E-x make-bound-macro | servio | M1-s
+    :
+        "    Marc San Soucie"
+    ^-m "    Servio Corporation"
+    ^-m "    Beaverton, Oregon"
+    ^-m "    marcs@slc.com"
+    ^-m :
+
+E-x make-bound-macro | sig | M1-m
+    :
+        "    Marc San Soucie"
+    ^-m "    Portland, Oregon"
+    ^-m "    marcs@slc.com"
+    ^-m :
+
+E-x make-bound-macro | input | E-i
+    : i n p u t space S-Delete E-Delete F8 space | Left ^-k Right :
+
+E-x make-bound-macro | fixname | M1-f
+    : F9 F8 ( | Left Left F11 Delete Delete F8 ) | Left space ( F12
+      ^-Left :
+
+E-x make-bound-macro | commitcomment | M1-F18
+    : ^-Delete ^-Delete ^-Delete ^-Delete ^-Delete ^-Delete ^-Delete
+      ^-Delete ^-S-F12 :
+
+E-x make-bound-macro | lineparen | M1-0
+    : F9 ^-Left S-KP_6 S-KP_4 ( ^X-^-x :
+
+E-x push-newlines |
+E-x word-wrap |
+E-x default-back |
+E-x numeric-arg | 76 E-x set-fill-column |

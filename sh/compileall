@@ -1,0 +1,7 @@
+#!/bin/sh
+# build all gemfire components.  requires "build" commands directory in checkout
+cd $layer
+if [ -h pc.zip ]; then
+  build/unzip
+fi
+build/compileall

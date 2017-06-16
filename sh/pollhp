@@ -1,0 +1,5 @@
+#!/bin/sh
+for x in duluth fargo jakarta kingkong shanghai snip tokyo; do
+echo -n "${x}  :"; ssh ${x} "${@:-uptime}"
+done
+      

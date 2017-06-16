@@ -1,0 +1,37 @@
+!App-defaults file for xmines
+XMines*Font: 9x15
+XMines*cell.borderColor: blue
+XMines*cell.*.borderColor: red
+XMines*Cell.height: 32
+XMines*Cell.width: 32
+XMines*ArraySize: 12
+XMines*Mines: 26
+XMines*Label.borderWidth: 0
+XMines*Label.justify: left
+XMines*countlabel.label: Mine count:
+XMines*mineinputcount.width: 50
+XMines*info.horizDistance: 303
+XMines*info.label: Info
+XMines*movelabel.label: Moves:
+XMines*movecount.horizDistance: 0
+XMines*movecount.label: ....
+XMines*hintlabel.label: Hints:
+XMines*hintcount.horizDistance: 0
+XMines*hintcount.label: ....
+XMines*safelabel.label: Safes:
+XMines*safecount.horizDistance: 0
+XMines*safecount.label: ....
+XMines*minelabel.label: Mines:
+XMines*minecount.horizDistance: 0
+XMines*minecount.label: ....
+XMines*message.width: 460
+XMines*message.borderWidth: 1
+XMines*cell.*.borderWidth: 1
+XMines*cell.*.translations: #override \n\
+	<Btn1Down> : MovePlayer() \n\
+	<Btn2Down> : MarkMined() \n\
+	<Btn3Down> : MarkSafe()
+XMines*restart.accelerators: #override \n\
+	<Key>Return : set() notify() unset()
+XMines*info.version.borderWidth: 0
+XMines*xmines_info.Geometry: +400+300

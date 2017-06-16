@@ -1,0 +1,36 @@
+*background:	FloralWhite
+*foreground:	black
+*multiClickTime:	500
+*ttyModes:	erase ^H intr ^C kill ^U start ^Q stop ^S swtch ^@ susp ^Z
+Emxw*background:	FloralWhite
+Emxw*foreground:	black
+!Emxw*background:        #D8D8FF
+!Emxw*foreground:	black
+Emxw*font:	8x13
+Emxw*rows:	35
+Emxw*tabsOnIndent:	False
+VDir*background: #8080ff
+mailbox*background:	#f8f8f8
+mailbox*foreground:	white
+sos.reverseMonoIcons:	FALSE
+sos.useColorIcons:	TRUE
+xbiff*background:	grey80
+xbiff*foreground:	black
+xpipeman*Command*foreground:	white
+xrolo.PrintCommand:	mp | lpr
+! xterm*background:	#e8e8e8
+XTerm*font:	8x13
+XTerm*foreground:	black
+XTerm*jumpScroll:	on
+XTerm*saveLines:	300
+XTerm*scrollBar:	on
+UXTerm*font:	8x13
+UXTerm*foreground:	black
+UXTerm*jumpScroll:	on
+UXTerm*saveLines:	300
+UXTerm*scrollBar:	on
+xv*background:	white
+xv*foreground:	black
+xv*highlight:	white
+xv*lowlight:	white
+

@@ -1,0 +1,37 @@
+#!/bin/bash
+#set -v
+#set -x
+second=
+dircount=0
+for x in "$@"; do
+  if [ x$second != x ]; then
+    dircount=1
+  fi
+  for f in *${x}.log; do
+    if [ -r $f ]; then
+      files="$files $f"
+    fi
+  done
+  for f in *${x}/*.log; do
+    if [ -r $f ]; then
+      files="$files $f"
+      second=xx
+    fi
+  done
+  for f in *${x}.log.gz; do
+    if [ -r $f ]; then
+      files="$files $f"
+    fi
+  done
+  for f in *${x}/*.log.gz; do
+    if [ -r $f ]; then
+      files="$files $f"
+      second=xx
+    fi
+  done
+done
+if [ x"$files" == x ]; then
+  echo "no files found"
+  exit 2
+fi
+ML_DIRCOUNT=$dircount mergelogs $files

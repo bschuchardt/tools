@@ -1,0 +1,506 @@
+! $Header: Pt.default,v 1.4 91/02/13 17:01:46 crowley Locked $
+
+
+!!!   POINT OPTION RESOURCES
+
+*underlineSelection:		2
+
+! FOR A GREY-SCALE DISPLAY
+!*textForeground:		Black  White
+!*textBackground:		White  Black
+!*selectedTextForeground:	Black  Black
+!*selectedTextBackground:	Grey88 Grey88
+
+! FOR A COLOR DISPLAY
+! 'best' text/background combinations
+! (from an article on color by Gerald Murch)
+! Use the "Cycle colors" command to cycle through these possiblities
+*textForeground:		blue	black	red	white	yellow \
+				yellow	white	blue	black	blue	red \
+				white	yellow	cyan	blue	black	red \
+				black	white	blue	blue	black	red
+
+*textBackground:		white	white	white	black	black \
+				red	red	red	green	green	green \
+				blue	blue	blue	cyan	cyan	cyan \
+				magenta	magenta	magenta	yellow	yellow	yellow
+
+! 'worst' text/background combinations (see Murch)
+!*textForeground:		yellow	cyan	red	blue	magenta	blue \
+!				green	cyan	blue	cyan	magenta	yellow \
+!				green	red	black	green	yellow	white \
+!				green	red	cyan	white	cyan
+
+!*textBackground:		white	white	black	black	black	red \
+!				red	red	red	green	green	green \
+!				blue	blue	blue	cyan	cyan	cyan \
+!				magenta	magenta	magenta	yellow	yellow
+
+! Use the window manager's title bars.
+! To use Point's title bars set titleBar to True.
+*titleBar:			False
+
+*topLevelWindows:		True
+
+! Mouse menus on two buttons
+*button1:			BeginSel
+*button2:			MouseMenu1
+*button3:			ExtendSel
+
+! set this to 999 to center found string in the window
+*linesOverFind:			4
+
+! fonts
+*browserFont:			6x13bold
+*mouseMenuFont:			6x13bold
+*defaultFont:			6x13
+
+! I set this to False because I'm used to it
+*button1ScrollsDown:		True
+
+! get full mouse menus (not just the cursor)
+*mouseCursorMenu:		False
+*messageFlags:			2
+*buffers:			100
+*maxFiles:			100
+*pathNames:			False
+*filePattern:			*
+*scrollDelay:			400
+*menuDelay:			700
+*backupDir:			./
+*backupDepth:			2
+
+! You might want to change these if your screen is different.
+! Mine are set up for a 1152x900 SUN
+*location1:			500x385+0+0
+*location2:			500x385-50-25
+*location3:			500x385-50+0
+*location4:			500x385+410+180
+*location5:			500x385+410-150
+
+! Ignore this hypertext stuff for now.
+*hypertextOn:			False
+*databaseName:			anadoc
+
+
+
+!!! MENU SPECIFICATIONS
+
+*mouseMenu1:\
+/Dup ,CopyFromHere\
+/ << ,SearchBackForSel\
+/\
+/Copy,CopySelToMouse\
+/\
+/ >> ,SearchForSel\
+/\
+/Move,MoveSelToMouse\
+/\
+/
+
+*browserMenuBar:\
+/Load file,LoadFile\
+/New from sel,NewWindowFromSel\
+/Quit Point,QuitAndAskAboutSaves\
+/DIRS,ShowMenu6\
+/PREFS,ShowMenu8\
+/*,MakeThisTheFilePattern\
+/*.c,MakeThisTheFilePattern\
+/FONT,ShowMenu7\
+/New browser,BigBrowser\
+/
+
+*textMenuBar:\
+/WINDOW,ShowMenu1\
+/EDIT,ShowMenu2\
+/MOVE,ShowMenu3\
+/FONT,ShowMenu4\
+/ETC,ShowMenu5\
+/<<\
+/>>\
+/Close\
+/Del\
+/Ins\
+/InsX\
+/Again\
+/Undo\
+/Redraw\
+/Last\
+/
+
+*menu1:\
+/Redraw window,RedrawWindow\
+/\
+/Save,SaveFile\
+/Save as...,SaveAs\
+/\
+/Close window,CloseWindow\
+/Close and save,CloseWindowAndSaveFile\
+/Close without saving,CloseWithoutSaving\
+/\
+/Zoom vertical,ZoomVertical\
+/\
+/Move to NW,MoveWindow1\
+/Move to NE,MoveWindow3\
+/Move to SE,MoveWindow2\
+/
+
+*menu2:\
+/Cancel copy mode,CancelModes\
+/Toggle case,ToggleCase\
+/\
+/Insert scrap,InsertScrap\
+/Insert X selection,InsertSel\
+/Delete to scrap,DeleteSel\
+/\
+/Again,Again\
+/Undo one,UndoOne\
+/Undo many,UndoMany\
+/
+
+*menu3:\
+/Search for string ...,SearchForString\
+/Search for selection,SearchForSel\
+/Search backwards (sel),SearchBackForSel\
+/Repeat last search,RepeatLastSearch\
+/Repeat backwards,RepeatLastSearchBack\
+/\
+/Show selection,ShowSel\
+/\
+/Beginning of File,MoveToBeginFile\
+/Last place,MoveToLastPlace\
+/End of File,MoveToEndFile\
+/\
+/Matching bracket,FindMatchingBracket\
+/\
+/Line number,GotoLineNumber\
+/Selected line number,GotoSelLine\
+/
+
+*menu4:\
+/6x13,WindowFont\
+/6x10,WindowFont\
+/5x8,WindowFont\
+/*clean-medium-r*6*50*,WindowFont\
+/\
+/7x13,WindowFont\
+/8x13,WindowFont\
+/9x15,WindowFont\
+/10x20,WindowFont\
+/\
+/6x13bold,WindowFont\
+/7x13bold,WindowFont\
+/8x13bold,WindowFont\
+/
+
+*menu5:\
+/Cycle colors,CycleColors\
+/About Point,About\
+/\
+/Upper case,ToUpper\
+/Lower case,ToLower\
+/\
+/Exchange sel & scrap,ExchangeSelWithScrap\
+/Copy sel to scrap,CopySelToScrap\
+/\
+/Find tag ...,GotoCTag\
+/Find selected tag,GotoCTagSel\
+/Find keyword in files,FindKeywordInFiles\
+/Find sel keyword in files,FindSelKeywordInFiles\
+/Top of file & select,MoveToBeginFileAndSelect\
+/\
+/Save unsaved files,SaveAllFiles\
+/Toggle read-only,ToggleReadOnly\
+/Insert ASCII,InsertAscii\
+/Justify lines,JustifyLines\
+/
+
+*menu6:\
++~/x/pt,CDToHere\
++~,CDToHere\
++/usr/include/X11,CDToHere\
++\
++CD to selection,CDToSel\
++
+
+*menu7:\
+/6x13bold,BrowserFont\
+/7x13bold,BrowserFont\
+/8x13bold,BrowserFont\
+/\
+/6x13,BrowserFont\
+/6x10,BrowserFont\
+/5x8,BrowserFont\
+/*clean-medium-r*6*50*,BrowserFont\
+/\
+/7x13,BrowserFont\
+/8x13,BrowserFont\
+/9x15,BrowserFont\
+/10x20,BrowserFont\
+/
+
+*menu8:\
+/Ignore case is %b,SetIgnoreCase\
+/Whole words is %b,SetFindWholeWords\
+/Lines over a find is %n,SetLinesOverFind\
+/\
+/Show file sizes is %b,SetShowSizes\
+/\
+/Over type is %b,SetOverType\
+/Autoindent is %b,SetAutoIndent\
+/Line numbering is %b,SetLineNumbers\
+/Tab width is %n,SetTabWidth\
+/Right margin is %n,SetRightMargin\
+/\
+/Searching options ...,SearchOptions\
+/Text display options ...,TextOptions\
+/File editing options ...,EditingOptions\
+/Interaction options ...,InteractionOptions\
+/Browser display options ...,BrowserOptions\
+/
+
+
+
+!!! TOP LEVEL WIDGET RESOURCES
+
+! Change this geometry specification to change the initial position
+! of the file browser window
+Pt.geometry:			483x415-0+0
+*Label.borderWidth:		0
+*borderWidth:			1
+*AsciiSrc.editType:		edit
+*dialogBox*Command.shapeStyle:	roundedRectangle
+
+
+!!! main browser window resources
+
+*browser.width:					200
+*browser.height:				300
+*browser.label.label:				File Browser
+*browser.label.translations:			#override \n\
+	<Btn1Up>: ptWidgetControl(close) \n\
+	<Btn2Down>: ptWidgetControl(move)
+!!! why doesn't this work?
+!!!*browser*fileSWindow*vertical.thickness:	6
+*browser.fileSWindow.fileList.translations:	#override \n\
+	<Btn1Down>,<Btn1Up>: Set() NewWindow(1) \n\
+	<Btn2Down>,<Btn2Up>: Set() NewWindow(2) \n\
+	<Btn3Down>,<Btn3Up>: Set() NewWindow(3)
+
+*openForm.label.label:				Point -- Open Windows
+*openForm.label.translations:			#override \n\
+	<Btn1Up>: ptCommand(ShowBrowser)
+!!! why doesn't this work?
+!!!*openForm*openSWindow*vertical.thickness:	6
+*openForm.openSWindow.openList.translations: #override \n\
+	<Btn1Down>,<Btn1Up>: Set() MakeActiveWindow() \
+			ptCommand(MoveWindow1) ptCommand(RaiseWindow) \n\
+	<Btn2Down>,<Btn2Up>: Set() MakeActiveWindow() \
+			ptCommand(MoveWindow2) ptCommand(RaiseWindow) \n\
+	<Btn3Down>,<Btn3Up>: Set() MakeActiveWindow() \
+			ptCommand(MoveWindow3) ptCommand(RaiseWindow)
+! main menu buttons
+*openForm.mainMenu*Command.internalWidth:	2
+*openForm.mainMenu*shapeStyle:			rectangle
+*openForm.mainMenu*highlightThickness:		1
+*openForm.fileSWindow.fileList.verticalList:	true
+*openForm.fileSWindow.fileList.translations:	#override \n\
+	<Btn1Down>,<Btn1Up>: Set() NewWindow(1) \n\
+	<Btn2Down>,<Btn2Up>: Set() NewWindow(2) \n\
+	<Btn3Down>,<Btn3Up>: Set() NewWindow(3)
+
+
+!!! resources for most dialog boxes
+
+*dialogBox.forceSize:				true
+*dialogBox.label.translations:			#override \n\
+	<Btn1Up>: ptWidgetControl(close) \n\
+	<Btn2Down>: ptWidgetControl(move)
+*dialogBox.text.width:				130
+*dialogBox.text.height:				20
+
+
+! resources for the replace box and verify box
+
+*replace.width:			300
+*replace.searchFor.label:	String to search for:
+*replace.replaceWith.label:	Replace with this string:
+*replace.verify.label:		Verify each replacement?
+*replace.inSelection.label:	Replace only within the current selection?
+*replace.beginReplace.label:	Begin Replacing
+*replace.close.label:		Close This Dialog Box
+
+*verifyPaned.width:		185
+*verifyPaned.verifyLabel.label:	Replace inactive
+*verifyPaned.findNext.label:	Find Next (do not replace)
+*verifyPaned.repNext.label:	Replace and Find Next
+*verifyPaned.repAll.label:	Replace All
+*verifyPaned.close.label:	Close This Dialog Box
+
+*quitPaned.width:		400
+*quitPaned.quitLabel.height:	40
+*quitPaned.quitLabel.label:	**** There are unsaved files ****
+*quitPaned.quitSave.label:	Quit and save all unsaved files
+*quitPaned.quitAsk.label:	Quit and ask about each unsaved file
+*quitPaned.quitNosave.label:	Quit and do not save any files
+*quitPaned.cancelQuit.label:	Cancel quit and return to Point
+
+
+!!! resources for the keyword dialog box
+
+*keyword.width:			280
+*keyword.label.label:		Keyword to search for:
+*keyword.findAll.label:		Find All Files Containing The Keyword
+*keyword.count.label:		File count
+*keyword*filesVP.min:		200
+*keyword.close.label:		Close This Window
+
+
+!!! resources for the options (preferences) boxes
+
+*doneButton.label:		Dismiss this dialog box
+*bitmapFilePath:		:/nfs/unmvax/faculty/crowley
+!*toggleToggle.bitmap:		toggle.off
+*toggleToggle.label:
+*toggleBox.orientation:		horizontal
+
+*options.label.string:		SET OPTIONS
+*options*Box.hSpace:		3
+*options*Box.vSpace:		3
+*options*Box.layoutType:	requested_columns
+*options*Box.columns:		1
+*options*Box.forceSize:		true
+*options*Box.mode:		one_of_many
+
+*browserOptions.label.label:		SET BROWSER OPTIONS
+*browserOptions*textEntry.width:	200
+*browserOptions*Box.hSpace:		3
+*browserOptions*Box.vSpace:		3
+*browserOptions*Box.layoutType:		requested_columns
+*browserOptions*Box.columns:		1
+*browserOptions*Box.forceSize:		true
+*browserOptions*Box.mode:		one_of_many
+
+*interactionOptions.label.label:	SET INTERACTION OPTIONS
+*interactionOptions*textEntry.width:	50
+*interactionOptions*Box.hSpace:		3
+*interactionOptions*Box.vSpace:		3
+*interactionOptions*Box.layoutType:	requested_columns
+*interactionOptions*Box.columns:	1
+*interactionOptions*Box.forceSize:	true
+*interactionOptions*Box.mode:		one_of_many
+
+*editingOptions.label.label:		SET FILE EDITING OPTIONS
+*editingOptions*textEntry.width:	50
+*editingOptions*backupDir.textEntry.width:	200
+*editingOptions*Box.hSpace:		3
+*editingOptions*Box.vSpace:		3
+*editingOptions*Box.layoutType:		requested_columns
+*editingOptions*Box.columns:		1
+*editingOptions*Box.forceSize:		true
+*editingOptions*Box.mode:		one_of_many
+
+*searchOptions.label.label:		SET SEARCH OPTIONS
+*searchOptions*textEntry.width:		50
+*searchOptions*Box.hSpace:		3
+*searchOptions*Box.vSpace:		3
+*searchOptions*Box.layoutType:		requested_columns
+*searchOptions*Box.columns:		1
+*searchOptions*Box.forceSize:		true
+*searchOptions*Box.mode:		one_of_many
+
+*textOptions.label.label:		SET TEXT OPTIONS
+*textOptions*textEntry.width:		50
+*textOptions*defaultFont.textEntry.width:	140
+*textOptions*Box.hSpace:		3
+*textOptions*Box.vSpace:		3
+*textOptions*Box.layoutType:		requested_columns
+*textOptions*Box.columns:		1
+*textOptions*Box.forceSize:		true
+*textOptions*Box.mode:			one_of_many
+
+
+!!! resources for a text window
+
+*windowForm.windowTitle.translations:			#override \n\
+	<Btn1Up>: ptCommand(RaiseWindow) \n\
+	Shift<Btn1Down>: ptCommand(MoveWindow) \n\
+	Shift<Btn2Up>: ptCommand(ResizeWindow) \n\
+	<Btn2Up>: ptCommand(LowerWindow) \n\
+	<Btn3Up>: ptCommand(ZoomVertical)
+! menu buttons
+*windowForm.windowMenu*MenuButton.internalWidth:	1
+*windowForm.windowMenu*Command.internalWidth:		2
+*windowForm.windowMenu*shapeStyle:			rectangle
+*windowForm.windowMenu*highlightThickness:		1
+
+*windowMenu*<<.translations:	#override \n\
+	<Key>:      ptSearchLetter() \n\
+	<Btn1Up>: ptCommand(SearchBackForSel) \n\
+	<Btn2Up>: ptCommand(SearchForString) \n\
+	<Btn3Up>: ptCommand(SearchForString)
+*windowMenu*>>.translations:	#override \n\
+	<Key>:      ptSearchLetter() \n\
+	<Btn1Up>: ptCommand(SearchForSel) \n\
+	<Btn2Up>: ptCommand(SearchForString) \n\
+	<Btn3Up>: ptCommand(SearchForString)
+*windowMenu*Close.translations:	#override \n\
+	<Btn1Up>: ptCommand(CloseWindow) \n\
+	<Btn2Up>: ptCommand(RingBell) \n\
+	<Btn3Up>: ptCommand(RingBell)
+*windowMenu*Del.translations:	#override \n\
+	<Btn1Up>: ptCommand(DeleteSel) \n\
+	<Btn2Up>: ptCommand(RingBell) \n\
+	<Btn3Up>: ptCommand(RingBell)
+*windowMenu*Ins.translations:	#override \n\
+	<Btn1Up>: ptCommand(InsertScrap) \n\
+	<Btn2Up>: ptCommand(RingBell) \n\
+	<Btn3Up>: ptCommand(RingBell)
+*windowMenu*InsX.translations:	#override \n\
+	<Btn1Up>: ptCommand(InsertSel) \n\
+	<Btn2Up>: ptCommand(RingBell) \n\
+	<Btn3Up>: ptCommand(RingBell)
+*windowMenu*Again.translations:	#override \n\
+	<Btn1Up>: ptCommand(Again) \n\
+	<Btn2Up>: ptCommand(RingBell) \n\
+	<Btn3Up>: ptCommand(RingBell)
+*windowMenu*Undo.translations:	#override \n\
+	<Btn1Up>: ptCommand(UndoOne) \n\
+	<Btn2Up>: ptCommand(UndoMany) \n\
+	<Btn3Up>: ptCommand(UndoMany)
+*windowMenu*Redraw.translations: #override \n\
+	<Btn1Up>: ptCommand(RedrawWindow) \n\
+	<Btn2Up>: ptCommand(RingBell) \n\
+	<Btn3Up>: ptCommand(RingBell)
+*windowMenu*Last.translations:	#override \n\
+	<Btn1Up>: ptCommand(MoveToLastPlace) \n\
+	<Btn2Up>: ptCommand(RingBell) \n\
+	<Btn3Up>: ptCommand(RingBell)
+*windowForm.textForm.windowVBar.thickness:	10
+
+!!! text window function key definitions
+
+! If you have more function keys you may want to change these.
+! My SUN keyboard has L keys and R keys that I also use.
+*windowForm.textForm.windowText.translations: #override \n\
+	<Expose>:    repaint() \n\
+	<GrExp>:     repaint() \n\
+	<Configure>: WorkspaceResized() \n\
+	<BtnDown>:   GetMouseButton() \n\
+	<BtnUp>:     GetMouseButton() \n\
+	<Motion>:    MouseMotion() \n\
+	<Key>F1:     ptCommand(DeleteSel) \n\
+	<Key>F2:     ptCommand(InsertScrap) \n\
+	<Key>F3:     ptCommand(SearchBackForSel) \n\
+	<Key>F4:     ptCommand(SearchForSel) \n\
+	<Key>F5:     ptCommand(MoveToBeginLine) \n\
+	<Key>F6:     ptCommand(MoveToEndLine) \n\
+	<Key>F7:     ptCommand(UndoOne) \n\
+	<Key>F8:     ptCommand(UndoMany) \n\
+	<Key>F9:     ptCommand(Again) \n\
+	<Key>Up:     ptCommand(MoveUp) \n\
+	<Key>Left:   ptCommand(MoveLeft) \n\
+	<Key>Right:  ptCommand(MoveRight) \n\
+	<Key>Down:   ptCommand(MoveDown) \n\
+	<Key>:       GetKeystrokes()
+*windowForm.textForm.windowHBar.thickness:		6

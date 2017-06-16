@@ -1,0 +1,4 @@
+file=`ls -t | head -n 1`
+echo "------- $file -------"
+sleep 1
+tail -f $file

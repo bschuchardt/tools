@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "...git pull"
+git pull
+if [ $? -eq 0 ]; then
+  if [ -d open ]; then
+    echo "...cd open; git pull"
+    cd open; git pull
+  fi
+fi

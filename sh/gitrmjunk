@@ -1,0 +1,8 @@
+#!/bin/bash
+STATUS=~/tmp/gitstatus.tmp
+FILES=~/tmp/gitjunk.tmp
+rm -f $STATUS $FILES
+LANG=en_US.UTF-8
+git status -s >$STATUS
+cat $STATUS | fgrep "?? " | grep -v "transferhost" | cut -c3- >>$FILES
+cat $FILES | sed -e "s/^/rm -rf /" | emx -

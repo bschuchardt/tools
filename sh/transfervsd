@@ -1,0 +1,5 @@
+#!/bin/sh
+rm -f ~/devel/tmp/gfs.zip
+zip ~/devel/tmp/gfs.zip */*gfs
+scp gfs.zip $LAPADDR:vsdtmp
+echo "gfz.zip transferred to laptop in ~/vsdtmp directory"

@@ -1,0 +1,34 @@
+#!/bin/bash
+exec 2>&1
+exec >untilfail.log
+thisdir=$PWD
+typeset -i n
+n=${1:0}
+typeset -i i
+i=0
+rm -f stop.txt
+delp=$cmds/delpasses
+while [ ! -r stop.txt \
+     -a ! -r *-*-*/errors.txt \
+     -a ! -r *-*-*/hang.txt \
+     -a ! -r *-*-*/thread_dependency_graph.ser ]; do
+i=$((i + 1))
+if [ ${n} -gt 0 ]; then
+  if [ ${i} -gt ${n} ]; then
+    echo "that was the last run"
+    exit 0
+  fi
+fi
+thetime=`date`
+echo "run #$i------------------------ $thetime"
+runbatterytest
+if [ -r stop.txt ]; then
+  exit 0
+fi
+$delp
+rm -f summ-*
+if [ ! -d $thisdir ]; then
+  exit 1
+fi
+sleep 10
+done

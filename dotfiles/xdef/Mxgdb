@@ -1,0 +1,120 @@
+!
+! $Id: Mxgdb.ad,v 1.13 1991/08/23 16:34:25 jtsillas Exp $
+!
+!! bjs - my additions
+*defaultFontList:	*-helvetica-bold-r-*-120-75-75-*-*-iso8859-1
+
+Mxgdb*fontList:-adobe-helvetica-bold-r-normal--12-120-75-75-p-70-iso8859-1
+!
+! useCommandDialog (false by default) creates a popup dialog to contain your
+! command buttons rather than putting them beside the source window.
+!
+Mxgdb*useCommandDialog:	false
+!
+!	fileWindow - contains the filename and linenumber labels.
+!		fileLabel - the label for the current file.
+!		lineLabel - the laebl for the current line-number.
+!
+Mxgdb*fileWindow.height:	15
+Mxgdb*fileWindow*fileLabel.borderWidth:	0
+Mxgdb*fileWindow*lineLabel.borderWidth:	0
+!
+! sourceScroll - the scrolled window containing the sourceForm.
+!
+Mxgdb*sourceScroll.paneMinimum:	100
+!
+! The source form is the FormWidget containing the sourceWindow, the
+! command buttons and the arrow/stopsign/etc. labels.
+!
+Mxgdb*sourceForm.borderWidth:	0
+Mxgdb*sourceForm.shadowThickness:	3
+Mxgdb*sourceForm.width:		800
+!
+! The source window is the TextWidget with the source text.
+!
+Mxgdb*sourceWindow.borderWidth:	0
+Mxgdb*sourceWindow.highlightThickness:	0
+Mxgdb*sourceWindow.shadowThickness:	3
+Mxgdb*sourceWindow.rows:		19
+Mxgdb*sourceWindow.marginWidth:	5
+Mxgdb*sourceWindow.fontList:	9x15
+Mxgdb*sourceWindow.translations: #override \
+	Shift<Btn1Down>,Shift<Btn1Up>: SelectWord() Update(warp) \n\
+	<Btn1Down>: SelectStart() \n\
+	<Btn1Motion>: SelectAdjust() \n\
+	<Btn1Up>: SelectEnd() Update(warp) \n\
+	<Key>osfUp: process-up() Update() \n\
+	<Key>osfDown: process-down() Update() \n\
+	<Key>osfLeft: backward-character() Update() \n\
+	<Key>osfRight: forward-character() Update() \n\
+	<Key>osfPageDown: next-page() Update(warp) \n\
+	<Key>osfPageUp:	previous-page() Update(warp) \n\
+	Ctrl<Key>osfPageUp:	page-left() Update(warp) \n\
+	Ctrl<Key>osfPageDown:	page-right() Update(warp) \n\
+	Ctrl<Key>osfBeginLine:	beginning-of-file() Update() \n\
+	Ctrl<Key>osfEndLine:	end-of-file() Update()
+!
+! These translations reset the bounds for the sign placement
+! vpane is the paned window widget.
+!
+Mxgdb*vpane*sash.translations: #override \
+	<Btn1Up>:	SashAction(Commit) resetLineBounds() \n\
+	<Btn2Up>:	SashAction(Commit) resetLineBounds()
+!
+! The message window echoes the gdb result lines.
+!
+Mxgdb*messageWindow.height:	25
+!
+! The dialog Window is the text command line window. dialogWindowSW is the
+! Scrolled Window parent of the TextWidget.
+!
+Mxgdb*dialogWindowSW.paneMinimum:	50
+Mxgdb*dialogWindow.height:	200
+Mxgdb*dialogWindow.fontList:	9x15
+Mxgdb*dialogWindow.translations:	#override \
+	Shift<Btn1Down>,Shift<Btn1Up>: SelectWord() \n\
+	<Btn1Down>:	SelectStart() \n\
+	<Btn1Motion>: SelectAdjust() \n\
+	<Btn1Up>:	SelectEnd()\n\
+	<Btn2Down>:	InsertSelection() copy-primary() \n\
+ 	Ctrl<Key>C:	SigInt()\n\
+ 	Ctrl<Key>D:	SigEof()\n\
+ 	Ctrl<Key>|:	SigQuit()\n\
+	<Key>osfBackSpace: InsertSpace() delete-previous-character() \n\
+ 	<Key>Return:	end-of-file() newline() Dispatch() \n\
+	<Key>:		end-of-file() self-insert()
+!
+| The displayWindow is the scrolled text wigdet within displayWindowFD
+! which is the FormDialog widget.
+!
+Mxgdb*displayWindow.translations:	#override \n\
+		<Btn1Up>:	set-insertion-point() SelectVar()
+Mxgdb*displayWindowFD.height:		150
+Mxgdb*displayWindowFD.width:		100
+Mxgdb*displayWindow.fontList:		9x15
+!
+! File Selector Box Settings
+!
+!Mxgdb*fileSelectorBox
+!
+! End
+
+Mxgdb*topMenuBar*shadowWidth: 3
+Mxgdb*topMenuBar*background: cyan
+Mxgdb*topMenuBar*fontList: *-helvetica-bold-r-normal--14-*
+Mxgdb*XmPushButton.shadowThickness: 4
+Mxgdb*XmPushButton.background: grey85
+Mxgdb*XmPushButton.foreground: black
+Mxgdb*XmPushButtonGadget.shadowThickness: 4
+Mxgdb*XmPushButtonGadget.background: grey85
+Mxgdb*XmPushButtonGadget.foreground: black
+Mxgdb*XmText.background: grey95
+Mxgdb*XmForm.background: grey85
+Mxgdb.stop_color: black
+Mxgdb.arrow_color: blue
+Mxgdb.updown_color: black
+Mxgdb.bomb_color: black
+Mxgdb*XmList.background: grey95
+Mxgdb*XmScrolledList.background: grey95
+Mxgdb*background: grey85
+

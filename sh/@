@@ -1,0 +1,6 @@
+#!/bin/sh
+thejob=$1
+shift 1
+at now <<END
+$thejob "$@"
+END

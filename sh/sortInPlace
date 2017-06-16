@@ -1,0 +1,3 @@
+#!/bin/sh
+sort ${1} >_sortInPlaceTemp.srt
+mv _sortInPlaceTemp.srt ${1}

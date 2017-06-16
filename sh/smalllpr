@@ -1,0 +1,5 @@
+#!/bin/sh
+set +x
+for x in $*; do
+  a2ps -p -ns -nh -f8 $x | lpr
+done

@@ -1,0 +1,2 @@
+# mount my PC disk - requires nfs daemon running on the PC
+super mount -F nfs puck:/puck1 /dirt1/users/bruce/pdev

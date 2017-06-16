@@ -1,0 +1,13 @@
+#!/bin/sh
+git pull
+if [ -d open ]; then
+  cd open
+  if [ -r pull.sh ]; then
+    ./pull.sh
+  else
+    git pull
+  fi
+elif [ -d ../closed ]; then
+  cd ..
+  git pull
+fi

@@ -1,0 +1,69 @@
+#!/bin/bash
+if [ x"$1" = x ]; then
+  echo "hydracopy [bugdir] destdir"
+  echo "if bugdir is specified, destdir should be an absolute path"
+  exit 1
+fi
+if [ x"$2" != x ]; then
+  echo "copying from $1 to $2"
+  bugdir=${1}
+  if [ ! -d $bugdir ]; then
+    "bug directory not found"
+    exit 2
+  fi
+  cd $bugdir
+  shift 1
+  noedit=true
+fi
+destdir=${1}
+if [ ! -d ${destdir} ]; then
+  echo "creating target directory ${destdir}"
+  mkdir ${destdir}
+fi
+
+bugdirname=`filename $PWD`
+echo "linking bug directory into target directory as bugdir/$bugdirname"
+rm -rf ${destdir}/bugdir
+mkdir ${destdir}/bugdir
+ln -s $PWD ${destdir}/bugdir/$bugdirname
+
+if [ -r local.conf ]; then
+  echo "copying local.conf into target directory"
+  cp local.conf ${destdir}
+  chmod u+w ${destdir}/local.conf
+fi
+
+# get the test configuration that was used in the hydra test.
+# usually there's a .prop file that has the configuration
+propfile=`ls *.prop | grep -v latest.prop`
+if [ x"$propfile" != x ]; then
+  cat $propfile | sed -e "s/testName=//" >>${destdir}/tests.bt
+else
+  cat latest.prop | head -2 | sed -e "s/testName=//" >> ${destdir}/tests.bt
+fi
+echo "created ${destdir}/tests.bt"
+
+seed=`grep -m 1 hydra.Prms-randomSeed latest.conf`
+if [ x"$seed" == x ]; then
+  if [ -r Master*.log ]; then
+    seed=`grep -m 1 hydra.Prms-randomSeed Master*.log`
+  elif [ -r Master*.log.gz ]; then
+    seed=`zcat Master*.log.gz | grep -m 1 hydra.Prms-randomSeed`
+  fi
+fi
+echo "${seed};" >> ${destdir}/local.conf
+cat ~/sdevel/testing/conf/verbose >>${destdir}/local.conf
+echo "created ${destdir}/local.conf"
+
+if [ x"$noedit" == x ]; then
+  echo "opening editor..."
+  sleep 2
+
+ if [ x"$VISUAL" != x ]; then
+   $VISUAL ${destdir}/local.conf ${destdir}/tests.bt
+  else
+   vi ${destdir}/local.conf ${destdir}/tests.bt
+  fi
+fi
+
+echo "test config has been copied to ${destdir}"

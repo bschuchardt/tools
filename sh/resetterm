@@ -1,0 +1,3 @@
+reset
+echo '8[;r='
+echo '[;H[J'

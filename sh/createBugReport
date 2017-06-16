@@ -1,0 +1,7 @@
+#!/bin/sh
+rm -f bugReportTemplate.txt
+java -cp $build/tests/classes:$GEMFIRE/lib/gemfire.jar:$HOME/usr/classes \
+  resultsUtil.BugReportTemplate
+if [ -r bugReportTemplate.txt ]; then
+  ${VISUAL:-vi} bugReportTemplate.txt
+fi

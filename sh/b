@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ $mtype -eq 50 ]; then
+  is64=`uname -a | grep x86_64`
+  if [ x"$is64" != x ]; then
+    b64 "$@"
+  else
+    b32 "$@"
+  fi
+else
+  $localbin/b64 "$@"
+fi
+

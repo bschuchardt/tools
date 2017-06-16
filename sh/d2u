@@ -1,0 +1,10 @@
+#!/bin/sh
+T=${TMPDIR:-/tmp}
+for x in $@; do
+    if [ ! -d $x ]; then
+        # f=`strippath "$x"`
+        echo $x
+        dos2unix -ascii "$x"
+        # mv "$T/$f" "$x"
+    fi
+done

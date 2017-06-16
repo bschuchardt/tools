@@ -1,0 +1,65 @@
+#! /usr/bin/bash
+#
+###########################################################################
+#
+# diskusage - Utility to find all files larger than a given size with
+#             the option of being older than a given number of days
+#
+#  edit history - changes to report in K bytes
+#		   and to print sizes as integers   - 29 Apr / A.O.
+###########################################################################
+typeset -i blocks
+typeset -i bytes
+#
+# Check to see if we were given any arguments - use defaults
+if [ $# = 0 ]; then
+   echo "usage:  diskusage fileSystem [ thresholdInBlocks [ ageInDays ] ] "
+   exit 1
+else
+
+   #
+   # Take first parameter and use as blocks
+   device=$1
+
+   # If we were given blocks, then use them
+   if [ "$2" != "" ]; then
+      blocks=$2
+   else
+      blocks=2000
+   fi
+
+   #
+   # If we were given days, then use them
+   if [ "$3" != "" ]; then
+      days=$3
+   else
+      days=2
+   fi
+
+fi
+bytes=$blocks*1024
+dirblocks=$blocks
+echo "Device = "$device" "
+echo "Bytes = "$bytes" "
+echo "Blocks ="$blocks" "
+# 
+# Print the report for the device
+#
+echo ""
+echo "Large files on "$device" ( Size > "$blocks"K, Older than "$days" days)"
+echo ""
+echo "Owner     Size(K)     Date          Filename"
+echo "--------  --------    ------------  --------"
+find $device  \( \! -mtime -$days \) -exec ls -gilds {} \; | \
+awk '$7 > '$bytes' { printf("%-8s  %8s k  %3s %2s %5s  %-40s\n", \
+             $5, ($7 - ($7%1024))/1024, $8, $9, $10, $11) }'
+#
+# now find large directories for  the device 
+#
+echo ""
+echo "Blocks      Path    - Large directories on "$device" "
+echo "-------     -----"
+du $device | \awk '$1 > '$dirblocks' { printf("%8s    %-40s\n",  $1, $2) }'
+#
+#
+

@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+#  Author: Bruce Schuchardt, 4/2013
+#
+
+if [ -r discovery.dat ]; then
+  locators=`cat discovery.dat | cut -d, -f1`
+  #ds=`fgrep $x discovery.dat | cut -d, -f2`
+  set -v
+  set -x
+  gfsh -e "connect --locator=$locators"
+else
+  gfsh
+fi
+swn

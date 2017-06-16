@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ $mtype -eq 50 ]; then
+  hn=`hostname`
+  if [ x"$OLDcolor" != x -o $hn = "carlos" -o $hn = "pippin" ]; then
+    oldcolor=".old"
+  else
+    oldcolor=""
+  fi
+  $localbin/color${oldcolor} "$@"
+else
+  $localbin/color "$@"
+fi

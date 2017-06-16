@@ -1,0 +1,189 @@
+! $Header: /usr/local/src/X11/contrib/clients/kterm-4.1.2/RCS/KTerm.ad,v 1.3 1991/01/16 07:02:55 mleisher Exp $
+
+*SimpleMenu*BackingStore:	NotUseful
+*SimpleMenu*menuLabel.font:	-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-iso*-*
+*SimpleMenu*menuLabel.vertSpace: 	100
+*SimpleMenu*HorizontalMargins:	16
+*SimpleMenu*Sme.height:		16
+
+*SimpleMenu*Cursor:		left_ptr
+*mainMenu.Label:		Main Options
+*mainMenu*securekbd*Label:	Secure Keyboard
+*mainMenu*allowsends*Label:	Allow SendEvents
+*mainMenu*logging*Label:	Log to File
+*mainMenu*redraw*Label:		Redraw Window
+*mainMenu*suspend*Label:	Send STOP Signal
+*mainMenu*continue*Label:	Send CONT Signal
+*mainMenu*interrupt*Label:	Send INT Signal
+*mainMenu*hangup*Label:		Send HUP Signal
+*mainMenu*terminate*Label:	Send TERM Signal
+*mainMenu*kill*Label:		Send KILL Signal
+*mainMenu*quit*Label:		Quit
+
+*vtMenu.Label:			VT Options
+*vtMenu*scrollbar*Label:	Enable Scrollbar
+*vtMenu*jumpscroll*Label:	Enable Jump Scroll
+*vtMenu*reversevideo*Label:	Enable Reverse Video
+*vtMenu*autowrap*Label:		Enable Auto Wraparound
+*vtMenu*reversewrap*Label:	Enable Reverse Wraparound
+*vtMenu*autolinefeed*Label:	Enable Auto Linefeed
+*vtMenu*appcursor*Label:	Enable Application Cursor Keys
+*vtMenu*appkeypad*Label:	Enable Application Keypad
+*vtMenu*scrollkey*Label:	Scroll to Bottom on Key Press
+*vtMenu*scrollttyoutput*Label:	Scroll to Bottom on Tty Output
+*vtMenu*allow132*Label:		Allow 80/132 Column Switching
+*vtMenu*cursesemul*Label:	Enable Curses Emulation
+*vtMenu*visualbell*Label:	Enable Visual Bell
+*vtMenu*marginbell*Label:	Enable Margin Bell
+*vtMenu*tabpres*Label:		Enable TAB Preservation
+*vtMenu*nlpres*Label:		Enable NL Preservation
+*vtMenu*altscreen*Label:	Show Alternate Screen
+*vtMenu*softreset*Label:	Do Soft Reset
+*vtMenu*hardreset*Label:	Do Full Reset
+*vtMenu*tekshow*Label:		Show Tek Window
+*vtMenu*tekmode*Label:		Switch to Tek Mode
+*vtMenu*vthide*Label:		Hide VT Window
+*vtMenu*statusline*Label:	Enable Status Line
+*vtMenu*reversestatus*Label:	Status Line Reverse Video
+*vtMenu*eucmode*Label:		EUC Kanji Mode
+*vtMenu*sjismode*Label:		Shift-JIS Kanji Mode
+*vtMenu*sgbmode*Label:		Shift-GB Hanzi Mode
+*vtMenu*big5mode*Label:		Big5 Hanzi Mode
+*vtMenu*ksmode*Label:		KS Hangul Mode
+*vtMenu*nbmode*Label:		N-Byte Hangul Mode
+
+*fontMenu.Label:		VT Fonts
+*fontMenu*fontdefault*Label:	Default
+*VT100*font:			8x16
+!*VT100*kanjiFont:		kanji16
+!*VT100*kanjiFont:		jsong24
+*VT100*kanjiFont:		jming16
+*VT100*hanziFont:		beijing16
+*VT100*hangulFont:		h16myungjo
+
+!*VT100*fontList:		-*-fixed-medium-r-normal--14-*
+!*VT100*font:			-*-fixed-medium-r-normal--14-*-iso8859-1
+!*VT100*romanKanaFont:		-*-fixed-medium-r-normal--14-*-jisx0201.1976-0
+!*VT100*kanjiFont:		-*-fixed-medium-r-normal--14-*-jisx0208.1983-0
+!*VT100*hanziFont:		-*-fixed-medium-r-normal--14-*-gb2312.1980-0
+!*VT100*hangulFont:		-*-fixed-medium-r-normal--14-*-ksc5601.1987-0
+!*VT100*boldFontList:		-*-fixed-bold-r-normal--14-*
+!*VT100*boldFont:		-*-fixed-bold-r-normal--14-*-iso8859-1
+!*VT100*romanKanaBoldFont:	-*-fixed-bold-r-normal--14-*-jisx0201.1976-0
+!*VT100*kanjiBoldFont:		-*-fixed-bold-r-normal--14-*-jisx0208.1983-0
+!*VT100*hanziBoldFont:		-*-fixed-bold-r-normal--14-*-gb2312.1980-0
+!*VT100*hangulBoldFont:		-*-fixed-bold-r-normal--14-*-ksc5601.1987-0
+
+*fontMenu*font1*Label:		Tiny
+!*VT100*fontList1:		-*-fixed-medium-r-normal--2-*
+!*VT100*font1:			-*-fixed-medium-r-normal--2-*-iso8859-1
+!*VT100*romanKanaFont1:		-*-fixed-medium-r-normal--2-*-jisx0201.1976-0
+!*VT100*kanjiFont1:		-*-fixed-medium-r-normal--2-*-jisx0208.1983-0
+!*VT100*hanziFont1:		-*-fixed-medium-r-normal--2-*-gb2312.1980-0
+!*VT100*hangulFont1:		-*-fixed-medium-r-normal--2-*-ksc5601.1987-0
+!*VT100*boldFontList1:		-*-fixed-bold-r-normal--2-*
+!*VT100*boldFont1:		-*-fixed-bold-r-normal--2-*-iso8859-1
+!*VT100*romanKanaBoldFont1:	-*-fixed-bold-r-normal--2-*-jisx0201.1976-0
+!*VT100*kanjiBoldFont1:		-*-fixed-bold-r-normal--2-*-jisx0208.1983-0
+!*VT100*hanziBoldFont1:		-*-fixed-bold-r-normal--2-*-gb2312.1980-0
+!*VT100*hangulBoldFont1:	-*-fixed-bold-r-normal--2-*-ksc5601.1987-0
+
+*fontMenu*font2*Label:		Small
+*VT100*font2:			a14
+*VT100*kanjiFont2:		k14
+
+!*VT100*fontList2:		-*-fixed-medium-r-normal--14-*
+!*VT100*font2:			-*-fixed-medium-r-normal--14-*-iso8859-1
+!*VT100*romanKanaFont2:		-*-fixed-medium-r-normal--14-*-jisx0201.1976-0
+!*VT100*kanjiFont2:		-*-fixed-medium-r-normal--14-*-jisx0208.1983-0
+!*VT100*hanziFont2:		-*-fixed-medium-r-normal--14-*-gb2312.1980-0
+!*VT100*hangulFont2:		-*-fixed-medium-r-normal--14-*-ksc5601.1987-0
+!*VT100*boldFontList2:		-*-fixed-bold-r-normal--14-*
+!*VT100*boldFont2:		-*-fixed-bold-r-normal--14-*-iso8859-1
+!*VT100*romanKanaBoldFont2:	-*-fixed-bold-r-normal--14-*-jisx0201.1976-0
+!*VT100*kanjiBoldFont2:		-*-fixed-bold-r-normal--14-*-jisx0208.1983-0
+!*VT100*hanziBoldFont2:		-*-fixed-bold-r-normal--14-*-gb2312.1980-0
+!*VT100*hangulBoldFont2:	-*-fixed-bold-r-normal--14-*-ksc5601.1987-0
+
+*fontMenu*font3*Label:		Medium
+*VT100*font3:			8x16
+*VT100*kanjiFont3:		kanji16
+*VT100*hanziFont3:		beijing16
+*VT100*hangulFont3:		h16myungjo
+
+!*VT100*fontList3:		-*-fixed-medium-r-normal--18-*
+!*VT100*font3:			-*-fixed-medium-r-normal--18-*-iso8859-1
+!*VT100*romanKanaFont3:		-*-fixed-medium-r-normal--18-*-jisx0201.1976-0
+!*VT100*kanjiFont3:		-*-fixed-medium-r-normal--18-*-jisx0208.1983-0
+!*VT100*hanziFont3:		-*-fixed-medium-r-normal--18-*-gb2312.1980-0
+!*VT100*hangulFont3:		-*-fixed-medium-r-normal--18-*-ksc5601.1987-0
+!*VT100*boldFontList3:		-*-fixed-bold-r-normal--18-*
+!*VT100*boldFont3:		-*-fixed-bold-r-normal--18-*-iso8859-1
+!*VT100*romanKanaBoldFont3:	-*-fixed-bold-r-normal--18-*-jisx0201.1976-0
+!*VT100*kanjiBoldFont3:		-*-fixed-bold-r-normal--18-*-jisx0208.1983-0
+!*VT100*hanziBoldFont3:		-*-fixed-bold-r-normal--18-*-gb2312.1980-0
+!*VT100*hangulBoldFont3:	-*-fixed-bold-r-normal--18-*-ksc5601.1987-0
+
+*fontMenu*font4*Label:		Large
+*VT100*font4:			12x24
+*VT100*kanjiFont4:		kanji24
+*VT100*hanziFont4:		beijing24
+
+!*VT100*fontList4:		-*-fixed-medium-r-normal--26-*
+!*VT100*font4:			-*-fixed-medium-r-normal--26-*-iso8859-1
+!*VT100*romanKanaFont4:		-*-fixed-medium-r-normal--26-*-jisx0201.1976-0
+!*VT100*kanjiFont4:		-*-fixed-medium-r-normal--26-*-jisx0208.1983-0
+!*VT100*hanziFont4:		-*-fixed-medium-r-normal--26-*-gb2312.1980-0
+!*VT100*hangulFont4:		-*-fixed-medium-r-normal--26-*-ksc5601.1987-0
+!*VT100*boldFontList4:		-*-fixed-bold-r-normal--26-*
+!*VT100*boldFont4:		-*-fixed-bold-r-normal--26-*-iso8859-1
+!*VT100*romanKanaBoldFont4:	-*-fixed-bold-r-normal--26-*-jisx0201.1976-0
+!*VT100*kanjiBoldFont4:		-*-fixed-bold-r-normal--26-*-jisx0208.1983-0
+!*VT100*hanziBoldFont4:		-*-fixed-bold-r-normal--26-*-gb2312.1980-0
+!*VT100*hangulBoldFont4:	-*-fixed-bold-r-normal--26-*-ksc5601.1987-0
+
+!fontescape and fontsel overridden by application
+*fontMenu*fontescape*Label:	Escape Sequence
+*fontMenu*fontsel*Label:	Selection
+
+*VT100*language:		japanese
+!*VT100*kanjiMode:		jis
+*VT100*kanjiMode:		euc
+*VT100*hanziMode:		guobiao
+*VT100*hangulMode:		ks-8bit
+
+!The following three resources are the path/file names of the GuoBiao
+!<-> Big5 conversion tables and the Hangul N-byte <-> 8-bit KS
+!conversion table.  They cannot be set from the command line.
+
+*VT100*hanziGbToBigTable:	/usr/local/lib/X11/kterm/g2b.table
+*VT100*hanziBigToGbTable:	/usr/local/lib/X11/kterm/b2g.table
+*VT100*hangulNtoKSTable:	/usr/local/lib/X11/kterm/n2ks.table
+
+*VT100*lineSpace:		0
+
+*VT100*Color0:			Black
+*VT100*Color1:			Red
+*VT100*Color2:			Green
+*VT100*Color3:			Yellow
+*VT100*Color4:			Blue
+*VT100*Color5:			Magenta
+*VT100*Color6:			Cyan
+*VT100*Color7:			White
+
+*tekMenu.Label:			Tek Options
+*tekMenu*tektextlarge*Label:	Large Characters
+*tekMenu*tektext2*Label:	#2 Size Characters
+*tekMenu*tektext3*Label:	#3 Size Characters
+*tekMenu*tektextsmall*Label:	Small Characters
+*tekMenu*tekpage*Label:		PAGE
+*tekMenu*tekreset*Label:	RESET
+*tekMenu*tekcopy*Label:		COPY
+*tekMenu*vtshow*Label:		Show VT Window
+*tekMenu*vtmode*Label:		Switch to VT Mode
+*tekMenu*tekhide*Label:		Hide Tek Window
+
+*tek4014*fontLarge:		9x15
+*tek4014*font2:			8x13
+*tek4014*font3:			6x13
+*tek4014*fontSmall:		6x10

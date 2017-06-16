@@ -1,0 +1,10 @@
+#!/bin/sh
+
+function mkdh {
+  if [ x"${1}" != x  -a ! -d ${1} ]; then
+    mkdh `dirname ${1}`
+    mkdir ${1}
+  fi
+}
+
+mkdh ${1}

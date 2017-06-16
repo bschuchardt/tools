@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ x"$1" = x"-i" ]; then
+find . -name "*.xml" -follow -exec fgrep -li "$2" $3 $4 {} \;
+else
+find . -name "*.xml" -follow -exec fgrep -l "$1" $2 $3 {} \;
+fi

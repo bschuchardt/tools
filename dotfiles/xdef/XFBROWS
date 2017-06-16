@@ -1,0 +1,8 @@
+
+xbrows*geometry:		-10-10
+xbrows*icongeom:		+700+10
+xbrows*foreground:		black
+xbrows*background:		white
+xbrows*borderwidth:		2
+xbrows*iconic:			false
+

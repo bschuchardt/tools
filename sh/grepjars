@@ -1,0 +1,18 @@
+if [ x"$2" != x ]; then
+  jars=$1/*.jar
+  shift
+else
+  jars=$GEMFIRE/lib/gemfire.jar
+#elif [ -r $GEMSTONE/jre ]; then
+#  jars="$GEMSTONE/jre/lib/ext/*.jar $GEMSTONE/jre/lib/*.jar"
+#else
+#  jars="$GEMSTONE/lib/*.jar"
+fi
+for x in $jars; do
+res=`unzip -v $x | grep "$@"`
+if [ x"$res" != x ]; then
+    echo "-------- $x"
+    unzip -v $x | grep "$@"
+    #echo $res
+fi
+done

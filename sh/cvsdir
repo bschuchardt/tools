@@ -1,0 +1,33 @@
+#!/bin/sh
+#set -v
+#set -x
+
+if [ x"$1" = x"+help" -o x"$1" = x"-help" ]; then
+  me=`basename $0`
+  echo $me:" This is a shell script to echo the cvs directory"    1>&2
+  echo $me:" corresponding to the current working directory for"  1>&2
+  echo $me:" the version of cvs used in this directory."          1>&2
+  echo $me:" To force echoing of the root of a specific version," 1>&2
+  echo $me:" use a -10 or -13 switch."                            1>&2
+  exit 0
+fi
+
+if [ x"$mtype" = "x" ]; then
+  mtype=`suntype`
+fi
+
+if [ -d ./CVS.adm -o x"$1" = "x-10" ]; then
+  echo `cvsroot`/`cat CVS.adm/Repository`
+  exit 0
+fi
+
+if [ -d ./CVS -o x"$1" = "x-13" ]; then
+  cat CVS/Repository
+  exit 0
+fi
+
+me=`basename $0`
+
+echo $me:" There is no CVS or CVS.adm directory here."              1>&2
+echo $me:" Use -10 or -13 switch to use a specific version of cvs." 1>&2
+exit 3

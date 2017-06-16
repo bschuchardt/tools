@@ -1,0 +1,132 @@
+#! /bin/sh
+# the next line restarts using wish \
+exec /gcm/where/TCLfiles/gsj/sparc.Solaris/gstclsh $0 ${1+"$@"}
+
+# Usage: pb str
+# Returns phonebook information containing the substring 'str'.
+# Author: Darrel Schneider
+
+package require http
+package require nre
+
+proc main {} {
+    global argv argc
+
+    set arg [lindex $argv 0]
+    if {$arg == {} || $argc > 1} {
+	puts stderr "usage: pb regexp"
+	exit 1
+    }
+    append pattern {(?ip)} $arg
+
+    set pblist [fetchPhoneBook]
+
+    set idx [nrelsearch -regexp $pblist $pattern]
+    while {$idx != -1} {
+#	set hit [stripwhite [lindex $pblist $idx]]
+	set hit [lindex $pblist $idx]
+	set ulist [split $hit {|}]
+	if {[llength $ulist] >= 5} {
+	    set detailIdx [lsearch -exact $ulist "Details"]
+	    if {$detailIdx != -1} {
+		set ulist [lreplace $ulist $detailIdx $detailIdx]
+	    }
+	    set msg [join $ulist]
+	    append msg [getHomePhone [lindex $ulist 4]]
+	    puts $msg
+	}
+	set pblist [lrange $pblist [expr $idx + 1] end]
+	set idx [nrelsearch -regexp $pblist $pattern]
+    }
+    return
+}
+
+proc fetchPhoneBook {} {
+    if {[catch {
+#	::http::config -proxyhost slcgate -proxyport 80
+	set url "http://webhost/phone/"
+	set token [::http::geturl $url]
+	if {![regexp -nocase " ok" [::http::code $token]]} {
+	    append url "l"
+	    set token [::http::geturl $url]
+	    set code [::http::code $token]
+	    if {![regexp -nocase " ok" $code]} {
+		puts stderr "Could not fetch url '$url' because '$code'."
+		exit 1
+	    }
+	}
+#	puts [::http::data $token]
+	nresub -all {</tr>} [::http::data $token] "\n" text
+	nresub -all {</td>} $text "|" text
+	nresub -all {(?p)(?:<.+?>)|(?:&[^;]*;)} $text {} text
+#	puts $text
+##	set spaces "\[ \t]"
+##	set pblist [nresplit $text "(?p)(?:${spaces}*\n){3,}${spaces}*"]
+	set pblist [nresplit $text "(?p)\\|\n\\s*"]
+#	puts "pblist(size=[llength $pblist]): $pblist"
+      } res]} {
+#	set pblist [readPhoneBookCache]
+#	if {$pblist == {}} {
+	    puts stderr $res
+	    exit 1
+#	} else {
+#	    puts stderr "warning: using cached data because: $res"
+#	}
+    } else {
+	# was able to read the data from the web. Save it in a cache.
+#	writePhoneBookCache $pblist
+    }
+    return $pblist
+}
+
+proc getHomePhone {uname} {
+    #puts "uname=$uname"
+    set res ""
+    if {![catch {open /usr/local/phonebook/PHONENUMBERS "r"} f]} {
+	while {[gets $f line] != -1} {
+	    set l [nresplit $line {(?p)\s+}]
+	    if {[string compare $uname [lindex $l 0]] == 0} {
+		if {[llength $l] > 4} {
+		    set hpn [join [lrange $l 4 end]]
+		    if {[string length $hpn] > 1} {
+		        set res " home# $hpn"
+		    }
+		}
+		break
+	    }
+	}
+	close $f
+    }
+    return $res
+}
+
+# proc readPhoneBookCache {} {
+#     set res ""
+#     set fn "[info script].cache"
+#     if {![catch {source $fn}]} {
+# 	global pbcache
+# 	set res $pbcache
+#     }
+#     return $res
+# }
+
+# proc writePhoneBookCache {pb} {
+#     set fn "[info script].cache"
+#     if {[catch {open $fn "w"} f]} {
+# 	puts stderr "warning: could not write cache because: $f"
+#     } else {
+# 	puts $f "global pbcache"
+# 	puts $f "set pbcache {"
+# 	puts $f $pb
+# 	puts $f "}"
+# 	close $f
+#     }
+#     return
+# }
+
+proc stripwhite {str} {
+    nresub -all {(?p)\s+} $str { } str
+    return $str
+}
+
+main

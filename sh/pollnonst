@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /gcm/where/machine_use
+linuxmach=`grep -li linux *`
+nonst=`grep -vli smalltalk $linuxmach`
+pollgroup uptime $nonst

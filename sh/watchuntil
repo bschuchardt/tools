@@ -1,0 +1,77 @@
+#! /bin/bash
+
+# watchbt msg - uses xmessage to notify when done
+
+noexit="y"
+typeset -i testCount
+untilhang="n"
+untilfailgrep="n"
+untilfile=untilfail.log
+if [ -r untilhang.log ]; then
+  untilhang="y"
+  untilfile=untilhang.log
+elif [ -r untilfailgrep ]; then
+  untilfailgrep="y"
+fi
+trap "color fg default bg default" EXIT
+while [ 0 ]
+do
+#  testCount=`grep -c "run " $untilfile`
+  curtest=`grep "DIR=" batterytest.log | tail -1 | cut -d "=" -f 3`
+  curtask2=`grep Assigning $curtest/taskmaster*.log | tail -1`
+  curtask=`tail -1 $curtest/taskmaster*.log`
+  clear
+  clear
+  color fg white bg blue
+  free | head -2
+  echo ""
+  color fg white bg blue
+  uptime
+  color fg default bg default
+  echo ""
+#  echo "run #$testCount"
+#  echo ""
+  echo $curtask2
+  echo ""
+  echo $curtask
+  echo ""
+  echo ""
+  color fg blue
+  echo "~~~~~ $untilfile ~~~~~"
+  color fg default
+  tail -6 $untilfile
+  doexit="n"
+  if [ $untilhang == n ]; then
+    if [ $untilfailgrep == n ]; then
+      found=`grep " F " $untilfile`
+      if [ x"$found" != x ]; then
+        doexit="y"
+      fi
+    else
+      found=`grep "found:" untilfail.log`
+      if [ x"$found" != x ]; then
+        doexit="y"
+      fi
+    fi
+  fi
+  if [ doexit == "n" ]; then
+    found=`grep " H " $untilfile`
+    if [ x"$found" != x ]; then
+      doexit="y"
+    fi
+  fi  
+    
+  if [ $doexit == y ]; then
+    beep
+    beep
+    sleep 1
+    beep
+    beep
+    if [ x"$1" == x"msg" ]; then
+      hn=`hostname`
+      xmessage "$hn is done"&
+    fi
+    exit 0
+  fi
+  sleep 10
+done

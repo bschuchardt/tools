@@ -1,0 +1,59 @@
+#!/usr/servio/sh
+
+usage () {
+cat << END
+ usage: $0 [ options ]
+
+  This program sets the colors in the color xterm.
+  All options take an X color specification as
+  their argument.  The possible arguments are:
+
+    -fg or -foreground	sets the foreground color
+    -bg or -background	sets the background color
+    -cr or -cursorcolor	sets the text cursor color
+    -ms or -pointercolor	sets the mouse pointer foreground color
+    -mb or -pointerbackground	sets the mouse pointer background color
+    -tfg or -tekforeground	sets the tektronix foreground color
+    -tfg or -tekbackground	sets the tektronix background color
+
+  The following are include just because it's
+  painless to do so:
+    -T or -title	sets the windomanager titlebar
+    -n or -iconname	sets the windomanager icon name
+    -Tn or -name	sets the windomanager titlebar and the icon name
+    -lf or -logfile	sets the log file for the xterm
+END
+  exit 1
+}
+
+if [ $# -lt 2 ]; then usage; fi
+
+while [ $# -ge 2 ]; do
+    case "$1" in
+	-Tn|-name) code=0 ;;
+	-n|-iconname) code=1 ;;
+	-T|-title) code=2 ;;
+
+	-fg|-foreground) code=10 ;;
+	-bg|-background) code=11 ;;
+	-cr|-cursorcolor) code=12 ;;
+	-ms|-pointercolor) code=13 ;;
+	-mb|-pointerbackground) code=14 ;;
+	-tfg|-tekforeground) code=15 ;;
+	-tbg|-tekbackground) code=16 ;;
+
+	-lf|-logfile) code=46 ;;
+
+	*)	echo unknown flag "$1"
+		shift 1
+		continue
+		;;
+    esac
+    echo "]$code;$2"
+    shift 2
+done
+
+if [ $# -gt 0 ]; then
+    echo unknown flag "$1"
+    usage
+fi

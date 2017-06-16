@@ -1,0 +1,84 @@
+
+Mwm*configFile:         .mwmrc
+
+!Mwm*transientDecoration:  border
+
+Mwm*moveOpaque:         false
+
+#ifdef COLOR
+Mwm*client*title*foreground: black
+Mwm*client*title*activeForeground: black
+   /* the text color */
+Mwm*client*title*activeBackground: #69b5a8
+! Mwm*client*title*activeBackground: #2da38e
+   /* the background color */
+Mwm*iconImageBackground:    #69b5a8
+Mwm*icon*background:    #f0f0ff
+Mwm*menu*foreground:    black
+Mwm*menu*background:    #69b5a8
+!Mwm*activeBackground:   #ff9780
+Mwm*activeBackground:   #b0ffb0
+Mwm*activeForeground:   black
+Mwm*background:         #d0d0e0
+Mwm*foreground:         black
+! Mwm*colormapFocusPolicy: keyboard
+Mwm*colormapFocusPolicy: pointer
+Mwm*Emx*background: yellow1
+#endif
+
+Mwm*useClientIcon:     true
+Mwm*bitmapDirectory:    /engr/users/bruce/lib/bitmaps
+Mwm*xterm*useClientIcon: false
+Mwm*xterm*iconImage:    terminal
+Mwm*console*iconImage:  onyx.bm
+
+! Mwm*clientDecoration: -maximize
+Mwm*transientDecoration: border
+
+Mwm*XBiff*clientDecoration: none
+! Mwm*Clock*clientDecoration: none
+Mwm*XClock*clientDecoration: border
+! Mwm*dclock*clientDecoration: none
+! Mwm*xmter*clientDecoration: none
+
+Mwm*menu*mappingDelay:			0
+
+Mwm*frameBorderWidth:   5
+Mwm*resizeBorderWidth:  8
+
+!Mwm*iconPlacement:      none
+!Mwm*iconAutoPlace:      False
+Mwm*iconPlacement:      top right
+Mwm*iconAutoPlace:      True
+Mwm*iconImageMaximum:   64x64
+Mwm*iconImageMinimum:   16x16
+Mwm*iconClick:          False
+Mwm*fadeNormalIcon:	True
+
+
+! iconBox stuff
+!Mwm*useIconBox:         True
+Mwm*iconBoxSBDisplayPolicy:		vertical
+Mwm*iconbox*vScrollBar*width:  12
+!Mwm*iconbox*hScrollBar*height: 12
+!Mwm*iconbox*traversalOn:		True
+Mwm*iconbox*clientDecoration:		border
+Mwm*iconBoxGeometry:			=3x6
+
+Mwm*positionIsFrame:    False
+Mwm*fontList:           *-helvetica-medium-o-normal--14-140-*
+Mwm*icon*fontList:      -adobe-helvetica-medium-r-normal--10-100-75-75-p-56-iso8859-1
+Mwm*menu*fontList:      -adobe-helvetica-medium-o-normal--14-100-100-100-p-78-iso8859-1
+Mwm*maximumMaximumSize:  1192x900
+
+Mwm*resizeCursors: false
+Mwm*startupKeyFocus: true
+
+Mwm*keyboardFocusPolicy: explicit
+!Mwm*keyboardFocusPolicy: pointer
+!Mwm*focusAutoRaise:      true
+!Mwm*autoRaiseDelay:      300
+
+
+Mwm*keyBindings:        MyKeyBindings
+Mwm*buttonBindings:     MyButtonBindings

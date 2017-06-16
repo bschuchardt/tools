@@ -1,0 +1,2386 @@
+!=========================================================================
+! Copyright (C) Servio Corp. 1991-1994.  All Rights Reserved.
+!
+! $Id: emxhelp,v 30.1.1.2 1994/01/29 01:33:34 marcs Exp $
+!
+!=========================================================================
+
+--------------------------------------------------------------------------------
+    Help for EMX
+--------------------------------------------------------------------------------
+
+To move through this file, use the arrow keys or Next and Previous.
+You can search by pressing F8 and entering a search string.
+You can go to a specific line by pressing F3 and entering a line number.
+You can get rid of the help window by pressing F2, then pressing Shift-F2.
+
+ Line	Topic
+ ----	-----
+   52	Files, Buffers, and Windows
+   86	The Info Line
+  122	The Prompt Line
+  153	Commands and Keys
+  185	Key Name Syntax
+  232	Starting EMX
+  314	Environment Variables
+  354	Limits
+  376	EMX Commands
+  429	Help
+  478	Quitting
+  506	File Commands
+  639	Window Commands
+  704	Buffer Commands
+  818	Moving Around
+  970	Typing Text
+ 1103	Marking And Selecting Text
+ 1259	Deleting Text
+ 1365	Copying And Moving Text
+ 1436	Search And Replace
+ 1572	Text Processing Commands
+ 1704	Display Control Commands
+ 1733	Macros and Key Bindings
+ 1864	Keystroke And Startup Files
+ 1971	Shell Access
+ 1987	Delimiter Matching Commands
+ 2068	File Backups
+ 2129	Mouse Support
+ 2163	X Resources
+ 2215	Commands and Default Key Bindings
+
+
+--------------------------------------------------------------------------------
+    Files, Buffers, and Windows
+--------------------------------------------------------------------------------
+
+EMX is a multi-window, multi-file text editor. EMX works by associating
+files with memory buffers containing text. Files are normally read into
+buffers, and displayed through a window. Buffers can also contain text
+which is not tied to a file. EMX displays only the buffers, so it is useful
+to pay attention to the file associated with each buffer. When a buffer is
+saved, the contents are written to the file associated with the buffer, or
+optionally to a different file. You can read many files into buffers at the
+same time. You can use as many buffers as you like. Each has a unique name.
+
+EMX allows you to use more than window at a time. A window consists of a
+text area with a distinct information line displaying information about the
+buffer whose text is displayed in the window. A buffer can be displayed in
+more than one window at a time, and different parts of the buffer can show
+in different windows. Windows do not have names.
+
+Each window has a special line called the Info Line. In this line EMX
+displays information about the buffer being displayed in that window. The
+next section describes the info line in more detail.
+
+The EMX screen also contains a prompt line. Messages are displayed here,
+you can enter strings in response to questions here, and you can issue
+commands here. There is only one prompt line, no matter how many windows
+are open.
+
+EMX keeps a visible cursor on the screen at all times. There is only one
+cursor, and the buffer containing the cursor is the one which will receive
+all keystrokes you enter. You can move the cursor from buffer to buffer or
+from window to window with a number of EMX commands.
+
+
+--------------------------------------------------------------------------------
+    The Info Line
+--------------------------------------------------------------------------------
+
+The info line describes the contents and state of the buffer being
+displayed in a window. There is one info line for every window. The
+following is an example of a info line, similar to the one below the window
+you are looking at:
+
+    .I.	 [B][1][2]  L:C	 B:emxhelp  F:emxhelp
+
+'.'	Buffer modification indicator.	'.' indicates that the buffer has not
+	been modified. '*' indicates that the buffer has been modified.
+
+'I'	Insert mode indicator. 'I' indicates that EMX is in 'insert' mode.
+	'O' indicates that EMX is in 'overstrike' mode.
+
+'.'	Auto-update mode indicator. '.' indicates that auto-update is off.
+	'U' indicates that auto-update is on.
+
+[B]	Mouse icon. Click here to switch to the next buffer.
+[1]	Mouse icon. Click here to make the current window the only window.
+[2]	Mouse icon. Click here to split the current window.
+
+L:C	Programming language indicator for buffer.  See "Delimiter Matching"
+	for a complete list of supported languages.
+
+B:emxhelp	The name of the buffer in the window.
+F:emxhelp	The filename associated with the buffer, if any.
+
+Occasionally other pieces of information may show up to the right of the
+filename. For instance, a '[No backups!]' indicator will appear if you
+disable default backups. Also, if there is a long line of text in the
+window, a '^' character will appear at the right edge of the info line.
+
+
+--------------------------------------------------------------------------------
+    The Prompt Line
+--------------------------------------------------------------------------------
+
+There is one prompt line in an EMX window, at the bottom of the screen.
+This prompt line serves all windows. It is used to display status messages,
+and to prompt you to enter strings or other information. Normally, when you
+are being asked for information, you just type it in. There is a magic
+keystroke sequence that EMX will let you use to save typing complicated
+strings. When you are being prompted for a string, pressing F8 (yes, it's
+hard-coded) will cause the word underneath the cursor to be entered into
+the prompt line. This is especially handy when the word in question
+contains characters that EMX doesn't like to let you type in the prompt
+line.
+
+Similarly, when you're being prompted for a filename, pressing F1 will preload
+the prompt line with the path of the file in the current buffer. This is
+useful for loading another file from the same directory.
+
+In addition, anytime you are typing a string into the prompt line, you may
+issue one of the following commands, using whatever keystroke sequence to
+which they are bound:
+
+    quote		To enter a special control character (such as Ctrl-j
+			for a newline) by typing Ctrl-q, followed by the
+			desired control character (Ctrl-j)
+    case-sense		To change search case sensitivity
+    abort		To cancel the current command
+    exit-flush-all	To exit EMX
+
+
+--------------------------------------------------------------------------------
+    Commands and Keys
+--------------------------------------------------------------------------------
+
+Almost every operation EMX performs is accomplished by executing a named
+command. However, in order to make things easier, EMX allows you to bind
+named commands to specific keystrokes or keystroke sequences. Many of the
+EMX commands come pre-bound to standard keys. For example, the arrow keys
+are bound to the cursor movement commands, and all character keys are bound
+to a command which inserts the character into the current buffer.
+
+Any command which is not bound to a key can be executed by entering the
+command name in the prompt line. This is done by first executing the
+"extended-command" command, which is always bound to the key sequence E-x,
+or "Escape" followed by "X", then typing in the name of the command.
+
+Some people are perfectly happy working with the standard key bindings
+provided with EMX, using E-x to enter other, less frequently used commands.
+Others prefer different bindings. EMX allows you to add, remove, or change
+any key binding you choose, except for the character keys. These changes
+can be made manually, or can be specified in a file. This is done so often
+that there are a number of EMX commands and services that operate on
+keystroke files.
+
+Since all EMX operations involve commands, and most commands are bound to
+keys, most of the rest of this help text will refer to the names and
+bindings of the EMX commands. The commands are listed at the bottom of the
+file, along with a brief description and the predefined bindings. The
+intervening sections will explain how to use these commands to edit text
+efficiently.
+
+
+--------------------------------------------------------------------------------
+    Key Name Syntax
+--------------------------------------------------------------------------------
+
+First, it is important to understand the syntax EMX uses to describe keys.
+This syntax, besides being used here in the help file, is required for
+creating keystroke files, and is scattered liberally throughout the help
+displays.
+
+All EMX keys are named by the X-Window keysym name, which is the keysym
+literal minus the 'XK_' prefix, such as Delete or F8. Clever readers will
+recognize these as the same names displayed by the standard 'xev' utility.
+
+However, EMX allows you to specify a number of key modifiers, used to
+differentiate between keys pressed alone and keys pressed with modifiers.
+Here are the modifier symbols and their meanings:
+
+    S-Key   Shift	    Hold down Shift and press Key
+    ^-Key   Control	    Hold down Control and press Key
+    E-Key   Escape	    Press Escape, then press Key
+    ^X-Key  Control-X	    Hold down Control and press X, then press Key
+    M1-Key  Modifier 1	    Hold down M1 and press Key - M1 is usually Alt
+    M2-Key  Modifier 2	    Hold down M2 and press Key
+    M3-Key  Modifier 3	    Hold down M2 and press Key
+    M4-Key  Modifier 4	    Hold down M2 and press Key
+    M5-Key  Modifier 5	    Hold down M2 and press Key
+
+So, you'll find key sequences like these:
+
+    ^-k		    Control k
+    E-Space	    Escape Space
+    S-KP_Decimal    Shift KP_Decimal
+
+The modifiers can be combined, resulting in some complex key sequences, all
+of which are legitimate though clunky to use:
+
+    E-^X-^-S-F5	    Press Escape, Press Control-X, hold down Control and
+		    Shift, and press F5.
+
+The Escape and Control-X sequences always have to be pressed before the
+other modifiers, which all have to be held down while pressing the final
+key.
+
+One other thing. In order to keep typing simple, Shift-character just gives
+the shifted character. So for example, 'S-a' is just 'A'.
+
+
+--------------------------------------------------------------------------------
+    Starting EMX
+--------------------------------------------------------------------------------
+
+Obviously you already know how to get EMX started, but there are some
+startup options you can use to get work done before EMX starts. Most of the
+the parameters on the command line are assumed to be the names of files to
+be edited, but using the following options allows you to alter that
+somewhat.
+
+    -e file ...	    All files following this option will be read into buffers
+		    which can be modified. This is the default behaviour, and
+		    if all you want to do is edit files, you don't need this
+		    option. It is useful mostly if some files are to be
+		    read-only and others are to be editable.
+
+    -r file ...	    All files following this option will be read into buffers
+		    which cannot be modified.
+
+    -		    This option indicates that something is being passed to EMX
+		    via 'stdin'. The contents of stdin will be read into a
+		    buffer and made available for editing.
+
+    -cd dir	    Usually, filenames are taken relative to the current
+		    directory. This option will set EMX into a new current
+		    directory, and all following filenames will be relative to
+		    that.
+
+    -l file	    The next argument is the name of an EMX keystroke file,
+		    which will be executed immediately. These files are often
+		    used to set startup parameters and modes. See below,
+		    though, about the EMXRC environment variable.
+
+    -font fontname  The argument following is the name of the font to be used.
+		    EMX uses '9x15' by default, and if it can't find that, it
+		    uses 'fixed'. If you specify a font, make sure it is a
+		    fixed-pitch font, or you won't like the results.
+
+    -m		    This option indicates that the following files, or stdin,
+		    contains text in man-page format. Some special processing
+		    is required to make the text look right. This should be
+		    used when piping a man page to EMX for display.
+
+    -s		    This option indicates that the following argument is to be
+		    stored by EMX as the initial search string. This allow you
+		    to start EMX with a string fetched from the environment,
+		    and just use the handy "search-again" command to search for
+		    it.
+
+Here are some sample EMX invocations you can use as models for your own.
+
+    emx			    Invoke the editor, no options
+
+    emx myfile		    Read in 'myfile' for editing
+
+    emx *.c		    Read in all .c files in the current directory
+			    for editing.
+
+    emx -r *h		    Read in all .h files in the current directory
+			    for read-only viewing.
+
+    grep argle * | emx -s argle -
+
+			    Search for 'argle' in a bunch of files, and display
+			    the results in an EMX buffer, with 'argle' as the
+			    initial search string.
+
+    spell tst | emx - tst   Run 'spell' on the file 'tst', displaying the
+			    results in a buffer, and read in the original
+			    file 'tst' for editing as well.
+
+    man grep | emx -m -	    Display the man page for 'grep' in an EMX buffer.
+
+    emx -cd work myfile	    Change the current directory to 'work' and read
+			    in 'myfile' for editing.
+
+    emx * -l emxcustom	    Read in all files in the current directory for
+			    editing, then execute the file 'emxcustom'.
+
+    emx -font 10x20 myfile  Read in 'myfile' and display it in the 10x20 font.
+
+
+--------------------------------------------------------------------------------
+    Environment Variables
+--------------------------------------------------------------------------------
+
+EMX looks at a few special environment variables in order to decide what
+you want it to do when starting up. If you don't set any of them, EMX will
+still behave reasonably well, but you can get more control over it by
+setting them to values you like.
+
+    DISPLAY	If you're familiar with X, you'll recognize this as the name of
+		the display screen you want EMX to show up on. You only need to
+		set this if EMX will be running on one system and displaying on
+		another. Don't worry about it too much.
+
+    EMXRC	This is the most useful variable. When set, this should be the
+		name of a keystroke file that you want EMX to read when it
+		starts up. The file will be executed before any of the
+		arguments are processed, so you can put special configuration
+		commands into the file. For example:
+
+		    setenv EMXRC /home/user/myfile
+
+		or
+
+		    EMXRC = /home/user/myfile ; export EMXRC
+
+		Actually this is not strictly necessary, since if the EMXRC
+		variable is not defined, EMX will also look for a file
+		named $HOME/.emxrc. So, you can just create a file of that
+		name and skip the environment special variable if you want.
+
+		Note, though, that it is also possible to define your
+		startup preferences and macros by using X resources in your
+		.Xdefaults file.
+
+    EMXBACK	This variable controls the location of files created by the
+		automatic backup feature. See Backup Commands for more detail.
+
+    EMXSIZE=widthxheight
+
+--------------------------------------------------------------------------------
+    Limits
+--------------------------------------------------------------------------------
+
+There are a few limits worth bearing in mind when working with EMX, because
+occasionally they will prevent you from doing something you think is
+obviously fine. Sorry.
+
+    Maximum number of rows in the EMX screen:	    64
+    Maximum number of columns in the EMX screen:    132
+    Minimum number of rows in the EMX screen:	    4
+    Minimum number of columns in the EMX screen:    10
+
+    Maximum number of visible characters on a line: 254
+    Maximum length of a filename:		    256
+    Maximum length of a buffer name:		    64
+
+    Maximum length of a keyboard macro:		    512
+    Maximum length of a search string:		    256
+    Maximum length of a command name:		    64
+
+
+--------------------------------------------------------------------------------
+    EMX Commands
+--------------------------------------------------------------------------------
+
+Well, you now know everything there is to know about how EMX works. The
+rest, as they say, is just the details. So, most of the rest of the help
+text will be a description of all of the available EMX commands. The
+descriptions have been organized into categories, so you can find out about
+all the commands which behave in more or less similar fashion at once. And
+remember, at the end of the help text there is a complete list of all the
+commands, and their default key bindings. Use this list and the command
+"bind-to-key" to create a startup keystroke file for yourself, so EMX will
+behave the way you want it to.
+
+All of the command descriptions are in the following format. The name is
+given first, which is the name you would give to the "extended-command"
+command, or which you would provide to "bind-to-key". A brief summary
+follows, and after the summary, the predefined key bindings are given. Each
+command is then explained in some sort of glorious detail. For example:
+
+extended-command    Execute named command		E-x
+
+    This command prompts you for the name of a command to execute, then
+    executes it. While typing in the command name, if you press Space, EMX
+    will attempt to complete the command name for you from the characters
+    you have already entered. If successful, it goes ahead and executes the
+    command (without really telling you which command it executed). If
+    unsuccessful, EMX provides as many characters as it can up to the point
+    of ambiguity. You can then finish the command on your own, or add a
+    character or two and press Space again.
+
+    This command is essential if you want to execute a command which is not
+    bound to a key sequence, or if one of the standard key sequences
+    includes a key which isn't on your keyboard. The handiest use of this
+    command is to execute "bind-to-key", which you'll find later on.
+
+One peculiarity of EMX commands worth noting here. Many commands require
+additional information in order to operate correctly. Most of them will
+prompt you for the information. Some, however, require you to supply it in
+advance through the obscure command "numeric-arg". While clumsy and
+obscure, it is a fact of life in EMX.
+
+numeric-arg	    Enter number for next command	^-u
+
+    This command silently waits for you to enter a number, followed by any
+    non-number. The number part is converted to an argument for the next
+    command, which begins with the key you use to stop entering numbers.
+    Most EMX commands respond to this number by executing themselves that
+    number of times. Some commands use the number as a direct argument. One
+    could argue that these commands should prompt for the number instead.
+    They don't, though. Sorry.
+
+
+--------------------------------------------------------------------------------
+    Help
+--------------------------------------------------------------------------------
+
+While you are using EMX, you can get a number of interesting varieties of
+help information. One of them is the one you're reading now. The others are
+more specialized, but in most cases far more amusing.
+
+
+help		    Show help text			Help	^-F4	E-?
+
+    This command will display the EMX help file. If you have only one
+    window open, the window will be split and the help text will be
+    displayed in one of the windows. If you have two or more windows open,
+    one of the windows will be appropriated for displaying the help text.
+    To get rid of the help text, just display another buffer in the window
+    (see "forw-buffer"), or get rid of the extra window (see "only-window").
+
+display-commands    Display all commands and macros	^-S-Help
+
+    This command will display an alphabetical list of all of the EMX
+    commands, a brief description of each, and the key sequences which are
+    bound to them. The list is included at the end of this help file, but
+    this only shows the default key bindings. If you have added your own
+    bindings, they will be displayed in the command list. Like the help
+    text, the command list will be displayed in a separate window.
+
+display-bindings    Display all key bindings		^-Help
+
+    This command will display a list of all bound key sequences, and the
+    commands to which they are bound. The list will be displayed in a
+    separate window. The key sequences are ordered according to their
+    modifiers and their names.
+
+describe-key	    Describe a key			S-Help
+
+    This command will prompt you to press a key sequence. It will then
+    display the EMX name for the sequence, and tell you to which command
+    the key sequence is bound, if any. This command is useful when writing
+    startup command files, so that you can be sure to type in the correct
+    name for keys you want to bind to commands. It is also useful to make
+    sure you don't press a deadly key by mistake.
+
+display-version	    Display EMX version string		E-^-v
+
+    This command displays the current EMX version string in the prompt
+    line. You may use this information for whatever purpose you choose.
+
+
+--------------------------------------------------------------------------------
+    Quitting
+--------------------------------------------------------------------------------
+
+It's always nice to know how to get out of something once you've got into
+it. EMX gives you two ways to quit. Neither one will automatically throw
+away any changes you've made, so both are pretty safe. There is also a
+general-purpose STOP command.
+
+abort		    Stop doing something		Cancel	^-g
+
+    This command will tell EMX to stop asking a question. If EMX is waiting
+    for you to reply to a question, and you just want to stop without doing
+    anything, use this command. This command will never change your text.
+
+exit-flush-all	    Save all files and exit		^X-^-e	^-S-F12
+
+    This command will save all modified files and exit. It will only ask
+    questions if there is a modified buffer which is not associated with a
+    file.
+
+quit		    Exit				^X-^-c
+
+    This command will attempt to quit. If there are any modified buffers,
+    it will ask if you are sure you want to quit. If you say yes, all your
+    changes will be thrown away.
+
+
+--------------------------------------------------------------------------------
+    File Commands
+--------------------------------------------------------------------------------
+
+Since EMX's main business is editing files, there are a lot of file
+commands. Most people manage just fine with only the first few, but if you
+do a lot of complex editing, the rest are there for your pleasure.
+
+Whenever you type in a filename inside EMX, you can use environment
+variable in the filename strings just by typing a '$' before it. You can
+also use parentheses if you want to use a variable for part of a filename
+node. You may also use the '~' at the beginning of a filenamne to reference
+your or somebody else's home directory. For example:
+
+    $EMXRC
+    /home/user/$MYDIR/file.c
+    /home/user/$(MYDIR)2/file.c
+    ~/cancel.c
+    ~joseph/main.h
+
+Filenames which do not begin with '/' will be assumed to reside in the
+current working directory.
+
+Whenever a file is read in, EMX makes up a buffer name for it by stripping
+off all leading filename nodes, leaving just the last node. Usually this is
+good enough, but if there is a duplicate, EMX will prompt you for a new
+buffer name. EMX doesn't like duplicate buffer names. If you just press
+'Return', EMX will make up a name. Similarly, if there are duplicate names
+in a startup parameter list, EMX will happily make up buffer names as it
+reads them in. For example:
+
+    /home/user/file.c  will be put in a buffer named 'file.c'
+
+Also, when EMX reads in a file, it checks to see if you have permission to
+write to the file. If not, the buffer will be marked read-only, regardless
+of whether you requested to read or edit the file.
+
+
+file-visit	    Edit a file				F1	^X-^-v
+
+    This is the main file editing command, called 'visit' for quaint
+    historical reasons. It asks for a filename, then reads it into a buffer
+    and allows it to be edited.
+
+view-file	    View a file read-only		S-F1	^X-v
+
+    This command asks for a filename, then reads it into a buffer which is
+    marked read-only. You cannot change the contents of this buffer.
+
+insert-file	    Insert named file			^-F1	^X-^-i
+
+    This command asks for a filename, then reads it into the current
+    buffer, inserting it at the place where the cursor is sitting.
+
+split-visit	    Open a new window and read a file	^-S-F1
+
+    This command combines a couple of operations in one. First, it asks for
+    a filename. Then it splits the current window into two windows, and
+    reads the file into a buffer. The buffer is displayed in the new
+    window, and is marked for editing. See the section on window commands
+    for more details about splitting windows.
+
+file-save	    Save a buffer to its file		^X-^-s
+
+    This command writes the contents of the current buffer to its
+    associated file. It does nothing if the buffer has not been modified,
+    or if there is no file associated with the buffer.
+
+file-append	    Append current buffer to named file ^X-^-a
+
+    This command asks for a filename, and appends the contents of the
+    current buffer to that file, creating it if it doesn't already exist.
+    The filename associated with the buffer is not changed.
+
+flush-buffers	    Save all buffers to their files	^X-^-m
+
+    This command does for all buffers what file-save does for the current
+    buffer. All modified buffers associated with files are written.
+
+file-write	    Write a buffer to a file		S-F11	^X-^-w
+
+    This command asks for a filename, and writes the contents of the
+    current buffer to that file. The new file is then associated with the
+    buffer, replacing any previous association. This is one way to
+    associate a filename with a buffer which does not already have one.
+
+set-file-name	    Change a buffer's filename		^X-^-f
+
+    This command asks for a filename, and replaces the current buffer's
+    file association with the new file. If not already so marked, the
+    buffer is marked as modified. The buffer contents are not written to
+    the file yet.
+
+file-read	    Replace buffer with named file	^X-^-r
+
+    This command asks for a filename, clears out the contents of the
+    current buffer, and reads the new file into a new buffer in the same
+    window. If the current buffer is modified, you will be asked whether
+    you want to discard the changes. If you type 'y', the changes will be
+    lost. If you type 'n', nothing will happen.
+
+file-reload	    Reload a file			M1-^-S-F7
+
+    This command re-reads the contents of the file associated with the
+    current buffer. If the buffer has been modified, you will be asked
+    whether you want to discard the changes. This command is useful when
+    you accidentally modify a file you didn't want to change. See also
+    "unmodify".
+
+file-delete	    Delete the current file		M1-^-S-Delete
+
+    This command will prompt you for confirmation, then if permitted, will
+    delete the file associated with the current buffer. The current buffer
+    will also be deleted, and the next buffer will be displayed in the
+    current window. This is a dangerous command - very handy for pruning
+    directories of junk, but easy to misuse.
+
+cd		    Change current directory
+
+    This command asks for a directory path, and changes EMX's current
+    directory to be that path. All partial filenames are resolved relative
+    to this path. You may also enter one of the following in place of a
+    path:
+
+    Return  EMX will display the current working directory.
+    -	    EMX will change the current directory back to what it was when EMX
+	    was started.
+
+trim-output-toggle	Toggles removal of trailing spaces
+
+    By default, EMX removes trailing spaces and tabs from lines when it writes
+    a buffer to a file.	 This command toggles this behavior off and on.
+
+--------------------------------------------------------------------------------
+    Window Commands
+--------------------------------------------------------------------------------
+
+These commands allow you to add, remove, or manage one or more windows
+through which your buffers are being displayed. Some people like to use
+just one window and switch from buffer to buffer. Some people like to have
+two or three windows showing two or three buffers at once. Sometimes you
+may want to look at two parts of the same buffer at the same time. These
+commands will help you do any of these things. Remember that the 'current'
+window is the window in which is cursor is located.
+
+split-window	    Open a new window			^-F2	^X-2
+
+    This command will split the current window into two, dividing the rows
+    more or less equally between the two new windows. Both windows will
+    display the same buffer that the single window was showing before. The
+    cursor will remain on the same row of the screen as before, so it may
+    end up in either the upper or lower window, depending on where it was.
+    Note that the File command "split-visit" includes this operation as
+    part of its service.
+
+only-window	    Make this window the only one	S-F2	^X-1
+
+    This command will make the current window the only window. No buffers
+    are affected by this command, but only the buffer in the current window
+    will be visible when it finishes.
+
+forw-window	    Switch to next window		F2	^X-n
+
+    This command will move the cursor to the next window below, or to the
+    first window if the cursor is currently in the last window.
+
+back-window	    Switch to previous window		S-F3	^X-p
+
+    This command will move the cursor to the next window above, or to the
+    last window if the cursor is currently in the first window.
+
+all-win-down	    Move all windows down		^-S-Down
+
+    This command is a fancy scrolling command, which will cause all windows
+    to scroll down through their buffers. The cursor will stay on its
+    current text line until it bumps into the top of the window, at which
+    point it will jump to the middle row of the window.
+
+all-win-up	    Move all windows up			^-S-Up
+
+    This command is a fancy scrolling command, which will cause all windows
+    to scroll up through their buffers. The cursor will stay on its current
+    text line until it bumps into the bottom of the window, at which point
+    it will jump to the middle row of the window.
+
+enlarge-window	    Make current window larger		^X-z
+
+    This command will make the current window one row larger, at the expense of
+    the window below it, or above it if the current window is the last window.
+    No window can be less than one row in size.
+
+shrink-window	    Make current window smaller		^X-^-z
+
+    This command will make the current window one row smaller, giving a row to
+    the window below it, or above it if the current window is the last window.
+    No window can be less than one row in size.
+
+
+--------------------------------------------------------------------------------
+    Buffer Commands
+--------------------------------------------------------------------------------
+
+Buffers are the heart of EMX text management. As mentioned before,
+everything you see in EMX is a buffer. You type into a buffer, you read
+files into buffers, you write buffers out to files. Not surprisingly, EMX
+supports a variety of buffer management commands. Some work on the buffer
+the cursor is in, and others work by specifying the buffer name.
+
+Note that some of the commands below refer to 'marked' 'regions' of text. A
+detailed discussion of regions and marking can be found a little further
+along in this file.
+
+forw-buffer	    Switch to next buffer		F4	E-+	E-=
+
+    This command will cause the "next" buffer to be displayed in the
+    current window. The "next" buffer is the buffer which was created after
+    the current buffer. After loading and unloading a bunch of files, the
+    idea of "next" becomes a little vague, but you can use this command
+    repeatedly to cycle sequentially through all of the buffers in order to
+    see what's loaded. No text is modified or deleted by this command.
+
+back-buffer	    Switch to previous buffer		E--
+
+    This command will cause the "previous" buffer to be displayed in the
+    current window. You can use this command repeatedly to cycle backwards
+    through all of the buffers. No text is modified or deleted by this
+    command.
+
+use-buffer	    Goto named buffer			^X-b
+
+    This command will prompt you for the name of a buffer, then will cause
+    that buffer to be displayed in the current window. If the named buffer
+    does not exist, a new buffer will be created with that name. The new
+    buffer will not be associated with a file. You can use "file-write" or
+    "set-file-name" to associate the buffer with a file.
+
+delete-curbuf	    Delete the current buffer		S-F12
+
+    This command will remove the current buffer completely. If the buffer
+    has been modified, you will be asked if you want to continue. If you
+    say yes, the buffer and all changes will be gone forever. This command
+    is useful for getting rid of a buffer you don't want to look at any
+    more.
+
+kill-buffer	    Delete named buffer			^X-k
+
+    This command will prompt you for the name of a buffer, then will remove
+    that buffer completely. If the buffer has been modified, you will be
+    asked if you want to continue. If you say yes, the buffer and all
+    changes will be gone forever. Note that you may not be able to see the
+    buffer at the time you issue this command. Use it with caution.
+
+buffer-name	    Rename the current buffer		E-^-b
+
+    This command will prompt you for a buffer name, then will give the
+    current buffer that name.
+
+unmodify	    Clear modified flag for buffer	E-F7
+
+    This command will clear the current buffer's modified flag. Needless to
+    say, this is potentially very dangerous, because your changes are now
+    subject to unprompted removal. This command is best used when you have
+    accidentally modified a buffer you didn't mean to modify.
+
+save-to-buffer	    Save marked region in named buffer
+
+    This command will prompt you for a buffer name, then will copy the
+    currently marked region of text to that buffer. If the buffer does not
+    already exist, it will be created. If it exists, the text will be
+    placed in the named buffer at the position of the cursor in that
+    buffer. This command is similar to "copy-region", but it does not use
+    the kill buffer.
+
+yank-from-buffer    Yank from named buffer
+
+    This command will prompt you for a buffer name, then will copy the
+    entire contents of that buffer into the current buffer at the cursor
+    position. If the named buffer does not exist, nothing will happen.
+
+display-buffers	    Display all buffer names		^X-^-b
+
+    This command will display a list of all of the buffers. The list will
+    be displayed in a separate window, which will be created if necessary.
+    The buffer list contains one line for each buffer:
+
+    Lang   Mod	 Size Buffer	   File
+    ----   ---	 ---- ------	   ----
+    'C'	   .	32000 main.c	   /usr/dir/main.c
+    'C'	   R/O	24567 utils.c	   utils.c
+
+    Lang    Denotes the language mode of the buffer. See 'Delimiter Matching
+	    Commands' for more information.
+    Mod	    Denotes the modification status of the buffer.
+	    'R/O' indicates that the buffer is read only.
+	    '*' indicates that the buffer is modifiable and has been modified.
+	    '.' indicates that the buffer is modifiable but has not been
+		modified.
+    Size    The size of the buffer in bytes.
+    Buffer  The name of the buffer.
+    File    The name of the file, if any, associated with the buffer.
+
+    In addition, a few shortcut commands are available for buffer
+    management from the buffer list window. The key sequences for these
+    commands are described below, and cannot be changed. Place the cursor
+    on the line describing the desired buffer. A prompt will appear on the
+    command line:
+
+	"buffer-name: G (goto) or K (kill) or S (save)".
+
+    Type the desired letter, or ^-g to abort.
+
+
+--------------------------------------------------------------------------------
+    Moving Around
+--------------------------------------------------------------------------------
+
+Okay, you've got a file into a buffer, and now you want to move around and
+look at it. Here are the EMX commands for navigation. The basic model is
+simple. EMX maintains a single cursor, which is the place where you can
+type characters. If you want to edit a buffer, you need to move the cursor
+to the point where you want to type. While typing, there are a host of
+things you may want to do with the cursor, in order to accomplish editing
+operations. Most of these commands are bound to keys which are relatively
+easy to press while typing or moving the cursor around. None of these
+commands change the text in the buffer.
+
+forw-char	    Move forward one character		Right	^-f
+
+    While on a line of text, this command moves the cursor to the next
+    character on the line. At the end of the line, this command moves the
+    cursor to the first character of the next line. Using this command, you
+    can move through all of the characters in the buffer.
+
+back-char	    Move back one character		Left	^-b
+
+    While on a line of text, this command moves the cursor to the previous
+    character on the line. At the beginning of the line, this command moves
+    the cursor to the last character of the previous line. Using this
+    command, you can move backwards through all of the characters in the
+    buffer.
+
+forw-word	    Move forward one word		S-Right E-f
+
+    If the cursor is under a word, this command moves the cursor to the end
+    of the word. If the cursor is at the end of a word, or between words,
+    this command moves the cursor to the end of the next word.
+
+back-word	    Move back one word			S-Left	E-b
+
+    If the cursor is under a word, this command moves the cursor to the
+    beginning of the word. If the cursor is at the beginning of a word, or
+    between words, this command moves the cursor to the beginning of the
+    previous word.
+
+forw-line	    Move down one line			Down	S-Down	^-n
+
+    This command moves the cursor down to the next line below. If the next
+    line doesn't have enough characters so that the cursor can rest
+    directly below, the cursor will jump to the last position on the next
+    line. But the position you just left will be remembered, so if you move
+    down another line, to a line which is long enough, the cursor will jump
+    back out to the remembered position.
+
+back-line	    Move up one line			Up	S-Up	^-p
+
+    This command moves the cursor up to the line above. If the line above
+    doesn't have enough characters so that the cursor can rest directly
+    above, the cursor will jump to the last position on the line. But the
+    position you just left will be remembered, so if you move up another
+    line, to a line which is long enough, the cursor will jump back out to
+    the remembered position.
+
+forw-page	    Move down one page			Next	^-v
+
+    This command moves the window forward through the buffer by enough
+    lines that the last two lines become the top two lines. The cursor
+    remains on the same row of the window as before.
+
+back-page	    Move up one page			Prior	E-v
+
+    This command moves the window backward through the buffer by enough
+    lines that the first two lines become the last two lines. The cursor
+    remains on the same row of the window as before.
+
+forw-para	    Move forward one paragraph
+
+    If the cursor is in a paragraph, this command moves the cursor to the
+    end of the paragraph. If the cursor is at the end of a paragraph, or
+    between paragraphs, this command moves the cursor to the end of the
+    next paragraph.
+
+back-para	    Move back one paragraph
+
+    If the cursor is under a paragraph, this command moves the cursor to
+    the beginning of the paragraph. If the cursor is at the beginning of a
+    paragraph, or between paragraphs, this command moves the cursor to the
+    beginning of the previous paragraph.
+
+goto-bol	    Go to beginning of line		^-a	^-Left
+
+    This command moves the cursor to the beginning of the line.
+
+goto-eol	    Go to end of line			^-e	^-Right
+
+    This command moves the cursor to the end of the line.
+
+goto-bob	    Go to beginning of buffer		Home	S-Prior E-<
+
+    This command moves the cursor to the first character in the buffer.
+
+goto-eob	    Go to end of buffer			End	S-Next	E->
+
+    This command moves the cursor to the last position in the buffer.
+
+goto-line	    Go to something			F3	^X-g
+
+    This command will prompt you for a desintation. You can enter the name
+    of a buffer, in which case that buffer will become the current buffer.
+    You can enter a line number, in which case the cursor will go to that
+    line in the current buffer. Or you can just press Return, in which case
+    the cursor will jump to the currently marked position (see "set-mark").
+
+scroll-right	    Scroll right			^-S-Right
+
+    This command scrolls the screen to the right. This is useful if you
+    have a long line of text, and want to see the text which is currently
+    beyond the edge of the window. A quicker technique, though, is to
+    simply move the cursor directly to the end of the line, as with
+    "goto-eol".
+
+scroll-left	    Scroll left				^-S-Left
+
+    This command scrolls the screen to the left, if it has been shifted
+    right. The quickest way to shift all the way to the left is to issue
+    the "goto-bol" command.
+
+down-window	    Scroll window down (text up)	^-z	^-Down
+
+    This command scrolls the text in the current window up, leaving the
+    cursor at its current position. If the cursor is already at the top of
+    the window, it will jump to the middle row.
+
+up-window	    Scroll window up (text down)	^-Up	E-z
+
+    This command scrolls the text in the current window down, leaving the
+    cursor at its current position. If the cursor is already at the top of
+    the window, it will jump to the middle row.
+
+reposition-window   Move current line to top		E-!
+
+    This command will move the text in the current window so that the line
+    the cursor is on becomes the first line in the window.
+
+scroll-toggle	    Toggle vertical scroll mode
+
+    If you press Down while the cursor is on the last row of the window, or
+    if you press Up while the cursor is on the first row of the window, EMX
+    normally will scroll the window by half a page, so that the line the
+    cursor ends up on is in the middle row of the window. Some people don't
+    like that. This command toggles between that mode and a mode where EMX
+    will just scroll one line at a time when moving up or down at the top
+    or bottom of the window.
+
+
+--------------------------------------------------------------------------------
+    Typing Text
+--------------------------------------------------------------------------------
+
+EMX has two modes for entering text - insert mode and overstrike mode. In
+insert mode, any characters you type will be inserted at the position of
+the cursor. Characters to the right will be moved over accordingly. In
+overstrike mode, the character over the cursor will be replaced with the
+character you type. If the cursor is at the end of the line, characters you
+type are just added to the end of the line, regardless of mode.
+
+Tabs behave just a little differently. Tab characters are invisible, but if
+a tab character is inserted, all characters to the right of it are forced
+to the next tab stop. Tab stops are every 8 positions. This cannot be
+changed, because every utility on the planet assumes that tab stops are
+every 8 positions. Sorry. When you type near tab characters, some seemingly
+strange behaviour can occur. Inserting in front of a tab character doesn't
+make characters to the right move until you type right on the tab
+character, at which point everything to the right of the tab moves over to
+the next tab stop, and you have a little more space to type into. This
+looks funny, but after a while you might believe that it makes sense.
+
+Here are the EMX commands for typing and controlling the behaviour of
+typing.
+
+ins-toggle	    Toggle insert/overstrike		Insert	^X-i
+
+    This command switches between insert and overstrike modes. Insert mode
+    causes typed characters to be inserted in front of whatever is to the
+    right of the cursor on the line. Overstrike mode causes each typed
+    character to replace the character under the cursor, unless that
+    character is a tab, in which case it is just moved aside as in insert
+    mode. Insert and overstrike mode are identical when typing at the end
+    of a line. The default is insert.
+
+word-wrap	    Toggle word-wrap mode		^X-w
+
+    This command switches between word-wrapped and normal typing. Normally,
+    when the cursor is at the rightmost visible column, typing additional
+    characters simply inserts or overstrikes normally, except that they
+    aren't visible without scrolling. Word-wrap mode causes newlines to be
+    inserted when typing a word that would extend beyond the physical
+    window.
+
+insert-tab	    Insert spaces to next tab stop	Tab	^-i
+
+    This command inserts enough spaces to move the cursor over to the next
+    tab stop, as indicated by the "set-tab-width" command. The default is 4
+    spaces.
+
+back-tab	    Delete blanks backward one tab stop E-Tab
+
+    This command removes enough spaces backward to move the cursor back to
+    the previous tab stop, as indicated by the "set-tab-width" command. The
+    cursor will stop at any visible character if encountered before the tab
+    stop. Real tab characters will be replaced with spaces if necessary.
+
+realtab		    Insert real tab character		^-Tab
+
+    This command inserts a real tab character, which will move the cursor
+    over to the next real tab stop, which come every 8 positions.
+
+set-tab-width	    Set tab width			E-^-i
+
+    This command will report or change the current tab stop setting. If
+    issued with no argument, it will report the current setting. If issued
+    with a preceding numeric argument (see "numeric-arg"), it will set a
+    new tab stop width.
+
+ins-nl		    Insert newline			Execute Return	^-m
+
+    This command will insert a new line at the current cursor position. If
+    there are characters to the right of the cursor position, they will be
+    moved to the beginning of the new line. The cursor will also move to
+    the beginning of the new line.
+
+ins-nl-and-backup   Insert newline and back up		^-o
+
+    This command will do the same as "ins-nl", but will leave the cursor at
+    the end of the original line, rather than move it to the new line.
+
+ins-nl-and-indent   Insert newline and indent		^-j
+
+    This command will insert a new line at the current cursor position, and
+    also insert enough tabs and spaces that the cursor ends up underneath
+    the first non-space character of the original line. This is useful for
+    entering indented blocks of code. It is also useful for entering
+    indented paragraphs of text, though word-wrap mode is often easier
+    still.
+
+toggle-tabs-on-indent Toggle tab insertion during indent
+
+    Some people prefer to have the "ins-nl-and-indent" command insert only
+    spaces and never tabs when indenting. This command toggles between the
+    two modes.
+
+push-newlines	    Toggle push newlines mode
+
+    This command toggles a mode affecting the behaviour of the insert
+    newline commands when issued at the end of a line which precedes a
+    blank line. Some people like to see the blank lines pushed down and a
+    new one inserted. Some people like to see the cursor move into the
+    blank line without inserting a new line. The default is to not push.
+
+quote		    Enter next key exactly		^-q
+
+    This command waits for you to type a Control-Letter sequence, then
+    enters the ASCII value of that sequence as a single character. This is
+    necessary if you want to force fun characters like ^L into your text.
+    Only Control-a through Control-z can be entered.
+
+twiddle		    Swap current and previous character ^-t
+
+    This command swaps the character under the cursor with the preceding
+    character. While it sounds goofy, it comes in very handy when you need
+    it. If a numeric argument is entered before issuing this command, the
+    two characters 'n' characters back will be twiddled.
+
+insert-text	    Insert some text
+
+    This command prompts you for a string, and inserts that string at the
+    current cursor position. Since it is a lot easier to just type the
+    string in without the command, this command is best reserved for use in
+    a keystroke file.
+
+self-insert	    Insert a character			<all characters>
+
+    This command should never be executed directly. All character keys are
+    normally bound to this command, which simply inserts the types
+    character. You may need this if you ever accidentally bind such a key
+    to some other command, and want to rebind it to behave normally.
+
+
+--------------------------------------------------------------------------------
+    Marking And Selecting Text
+--------------------------------------------------------------------------------
+
+Many of the most powerful commands in EMX rely on the ability to mark a
+region of text on which a subsequent command is to operate. While there are
+several mechanisms available to mark a region of text, there can be only
+one marked region in any single buffer of text.
+
+The marked region in a buffer is always the text between a character at
+which the "mark" has been placed, and the character at the cursor position.
+EMX does not automatically distinguish the marked region visually. This is
+because one endpoint of the region is always the current cursor position.
+It would be too distracting to have visual highlighting that always
+followed the cursor. So, the marked region is normally invisible. However,
+you always know where one endpoint of the region is - at the cursor. The
+other endpoint can be found by using the "swap-dot-and-mark" command, which
+moves the cursor to the current "mark" position, and moves the mark to
+where the cursor is now. When performed twice in succession, this command
+shows you where the other region endpoint is, then leaves the cursor back
+where it started.
+
+The characters included in the region are always the characters starting at
+and including the character under the first point (whether mark or cursor),
+up to and *not* including the character under the last point. Inclusion in
+the region is therefore independent of whether the cursor or the mark is
+first in the text.
+
+The open-ended flexibility of the region marking scheme in EMX is designed
+to make it easy to mark a single endpoint of a region, then perform some
+complex sequence of EMX commands in order to position the cursor at the
+desired other endpoint. The mark only moves when you ask it to move, so
+your original endpoint is well known.
+
+Obviously, some people are more comfortable when they can see the marked
+region, or prefer to use visual means to select it in the first place. EMX
+supports visual highlighting of a region in two ways.
+
+First, there is the "select-region" command, which visually highlights the
+marked region. The visual highlighting is only temporarily associated with
+the region, though. If you move the cursor after highlighting the region,
+the highlighting won't change, but the region endpoint under the cursor
+will. This has some value in itself, though, as there are a number of
+commands which operate on the visually highlit text independent of the
+marked region. For example, when text is visually selected, it is made
+available to other programs through the X Windows primary selection
+exchange mechanism. This is not true of the marked region.
+
+Second, you can use the mouse to visually select text. Press down the first
+mouse button, drag it around in the text, and text will be highlit, with
+the point of first press as one endpoint. When you release the mouse
+button, the cursor will end up at the point where you release, and,
+surprise, the mark will be put at the other endpoint of the selected
+region. At this point, at least temporarily, the marked region and the
+selected text are one and the same, just as if you had set the mark, moved
+the cursor, and executed "select-region".
+
+The selection commands are additive, like many of the deletion and copying
+commands. This means that if you issue a number of selection commands in
+succession, more and more text will be selected. If you issue some other
+kind of command in between, the second selection command will first
+deselect the currently selected text, and begin a new sequence of
+selections.
+
+Having marked a region or selected some text, you can then execute any of
+the EMX commands that operate on the current region or on the currently
+selected text. These commands fall into a number of categories, so their
+descriptions are scattered throughout this file.
+
+set-mark	    Set mark				F9	E-Space
+
+    This command sets the mark for the current buffer at the current cursor
+    position. As a result the marked region contains zero characters.
+    Moving the cursor will expand one end of the marked region. If no mark
+    has ever been set in a buffer, most of the region commands will fail to
+    execute.
+
+swap-dot-and-mark   Move to mark			^X-^-x
+
+    This command will swap the positions of the cursor and the mark in the
+    current buffer. The cursor will jump to the previously marked position,
+    and the mark will move to where the cursor is. This means that if you
+    issue this command twice, the cursor and mark will end up back where
+    they started, with no change at all. This is useful for finding the
+    mark if you don't know where it is.
+
+select-region	    Select the currently marked region
+
+    This command will select all text in the currently marked region. The
+    endpoints of the region are not moved. In addition, EMX will take
+    ownership of the primary selection, making the selected text available
+    for pasting in other programs.
+
+select-line	    Select the current line
+
+    This command will select all text in the current line, and move the
+    cursor to the beginning of the next line. It may be used repeatedly to
+    select a number of lines of text in succession.
+
+select-forw-char    Select forward one character
+
+    This command will select one character and move the cursor to the next
+    character.
+
+select-forw-line    Select forward one line
+
+    This command will move the cursor down one line and select all
+    characters between the original position and the new position.
+
+select-forw-word    Select forward one word
+
+    This command will move the cursor forward one word and select all
+    characters between the original position and the new position.
+
+select-back-char    Select backward one character
+
+    This command will move the cursor back one character and select the new
+    character.
+
+select-back-line    Select backward one line
+
+    This command will move the cursor up one line and select all
+    characters between the original position and the new position.
+
+select-back-word    Select backward one word
+
+    This command will move the cursor back one word and select all
+    characters between the original position and the new position.
+
+select-bob	    Select to beginning of buffer
+
+    This command will move the cursor back to the beginning of the buffer
+    and select all characters between the beginning and the original
+    position.
+
+select-bol	    Select to beginning of line
+
+    This command will move the cursor back to the beginning of the line and
+    select all characters between the original position and the new
+    position.
+
+select-eob	    Select to end of buffer
+
+    This command will move the cursor to the end of the buffer and select
+    all characters between the original position and the new position.
+
+select-eol	    Select to end of line
+
+    This command will move the cursor to the end of the line and select all
+    characters between the original position and the new position.
+
+unselect-all	    Deselect all selected text
+
+    This command will deselect all selected text. The cursor is not moved.
+
+
+--------------------------------------------------------------------------------
+    Deleting Text
+--------------------------------------------------------------------------------
+
+EMX supports a variety of general and specialized text deletion commands,
+so that you can remove text as creatively as you insert it. Many of these
+commands support a limited form of 'undo', so if you didn't really mean to
+delete something, you might be able to get it back. Beware, though, that
+this service is limited. Deleting two things in a row will cause the first
+thing to be gone forever.
+
+The 'undo' mechanism is based on the fact that when you delete something,
+it isn't really deleted. It is just moved to a temporary, invisible buffer
+called the 'kill buffer'. You can retrieve text from this buffer by using
+the "yank" command, described in the next section. The kill buffer is a
+general-purpose buffer - may EMX commands make use of it. Copying and
+moving text, for example, are done by using the kill buffer. Consistent use
+of this buffer for a lot of operations makes it very easy to remember what
+EMX is doing with your text. Unfortunately, it also means that copy, move,
+and delete operations cannot be undone after another such operation.
+
+It is also worth pointing out that not all of the deletion commands send
+the text to the kill buffer. In particular, the "forw-del-char" and
+"back-del-char" commands each send a character into oblivion, with no hope
+of recall save by retyping it. This actually comes in handy for those
+instances where you want to clear some space in order to yank something
+from the kill buffer. Even so, some people will be annoyed. Sorry.
+
+
+forw-del-char	    Delete one character		Delete	^-d
+
+    This command will delete the character at the cursor. If the cursor is
+    in or immediately adjacent to a span of selected text, the selected
+    text will be deleted instead of the character at the cursor. There is
+    no difference in behaviour between insert mode and overstrike mode.
+
+forw-del-word	    Delete one word			S-Delete	E-d
+
+    If the cursor is under a word, the portion of the word from the cursor
+    to the end of the word will be deleted. If the cursor is not under a
+    word, all characters up to and including the next word will be deleted.
+
+back-del-char	    Backspace and delete one character	BackSpace	^-h
+
+    This command will move the cursor back one position (see back-char),
+    and erase what was there. In insert mode, the character will be
+    deleted. In overstrike mode, the character will be replaced with a
+    space.
+
+back-del-word	    Backspace and delete one word	E-^-h
+
+    This command will move the cursor back one word (see back-word), and
+    erase the word that was there. There is no difference in behaviour
+    between insert mode and overstrike mode.
+
+delete-line	    Delete the current line		^-Delete
+
+    This command will delete the line the cursor is under. The cursor will
+    move to the next line.
+
+kill-line	    Delete to end of line		^-k
+
+    This command will delete all characters from the position of the cursor
+    to the end of the line. If the line is completely empty (no spaces or
+    tabs), the line will be deleted.
+
+kill-region	    Delete marked region		F11	S-F9	^-w
+
+    This command will delete all characters between the cursor and the mark
+    set for this buffer. If no mark has been set (see "set-mark"), the
+    delete will not take place. The cursor may be either before or after
+    the mark. Whichever is first, all characters including the character
+    under the first point will be removed, up to but not including the
+    character under the second point. If you aren't sure where the mark is,
+    execute "swap-dot-and-mark" a couple of times to see the two points
+    before deleting any text.
+
+cut-selected	    Delete selected text
+
+    This command will delete all selected text. The text will be copied to
+    the kill buffer.
+
+del-blanks	    Delete to the next non-blank	E-Delete
+
+    This command will delete all spaces, tabs, and newlines from the
+    location of the cursor to the next non-blank character in the buffer.
+    This will have the effect of bringing that character back to where the
+    cursor is currently.
+
+kill-paragraph	    Delete paragraph			E-^-w
+
+    If the cursor is in a paragraph, the portion of the paragraph from the
+    cursor to the end of the paragraph will be deleted. If the cursor is
+    not in a paragraph, all characters up to and including the next
+    paragraph will be deleted.
+
+del-blank-lines	    Delete blank lines around cursor	^X-^-o
+
+    This command will remove all blank lines around the cursor. If the
+    cursor is on a line which is not blank, blank lines below the cursor
+    line will be removed, and the cursor will move to the beginning of the
+    first non-blank line. If the cursor is on a blank line, blank lines
+    above and below the cursor will be deleted, and the cursor will move to
+    the beginning of the first non-blank line.
+
+
+--------------------------------------------------------------------------------
+    Copying And Moving Text
+--------------------------------------------------------------------------------
+
+Copying and moving text is done by getting the text into the kill buffer,
+then yanking it out somewhere else. There are two ways to get text into the
+kill buffer - by copying it or by deleting it. So, in order to move text,
+you first have to delete it. Usually this is done by issuing "set-mark" at
+the beginning of the text to be moved, moving the cursor to the end of the
+region to be moved, and issuing "kill-region" to delete it. However, any
+one of the kill buffer deletion commands above can be used. This implies
+some trust in EMX. You must believe that your text is not gone forever,
+even though you cannot see it. Just remember not to delete anything else
+after deleting the text you want to move, until after you have yanked it
+back.
+
+Since the kill buffer is used for deleting and moving, you can actually use
+the deletion commands to copy text as well. First you delete the text.
+Then, without going anywhere else, yank it right back. Your original text
+is back where it was before, and the kill buffer contains a copy of it.
+Obviously this can be accomplished much more easily by using the
+"copy-region" command. As with "kill-region", you just "set-mark", move the
+cursor, and "copy-region". This places a copy of the marked region in the
+kill buffer without affecting the original text. This is essential if the
+buffer you are copying from is marked as read-only. Alternatively, the
+"copy-line" command can be used to copy lines one at a time.
+
+Putting the moved or copied text into its destination involves moving the
+cursor to the spot where the text is to be inserted, and issuing "yank".
+Remember that once the kill buffer contains some text, you can "yank" it as
+many times as you want. The kill buffer never runs dry, though you can
+replace it with something else by issuing another deletion command. This
+way, if you want a number of copies of the same text, you can just keep
+banging on the key you have bound to "yank", in order to yank the text a
+lot of times.
+
+
+copy-region	    Copy marked region to kill buffer	F10	E-w
+
+    This command will copy all characters between the cursor and the mark
+    set for this buffer. If no mark has been set (see "set-mark"), the copy
+    will not take place. The cursor may be either before or after the mark.
+    Whichever is first, all characters including the character under the
+    first point will be copied, up to but not including the character under
+    the second point. If you aren't sure where the mark is, issue
+    "swap-dot-and-mark" a couple of times to see the two points.
+
+copy-line	    Copy current line to kill buffer
+
+    This command will copy the current line to the kill buffer. The cursor
+    may be anywhere on the line. The cursor will be moved to the next line.
+
+copy-word	    Copy current or next word to kill buffer
+
+    This command will copy the current word to the kill buffer. The cursor may
+    be anywhere in or before the word. The cursor will be moved to the end of
+    the word.
+
+yank		    Yank from kill buffer		F12	^-y
+
+    This command inserts a copy of the text in the kill buffer in front of
+    the character under the cursor.
+
+paste-primary	    Paste current primary selection
+
+    This command will paste the value of the current X Windows primary
+    selection at the position of the cursor. If there is no primary
+    selection, or if the primary selection is not text, nothing will
+    happen.
+
+
+--------------------------------------------------------------------------------
+    Search And Replace
+--------------------------------------------------------------------------------
+
+EMX supports a number of different search and replace commands. The search
+commands help you find patterns in a buffer. The replace commands are a handy
+way of doing a lot of replacing in a hurry.
+
+case-sense	    Toggle case-sensitive search mode	^X-^-k
+
+    This command toggles the case-sensitivity of all EMX search and replace
+    commands. When EMX starts up, searches are case-insensitive. If you
+    have this bound to a key, you can issue it while typing in a search
+    string, if you change your mind amid-type.
+
+forw-search	    Search forward for string		F8	E-s
+
+    This command asks you for a string, then searches for that string
+    forward from the position of the cursor. If the text is found, it is
+    highlit, and the cursor is positioned immediately after the text. If
+    the text is not found, an error message is displayed in the prompt
+    line. The string you type in is remembered, so that you can issue
+    another search command without having to type the string over again.
+
+    When typing in the search string, you can issue two special key
+    sequences:
+
+    Return  Terminates the string, or if you haven't typed anything, indicates
+	    that the previous search string is to be used.
+
+    F8	    If the cursor was position under a word, that word will be copied
+	    to the prompt line. This lets you search for a word in the buffer
+	    without having to figure out how to type it into the prompt line.
+
+back-search	    Search backward			S-F8	E-r
+
+    This command asks you for a string, then searches for that string
+    backward from the position of the cursor. If the text is found, it is
+    highlit, and the cursor is positioned under the first character of the
+    text. If the text is not found, an error message is displayed in the
+    prompt line. The string you type in is remembered, so that you can
+    issue another search command without having to type the string over
+    again.
+
+    When typing in the search string, you can issue the same special key
+    sequences as for "forw-search".
+
+forw-search-all	    Search all buffers forward		^-S-F8
+
+    This command is like "forw-search", except that if the search string is
+    not found in the current buffer, EMX will move to the next buffer, if
+    any, and so on until all buffers have been searched. If the string is
+    not found, the cursor will be left in the original buffer, else it will
+    be placed in whatever buffer contains the search string.
+
+    This command also sets a flag that causes the "search-again" command to
+    continue searching multiple buffers. This makes it possible to search
+    iteratively through a set of buffers for a string which may appear any
+    number of times in any number of buffers.
+
+    There is no "back-search-all".
+
+search-again	    Search for last string		^-F8
+
+    This command searches for the last entered search string, in the same
+    direction as the last search command. This allows you to repeatedly
+    search for a string without having to press Return every time.
+
+forw-i-search	    Interactive search forward		^-s
+
+    This command performs an interactive, incremental search. When you
+    issue this command, you will be prompted to type in a search string. As
+    each character is typed, EMX will search for the partial string,
+    highlighting it if found. In addition, the following key sequences can
+    be used:
+
+    ^-n	    Find next string occurrence.
+    ^-p	    Find previous string occurrence.
+    ^-s	    Switch search direction to forward and find next string occurrence.
+    ^-r	    Switch search direction to backward and find previous string
+	    occurrence.
+    ^-q	    Quote next character (allows searching for newlines, tabs).
+    ^-g	    Abort search and return to search start point.
+    Backspace
+	    Undo last character entered, and back up to previously found
+	    occurrence of shorter string.
+    Return  Exit interactive search.
+
+    If you're having trouble figuring out what these things mean, try using
+    the command. You'll be even more confused. But some people live on this
+    stuff.
+
+back-i-search	    Interactive backward search		^-r
+
+    This command performs a backward interactive incremental search. All
+    key sequences supported by "forw-i-search" work for this command as
+    well.
+
+query-replace	    Replace one string with another	F7	E-%
+
+    This command will ask you for two strings - an old string to be found,
+    and a new string with which to replace found occurrences of the old
+    string. As with "forw-search", you may use the special key sequences to
+    indicate that the previous search string or the word under the cursor
+    is to be used. The search always moves forward. There is no backward
+    replace command.
+
+    When an occurrence of the search string is found, it is highlit, and
+    you are prompted to do something about it. You can enter any of the
+    following key sequences:
+
+    ,	    Replace the string and continue.
+    .	    Replace the string and quit.
+    n	    Skip this occurrence and continue.
+    !	    Replace the rest, to the end of the buffer. This is dangerous -
+	    be sure you know what you're doing.
+    ?	    Get a list of options.
+    ^-g	    Quit.
+
+    The replacement is a little unique. If the search is case-sensitive,
+    the replacement will be exact. If the search is case-insensitive,
+    however, EMX will examine the case of the found string and make the
+    replacement accordingly. If the found string begins with lower-case
+    letters, the replace string will be inserted as typed. If the found
+    string begins with one capital letter, the replace string will be
+    similarly capitalized. If the found string begins with two capital
+    letters, the replace string will be completely capitalized.
+
+query-replace-all   Replace a string in all buffers	^-S-F7
+
+    This command is like "query-replace", except that like
+    "forw-search-all" it performs its search-and-replace operation across
+    multiple buffers. As such, it can be a bit more powerful than you might
+    like. Be especially careful with the '!' option.
+
+
+--------------------------------------------------------------------------------
+    Text Processing Commands
+--------------------------------------------------------------------------------
+
+It's difficult to know just what to call some of these commands. They just
+come in handy in all kinds of situations. Some of them you may find
+completely useless. To each their own.
+
+
+indent		    Shove characters over to next tab	F5
+
+    This command will insert enough spaces in front of the first non-blank
+    character to the right of the cursor to move that character over to the
+    next tab stop, as set by the "set-tab-width" command. This is useful
+    for re-indenting and re-formatting source code.
+
+dedent		    Pull text back to a tab stop	F6
+
+    This command will remove enough spaces or tabs to pull the first
+    non-blank character to the right of the cursor back to the previous tab
+    stop. Usually this command does the opposite of "indent". In no case
+    will the characters be pulled back further than the position of the
+    cursor.
+
+regindent	    Push region forward one tab stop	S-F5
+
+    This command will indent every line in the currently marked region in
+    the current buffer. The command will operate as if the cursor were in
+    the same column on every line as it is on the current line. This is
+    useful for indenting large blocks of text.
+
+regdedent	    Pull region back one tab stop	S-F6
+
+    This command will dedent every line in the currently marked region in
+    the current buffer. The command will operate as if the cursor were in
+    the same column on every line as it is one the current line. This is
+    useful for vertically aligning large blocks of text.
+
+cap-word	    Capitalize a word			E-c
+
+    This command will capitalize a single word or portion of a word,
+    beginning from either the cursor position or the first word following
+    the cursor.
+
+lower-word	    Lower-case a word			E-l
+
+    This command will lower the case of a single word or portion of a word,
+    beginning from either the cursor position or the first word following
+    the cursor.
+
+upper-word	    Upper-case a word			E-u
+
+    This command will raise the case of a single word or portion of a word,
+    beginning from either the cursor position or the first word following
+    the cursor.
+
+lower-region	    Lower-case region			^X-^-l
+
+    This command will lower the case of every letter in the currently
+    marked region of the current buffer.
+
+upper-region	    Upper-case region			^X-^-u
+
+    This command will raise the case of every letter in the currently
+    marked region of the current buffer.
+
+trim-line	    Trim current line			^-S-Tab
+
+    This command replaces appropriate sequences of spaces on the current
+    line with tab characters and trims trailing spaces and tabs from the
+    end of the line, in order to reduce the character count of the line.
+    The line will look exactly the same after this command is issued, but
+    the character contained on it may have changed. Single spaces will
+    never be replaced, even if they are in the right position for it. The
+    cursor will be mvoed to the start of the next line.
+
+trim-buffer	    Trim entire buffer			M1-^-S-Tab
+
+    This command will essentially execute "trim-line" for every line in the
+    current buffer, leaving the cursor at its current position.
+
+put-line-number	    Put line number into buffer		^-=
+
+    This command will insert the current line number into the current
+    buffer at the cursor position.
+
+put-date	    Put date into buffer		^X-d
+
+    This command will insert the current date into the current buffer at
+    the cursor position. For example: 12/12/91
+
+put-time	    Put time into buffer		^X-t
+
+    This command will insert the current time into the current buffer at
+    the cursor position. For example: 14:12:17
+
+put-userid	    Put user ID into buffer
+
+    This command will insert your user ID into the current buffer at the
+    cursor position.
+
+fill-paragraph	    Fill a paragraph			E-q
+
+    This command will reformat the current paragraph, filling lines with
+    words out to the current fill column, re-word-wrapping the text. The
+    fill column defaults to the initial size of the screen, but you can
+    change it to something else for tighter wrapping by using
+    "set-fill-column". If all lines of the paragraph are indented, the
+    wrapped paragraph will also be indented.
+
+set-fill-double	    Toggle paragraph sentence spacing
+
+    This command will toggle between single and double spacing between
+    sentences during paragraph fill. The initial value is single spacing.
+
+set-fill-column	    Set paragraph fill column		^X-f
+
+    This command expects a numeric argument (see "numeric-arg"), which it
+    sets as the current paragraph fill column.
+
+display-position    Display current position info	^X-=
+
+    This command will display information about the current buffer and the
+    cursor position. It consists of the following:
+
+    [Ch:0a Line: 47 of 81 Row: 6 Col: 24 Char: 2045 of 4006]
+
+    The first item is the hexadecimal code for the character under the
+    cursor. The line number is relative to the beginning of the buffer. The
+    row and column are relative to the entire screen.
+
+
+--------------------------------------------------------------------------------
+    Display Control Commands
+--------------------------------------------------------------------------------
+
+These commands let you fiddle with the way EMX presents itself. Most of
+them are useful primarily in start-up files.
+
+cursor-type	    Toggle cursor type
+
+    This command will toggle the cursor display between a thick underbar
+    and a reverse-video box.
+
+set-size	    Set window dimensions
+
+    This command prompts you for an window size argument, which must be of
+    the form 'RRxCC', where RR is the number of rows, and CC the number of
+    columns. Either of the two following degenerate forms is also allowed:
+    'RR' or 'xCC'. In the latter case, the 'x' is required. If issued from
+    a startup file, this command will set the initial size of the EMX
+    window. If issued while the EMX window is open, this command will
+    change the window dimensions.
+
+refresh		    Redisplay the screen		^-l
+
+    This command will cause EMX to completely redisplay its screen. It is
+    useful when for some reason the display appears to be messed up. It
+    will never modify or damage your text.
+
+
+--------------------------------------------------------------------------------
+    Macros and Key Bindings
+--------------------------------------------------------------------------------
+
+EMX supports the creation of macros, which are stored sequences of
+keystrokes. You can create macros by writing keystroke files, or by setting
+EMX into a mode where it records your keystrokes as you enter them, so that
+you program a macro on the fly. Once created, macros can be named, and can
+be bound to keys, so they can be made to behave like all the other EMX
+commands, except that you have written them. Writing macros in keystroke
+files will be described below. The following are the commands you can use
+to create, name, bind, and use macros within EMX.
+
+In addition, you can use the binding commands to add more key bindings to
+existing EMX commands, or to change bindings to other keys.
+
+start-macro	    Begin current macro			^X-(
+
+    This command will cause EMX to begin recording your keystrokes in the
+    current macro. The previous contents of the current macro are lost. You
+    may enter as many as 500 keystrokes for the macro. All keystrokes will
+    be processed normally as you enter them.
+
+end-macro	    Finish keystroke macro		^X-)
+
+    This command will cause EMX to stop recording keystrokes in the current
+    macro.
+
+execute-macro	    Execute current macro		S-F4	^-Return	^X-e
+
+    This command will execute the current macro.
+
+bind-macro	    Bind the current macro to a key
+
+    This command will prompt you to press a key sequence, and will bind the
+    current macro to that sequence without giving it a name. This is a
+    quick way to save and reuse a macro, especially if you want to use more
+    than one macro at a time.
+
+save-macro	    Save current macro as name
+
+    This command will prompt you for a name, and will save the current
+    macro as a command with that name. You can then execute this macro by
+    using "extended-command", or you can bind the named macro to a key.
+
+copy-region-to-macro Copy marked region to a macro
+
+    This command will copy the currently marked region of text into a new
+    macro, which will be installed without a name as the current macro.
+
+make-macro	    Create a new named macro
+
+    This command will prompt you for a new macro name, then will prompt you
+    for a delimiter key which will mark the end of the macro. You will then
+    be allowed to enter a series of key sequences, terminated by your
+    delimiter, which will be made into a macro with the given name.
+    Although you can use this command interactively, it is most useful in a
+    keystroke file.
+
+make-bound-macro    Create a new macro bound to a key
+
+    This command will prompt you for a new macro name, then will prompt you
+    for a key to which to bind the macro, then will prompt you for a
+    delimiter key which will mark the end of the macro. You will then be
+    allowed to enter a series of key sequences, terminated by your
+    delimiter, which will be made into a macro with the given name, bound
+    to the specified key. Although you can use this command interactively,
+    it is most useful in a keystroke file.
+
+bind-to-key	    Bind a command to a key
+
+    This command will prompt you for a command name, then will prompt you
+    to enter a key sequence. If the named command or macro exists, it will
+    be bound to the entered key sequence. The new sequence will work in
+    addition to any previous bindings for the command. If the key sequence
+    was previously bound to something else, the old binding will be
+    replaced. A key sequence can only be bound to one command at a time.
+    This command can be used interactively, but is also very useful in
+    keystroke files, especially in a startup file to set preferred
+    bindings.
+
+unbind-key	    Remove binding from key
+
+    This command will prompt you to enter a key sequence. If that sequence
+    is bound to a command or macro, the binding will be removed.
+
+execute-buffer	    Execute keystroke buffer
+
+    This command will prompt you for a buffer name, then will execute the
+    buffer, assuming that it contains keystroke descriptions. If you press
+    Return in response to the prompt, the current buffer will be executed.
+
+execute-file	    Execute keystroke file		^X-l
+
+    This command will prompt you for a file name, then will read the file
+    into a buffer and execute the buffer, assuming that it contains
+    keystroke descriptions.
+
+type-macro	    Print the contents of a macro
+
+    This command will prompt you for a macro name, then will print the
+    contents of that macro as text in the current buffer. This text will be
+    suitable for execution by one of the buffer execution commands. If you
+    press Return in response to the prompt, the current macro will be
+    printed. This command is useful for saving macros entered by example.
+
+invalid-key	    Beep and stop a macro
+
+    This command will cause EMX to beep, and will terminate processing of
+    any ongoing macro executions. It is only useful in a keystroke file to
+    terminate a macro. Even then it isn't much good.
+
+load-bindings	    Load another user's bindings
+
+    This command will prompt you for a user name, then will try to find a file
+    called '/home/USER/.emxrc'. If found, it will restore the original EMX
+    bindings, then load that file as if it were an EMX startup keystroke file.
+    This allows a different user to customize an EMX window - very handy if
+    the current user has set up peculiar customizations via X resources.
+
+reset-bindings
+
+    This command will restore the bindings and customizations of the user who
+    started EMX.
+
+original-bindings
+
+    This command will eliminate all macros and customizations, and restore
+    EMX's own default bindings.
+
+
+--------------------------------------------------------------------------------
+    Keystroke And Startup Files
+--------------------------------------------------------------------------------
+
+Keystroke files allow you to prepare macros of key sequences in advance of
+an editing session, and execute them while editing other files. They can
+also be executed while EMX is starting up, so you can customize the
+behaviour of EMX.
+
+A keystroke file consists simply of a collection of keystroke or key
+sequence names. There are no special keywords, formatting controls, or
+syntactical elements. You just type in the names of the keystrokes you
+want, in the order you want them. EMX interprets keystroke files by
+examining each word to see if it is a complex key sequence such as 'E-x' or
+'^-S-h'. If so, it uses that key sequence. If not, it assumes the word is
+just characters to be used as keys. Quotes ("") indicate a quoted string of
+characters, which are not to be interpreted as complex key sequences. The
+backslash (\) character may be used inside a quoted string to enter the "
+or \ characters. You may use spaces, tabs, or newlines freely. There are no
+comments.
+
+There is no difference between using keystroke files and entering
+keystrokes interactively. In particular, when your keystroke file issues a
+command which prompts you for a string, the keystroke file must include a
+Return after entering your string.
+
+In order to make this more economical, EMX does honor one special symbol. A
+solitary | character will be interpreted as the keystroke 'Return'. If used
+in a keystroke sequence (such as M1-|) or in a string (such as
+'dogs|cats'), the character will be used as is. Only a solitary | will be
+specially interpreted.
+
+As mentioned before, keystroke files may be executed directly, via the
+"execute-file" command, they may be read in at startup, via the EMXRC
+environment variable or the '-l' command option, or they may be read into
+buffers and executed via "execute-buffer".
+
+The most common use of a keystroke file is at startup, to set preferred key
+bindings, set mode toggles, and define commonly used named or bound macros.
+If the environment variable 'EMXRC' is set to point to a startup file, that
+file will be executed automatically upon the invocation of EMX. This will
+be done before a window is opened on the screen, so that initial window
+configuration can be done from the start file.
+
+Here is a simple sample startup file (for a Sun-4 keyboard), which does
+some of these things. Note that toward the end of the file the '|' symbol
+is used in place of 'Return'. You could (and should) use the '|'
+everywhere, as it speeds up keystroke processing.
+
+    E-x bind-to-key Return case-sense Return F19
+    E-x bind-to-key Return file-save Return ^-F11
+    E-x bind-to-key Return forw-del-word Return S-KP_Decimal
+    E-x bind-to-key Return goto-bob Return F27
+    E-x bind-to-key Return goto-eob Return R13
+    E-x bind-to-key Return forw-word Return S-KP_6
+    E-x bind-to-key Return back-word Return S-KP_4
+    E-x bind-to-key Return forw-line Return S-KP_2
+    E-x bind-to-key Return back-line Return S-KP_8
+    E-x bind-to-key Return forw-page Return F35
+    E-x bind-to-key Return back-page Return F29
+    E-x bind-to-key Return forw-line Return F31
+    E-x bind-to-key Return forw-page Return KP_Add
+    E-x bind-to-key Return back-page Return KP_Subtract
+    E-x bind-to-key Return forw-buffer Return F13
+    E-x bind-to-key Return back-buffer Return F14
+    E-x bind-to-key Return ins-nl-and-indent Return Linefeed
+    E-x bind-to-key Return scroll-left Return ^-S-KP_4
+    E-x bind-to-key Return scroll-right Return ^-S-KP_6
+    E-x bind-to-key Return all-win-up Return ^-S-KP_8
+    E-x bind-to-key Return all-win-down Return ^-S-KP_2
+    E-x bind-to-key Return search-again Return KP_Enter
+
+    E-x bind-to-key | forw-para | E-F1
+    E-x bind-to-key | back-para | E-F2
+    E-x bind-to-key | copy-line | F16
+    E-x bind-to-key | start-macro | F21
+    E-x bind-to-key | end-macro | F22
+    E-x bind-to-key | execute-macro | Num_Lock
+
+    E-x make-macro | > | : "> " Left Left Down :
+    E-x bind-to-key | > | ^-.
+
+    E-x make-bound-macro | input | E-i
+	: i n p u t space S-Delete E-Delete F8 space | Left ^-k Right :
+
+    E-x set-size | 50x80 Return
+    E-x push-newlines Return
+    E-x word-wrap Return
+    E-x default-back Return
+
+Each line begins with 'E-x' because that key sequence is bound by default
+to "execute command". The next word on each line is the name of the
+command, for which "execute-command" prompts. The "bind-to-key" commands
+prompt for two more strings - a command name and a key sequence. Notice
+that when you use commands like this, you have to include a 'Return' or '|'
+after entering strings. The "make-macro" command creates a macro named '>',
+delimited here by ':' keys, consisting of five keys: '>' Space Left Left
+Down. This macro is then bound to the sequence ^-. by the next line. The
+"make-bound-macro" command is a more direct way of creating a bound, named
+macro. The three toggle commands don't require any more information, but
+the "set-size" command requires a size string.
+
+This startup file sets up a host of key bindings, creates a favorite macro
+and binds it to a key, turns off default backups, turns on push-newlines
+mode, turns on word-wrap, and makes EMX start up with an 80x50 window size.
+
+
+--------------------------------------------------------------------------------
+    Shell Access
+--------------------------------------------------------------------------------
+
+EMX provides some very limited access to external shell commands. This
+support is expected to enrich itself over time.
+
+line-shell-cmd	    Send current line to shell
+
+    This command will send the contents of the line the cursor is on to a
+    system shell via the 'system()' call. The 'stdout' output of that
+    command will be inserted into the current buffer immediately after the
+    current line. Any 'stderr' output will go wherever EMX's error output
+    goes. The cursor will be moved to the beginning of the next line.
+
+
+--------------------------------------------------------------------------------
+    Delimiter Matching Commands
+--------------------------------------------------------------------------------
+
+EMX supports delimiter matching for programming languages. If you put the
+cursor on one of the delimiters for the language of your text, you can try
+to find the matching delimiter forward or backward with these commands.
+There is also an auto-matching feature in which one delimiter from each
+language will trigger the backwards match feature, so that as you type the
+final delimiter, the initial delimiter will be indicated. This is useful
+for sanity checks while writing code. It is also optional.
+
+One language is supported: C. Each buffer has a language mode associated
+with it - C by default and prescription. You can change the language mode
+by using one of the mode commands, which will affect only the buffer in
+which you execute the command. This way, you can edit files in a number of
+languages, and still use the matching commands.
+
+The following are the lists of matching delimiters by language mode. The
+matching delimiters are listed in pairs. The matched pairs can be matched
+either forward or backward. Also listed is the auto-match delimiter which
+is matched when the terminal delimiter is entered.
+
+
+'C' Matching Delimiters			SmallTalk Matching Delimiters
+    "	     <->  "			    "	<->	"
+    '	     <->  '			    '	<->	'
+    {	     <->  }			    #(	<->	)
+    (	     <->  )			    #[	<->	]
+    [	     <->  ]			    (	<->	)
+    /*	     <->  */			    [	<->	]
+    #ifndef  <->  #endif		    {	<->	}
+    #ifdef   <->  #endif
+    #if	     <->  #endif
+
+'C' Auto Match Delimiter:  '}'		SmallTalk Auto Match Delimiter: ']'
+
+
+The techniques used by the EMX in matching up delimiters are not fool
+proof, especially backwards matching. EMX will ignore delimiters contained
+within comments and quoted strings. If matching is initiated within a
+comment or quoted string, matching proceeds as if the delimiter to be
+matched is outside of a comment or quoted string. A wrong match may result.
+Source code which is conditionally compiled or assembled or
+inserted/included is not recognized as such. EMX will only exclude from
+delimiter matching text enclosed within comments or quoted strings.
+
+
+c-mode		    Set 'C' delimiter matching
+
+    Set C delimiter matching for the current buffer.
+
+st-mode		    Set ST delimiter matching
+
+    Set SmallTalk delimiter matching for the current buffer.
+
+forw-match	    Find matching delimiter forward	E-.
+
+    This command will search forward for a delimiter to match the delimiter
+    under the cursor. If found, the matching delimiter will be highlit.
+
+back-match	    Find matching delimiter backward	E-,
+
+    This command will search backward for a delimiter to match the
+    delimiter under the cursor. If found, the matching delimiter will be
+    highlit.
+
+move-to-last-match  Move to matched delimiter		E-p
+
+    This command will move the cursor to the currently highlit match for
+    the delimiter under the cursor. It is only effective immediately after
+    either "forw-match" or "back-match" has successfully completed.
+
+auto-match	    Toggle auto-match mode		E-m
+
+    This command will toggle auto-match mode for the current buffer. When
+    auto-match mode is on, entering the terminal half of the principal
+    delimiter pair ('{}' in C) will cause the initial half to be highlit
+    automatically.
+
+
+--------------------------------------------------------------------------------
+    File Backups
+--------------------------------------------------------------------------------
+
+EMX supports two methods of backing up files to help prevent loss of text:
+automatic backups and default backups. Both methods preserve an older copy
+of the file about to be overwritten by a buffer, but differ as to where the
+backup file is placed, and when it is written.
+
+Automatic backups, which must be requested and so are not fully automatic,
+are made by writing the text in a buffer to a different directory than the
+one to which it would normally be written, in addition to writing out the
+real copy. This is done every time a buffer is written, so the backup copy
+always contains the last checkpoint version of the file, not the original
+contents. The directory to which the checkpoint copy is made is identified
+by an environment variable, 'EMXBACK'. This variable should be set to the
+name of a directory. The file written to that directory will have the same
+terminal node name as the file with which the buffer is associated.
+
+Default backups, which are on by default but can be turned off, are made by
+writing the text in a buffer to a file named 'emx#back' in the same
+directory as the file with which the buffer is associated. Because the same
+name is used for all files, only the very last buffer written will be
+backed up in this manner if more than one buffer is written. The backups
+are made at the following times:
+
+    1)	If automatic backups are disabled, every write to the file causes a
+	backup to 'path of file/emx#back'.
+
+    2)	If automatic backups are enabled, every write to the file which does
+	not cause a backup to $EMXBACK/filename causes a backup to
+	'path of file/emx#back'.
+
+    3)	If automatic backups are enabled, but writing the backup to
+	'$EMXBACK/filename' results in some error, a backup to 'path of file/
+	emx#back' is done instead.
+
+Finally, EMX supports an auto-save feature which keeps track of the number
+of changes you have made to your text, and reminds you every now and then
+to save your buffers, in case you have a system crash or a meteor strike.
+If you enable this feature, EMX will prompt you after some number of
+keystrokes or buffer modification commands. You can respond 'y' to flush
+your buffers, or 'n' to leave things alone for now. You can turn this
+feature on by using "auto-save".
+
+auto-back	    Toggle auto backup mode
+
+    This command toggles automatic backups on and off. The default is off.
+
+default-back	    Toggle default backup mode		Undo
+
+    This command toggles default backups on and off. The default is on.
+
+auto-save	    Toggle auto filesave mode		E-^-a
+
+    This command will prompt you for a save count. If you enter zero,
+    auto-save will be turned off. Otherwise, enter the number of
+    modifications you want to wait between reminders. The reminder can get
+    annoying, so don't make the number small.
+
+
+--------------------------------------------------------------------------------
+    Mouse Support
+--------------------------------------------------------------------------------
+
+EMX provides a modicum of support for using a mouse to help out with
+editing operations. Besides the text selection support described above (see
+"Marking And Selecting Text"), EMX supports a few cute mouse 'icons' that
+do some useful things for mouse-happy users.
+
+The EMX info line in each window contains three mouse icons, labelled as
+[B], [1], and [2]. Pressing Button 1 while the pointer is in one of these
+icons results in the following:
+
+    [B]	    The window whose icon was tweaked changes to display the next
+	    buffer. This is equivalent to issuing "forw-buffer" with the cursor
+	    in that window.
+    [1]	    The window whose icon was tweaked becomes the only window.
+    [2]	    The window whose icon was tweaked is split into two. This is
+	    equivalent to issuing "split-window" with the cursor in that
+	    window.
+
+Clicking Button 1 while pointing anywhere in a window will move the cursor
+to that position, or as near to it as EMX allows.
+
+Pressing Button 1 and dragging the mouse will cause EMX to highlight text.
+When Button 1 is released, the cursor will be moved to the final position,
+and the mark in that buffer will be moved to the initial position. The
+marked region can then be addressed with any of the regular region
+commands. Unfortunately, EMX is not clever enough to scroll while the mouse
+is being dragged, so you can only highlight text which is completely
+visible. You can, however, take advantage of the "select-region" command to
+get past this deficiency.
+
+
+--------------------------------------------------------------------------------
+    X Resources
+--------------------------------------------------------------------------------
+
+Because EMX is an X widget-based editor, you can use the X resource system to
+establish your preferred settings and customizations. This has some distinct
+advantages over using startup files, since you can set these resources into
+your X server, and they will apply to any EMX you start up that displays
+through that X server, regardless of the host system on which you're running
+EMX.
+
+Here is a list of the resources you can set. Notice that all of them
+correspond to values that you can change interactively by using EMX commands,
+or by setting commands into an EMX keystroke file.
+
+The most interesting is XtNcustomization, which is a String containing - what
+else - EMX keystroke definitions. This resource is used exactly like an EMX
+startup file. In fact, it takes precedence over any file. If this resource is
+defined, no startup file is read unless explicitly provided on the EMX command
+line.
+
+  Name		 Class		  Kind		What is it?
+  ----		 -----		  ----		-----------
+
+XtNargc		 XtCArgc	  Integer	Number of initial arguments
+XtNargv		 XtCArgv	  Pointer	Initial arguments
+XtNautoBackup	 XtCAutoBackup	  Boolean	Auto backup on?
+XtNautoMatch	 XtCAutoMatch	  Boolean	Auto match mode on?
+XtNbackground	 XtCBackground	  String	Background color
+XtNcaseSensitive XtCCaseSensitive Boolean	Case sensitive searches?
+XtNcolumns	 XtCColumns	  Integer	Initial width
+XtNcursorStyle	 XtCCursorStyle	  Boolean	False for bar, true for box
+XtNcustomization XtCCustomization String	Startup keystrokes
+XtNdefaultBack	 XtCDefaultBack	  Boolean	Default backup mode?
+XtNdefaultMode	 XtCDefaultMode	  String	"C", "ST", "SMALLTALK"
+XtNfillColumn	 XtCFillColumn	  Integer	Word-wrap column
+XtNfillDouble	 XtCFillDouble	  Boolean	Double space after periods?
+XtNfont		 XtCFont	  String	Font name
+XtNforeground	 XtCForeground	  String	Foreground color
+XtNinsert	 XtCInsert	  Boolean	Inter or overstrike mode?
+XtNmanStyle	 XtCManStyle	  Boolean	Format as man page?
+XtNpushNewlines	 XtCPushNewlines  Boolean	Return adds new blank lines?
+XtNrows		 XtCRows	  Integer	Initial height
+XtNsaveReminder	 XtCSaveReminder  Integer	Changes before save warning
+XtNsearchAll	 XtCSearchAll	  Boolean	Search all buffers mode?
+XtNtabsOnIndent	 XtCTabsOnIndent  Boolean	Use real tabs when indenting?
+XtNtabset	 XtCTabset	  Integer	How many spaces when tabbing?
+XtNtrimOutput	 XtCTrimOutput	  Boolean	Trim lines before writing?
+XtNverticalScroll XtCVerticalScroll Boolean	Single-line scroll on Down?
+XtNwordWrap	 XtCWordWrap	  Boolean	Word-wrap mode?
+
+
+--------------------------------------------------------------------------------
+    Commands and Default Key Bindings
+--------------------------------------------------------------------------------
+
+Command Name	    Action				Default Bindings
+------------	    ------				------- --------
+abort		    Stop doing something		Cancel	^-g
+all-win-down	    Move all windows down		^-S-Down
+all-win-up	    Move all windows up			^-S-Up
+auto-back	    Toggle auto backup mode
+auto-match	    Toggle auto match mode		E-m
+auto-save	    Toggle auto filesave mode		E-^-a
+back-buffer	    Switch to previous buffer		E--
+back-char	    Move back one character		Left	^-b
+back-del-char	    Backspace and delete one character	BackSpace	^-h
+back-del-word	    Backspace and delete one word	E-^-h
+back-i-search	    Interactive backward search		^-r
+back-line	    Move up one line			Up	S-Up	^-p
+back-match	    Match delimiter backward		E-,
+back-page	    Move up one page			Prior	E-v
+back-para	    Move back one paragraph
+back-search	    Search backward			S-F8	E-r
+back-tab	    Delete blanks backward one tab stop E-Tab
+back-window	    Switch to previous window		S-F3	^X-p
+back-word	    Move back one word			S-Left	E-b
+bind-macro	    Bind the current macro to a key
+bind-to-key	    Bind a command to a key
+buffer-name	    Rename the current buffer		E-^-b
+c-mode		    Set 'C' delimiter matching
+cap-word	    Capitalize a word			E-c
+case-sense	    Toggle case-sensitive search mode	^X-^-k
+cd		    Change current directory
+copy-line	    Copy current line to kill buffer
+copy-region	    Copy marked region to kill buffer	F10	E-w
+copy-region-to-macro Copy marked region to a macro
+copy-word	    Copy current word to kill buffer	^-F16
+cursor-type	    Toggle cursor type
+cut-selected	    Delete selected text
+dedent		    Pull text back to a tab stop	F6
+default-back	    Toggle default backup mode		Undo
+del-blank-lines	    Delete blank lines around cursor	^X-^-o
+del-blanks	    Delete to the next non-blank	E-Delete
+delete-curbuf	    Delete the current buffer		S-F12
+delete-line	    Delete the current line		^-Delete
+describe-key	    Describe a key			S-Help
+display-bindings    Display all key bindings		^-Help
+display-buffers	    Display all buffer names		^X-^-b
+display-commands    Display all commands and macros	^-S-Help
+display-position    Display current position info	^X-=
+display-version	    Display EMX version string		E-^-v
+down-window	    Scroll window down (text up)	^-z	^-Down
+end-macro	    Finish keystroke macro		^X-)
+enlarge-window	    Make current window larger		^X-z
+execute-buffer	    Execute keystroke buffer
+execute-file	    Execute keystroke file		^X-l
+execute-macro	    Execute current macro		S-F4	^-Return	^X-e
+exit-flush-all	    Save all files and exit		^X-^-e	^-S-F12
+extended-command    Execute named command		E-x
+file-append	    Append current buffer to named file ^X-^-a
+file-delete	    Delete the current file		M1-^-S-Delete
+file-read	    Replace buffer with named file	^X-^-r
+file-reload	    Reload a file			M1-^-S-F7
+file-save	    Save a buffer to its file		^X-^-s
+file-visit	    Edit a file				F1	^X-^-v
+file-write	    Write a buffer to a file		S-F11	^X-^-w
+fill-paragraph	    Fill a paragraph			E-q
+flush-buffers	    Save all buffers to their files	^X-^-m
+forw-buffer	    Switch to next buffer		F4	E-+	E-=
+forw-char	    Move forward one character		Right	^-f
+forw-del-char	    Delete one character		Delete	^-d
+forw-del-word	    Delete one word			S-Delete	E-d
+forw-i-search	    Interactive search forward		^-s
+forw-line	    Move down one line			Down	S-Down	^-n
+forw-match	    Find matching delimiter forward	E-.
+forw-page	    Move down one page			Next	^-v
+forw-para	    Move forward one paragraph
+forw-search	    Search forward for string		F8	E-s
+forw-search-all	    Search all buffers forward		^-S-F8
+forw-window	    Switch to next window		F2	^X-n
+forw-word	    Move forward one word		S-Right E-f
+goto-bob	    Go to beginning of buffer		Home	S-Prior E-<
+goto-bol	    Go to beginning of line		^-a	^-Left
+goto-eob	    Go to end of buffer			End	S-Next	E->
+goto-eol	    Go to end of line			^-e	^-Right
+goto-line	    Go to something			F3	^X-g
+help		    Show help text			Help	^-F4	E-?
+indent		    Shove characters over to next tab	F5
+ins-nl		    Insert newline			Execute Return	^-m
+ins-nl-and-backup   Insert newline and back up		^-o
+ins-nl-and-indent   Insert newline and indent		^-j
+ins-toggle	    Toggle insert/overstrike		Insert	^X-i
+insert-file	    Insert named file			^-F1	^X-^-i
+insert-tab	    Insert spaces to next tab stop	Tab	^-i
+insert-text	    Insert some text
+invalid-key	    Beep and stop a macro
+kill-buffer	    Delete named buffer			^X-k
+kill-line	    Delete to end of line		^-k
+kill-paragraph	    Delete paragraph			E-^-w
+kill-region	    Delete marked region		F11	S-F9	^-w
+line-shell-cmd	    Send current line to shell
+load-bindings	    Load bindings for another user	M1-l
+lower-region	    Lower-case region			^X-^-l
+lower-word	    Lower-case a word			E-l
+make-bound-macro    Create a new macro bound to a key
+make-macro	    Create a new named macro
+move-to-last-match  Move to matched delimiter		E-p
+numeric-arg	    Enter number for next command	^-u
+only-window	    Make this window the only one	S-F2	^X-1
+original-bindings   Reset to original bindings
+paste-primary	    Paste current primary selection
+push-newlines	    Toggle push newlines mode
+put-date	    Put date into buffer		^X-d
+put-line-number	    Put line number into buffer		^-=
+put-time	    Put time into buffer		^X-t
+put-userid	    Put user ID into buffer
+query-replace	    Replace one string with another	F7	E-%
+query-replace-all   Replace a string in all buffers	^-S-F7
+quit		    Exit				^X-^-c
+quote		    Enter next key exactly		^-q
+realtab		    Insert real tab character		^-Tab
+refresh		    Redisplay the screen		^-l
+regdedent	    Pull region back one tab stop	S-F6
+regindent	    Push region forward one tab stop	S-F5
+reposition-window   Move current line to top		E-!
+reset-bindings	    Reset to first user's bindings
+save-macro	    Save current macro as name
+save-to-buffer	    Save marked region in named buffer
+scroll-left	    Scroll left				^-S-Left
+scroll-right	    Scroll right			^-S-Right
+scroll-toggle	    Toggle vertical scroll mode
+search-again	    Search for last string		^-F8
+select-back-char    Select backward one character
+select-back-line    Select backward one line
+select-back-word    Select backward one word
+select-bob	    Select to beginning of buffer
+select-bol	    Select to beginning of line
+select-eob	    Select to end of buffer
+select-eol	    Select to end of line
+select-forw-char    Select forward one character
+select-forw-line    Select forward one line
+select-forw-word    Select forward one word
+select-line	    Select the current line
+select-region	    Select the currently marked region
+self-insert	    Insert the typed character		<all characters>
+set-file-name	    Change a buffer's filename		^X-^-f
+set-fill-column	    Set paragraph fill column		^X-f
+set-fill-double	    Toggle paragraph sentence spacing
+set-mark	    Set mark				F9	E-Space
+set-size	    Set window dimensions
+set-tab-width	    Set tab width			E-^-i
+shrink-window	    Make current window smaller		^X-^-z
+split-visit	    Open a new window and read a file	^-S-F1
+split-window	    Open a new window			^-F2	^X-2
+st-mode		    Set SmallTalk mode
+start-macro	    Begin current macro			^X-(
+swap-dot-and-mark   Move to mark			^X-^-x
+toggle-tabs-on-indent Toggle tab insertion during indent
+trim-buffer	    Trim entire buffer			M1-^-S-Tab
+trim-line	    Trim current line			^-S-Tab
+trim-output-toggle  Toggle trimming of buffer on writes
+twiddle		    Swap current and previous character ^-t
+type-macro	    Print the contents of a macro
+unbind-key	    Remove binding from key
+unmodify	    Clear modified flag for buffer	E-F7
+unselect-all	    Deselect all selected text
+up-window	    Move window up, text down		^-Up	E-z
+upper-region	    Upper-case region			^X-^-u
+upper-word	    Upper-case a word			E-u
+use-buffer	    Goto named buffer			^X-b
+view-file	    View a file read-only		S-F1	^X-v
+word-wrap	    Toggle word-wrap mode		^X-w
+yank		    Yank from kill buffer		F12	^-y
+yank-from-buffer    Yank from named buffer

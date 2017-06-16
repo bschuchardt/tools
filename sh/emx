@@ -1,0 +1,20 @@
+#!/bin/bash
+if [ x"$mtype" == x ]; then
+  mtype=50
+fi
+if [ $mtype -eq 50 ]; then
+  is64=`uname -a | grep x86_64`
+  hn=`hostname`
+  if [ x"$OLDEMX" != x -o $hn = "carlos" -o $hn = "pippin" ]; then
+    oldEmx=".old"
+  else
+    oldEmx=""
+  fi
+  if [ x"$is64" != x ]; then
+    emxr64${oldEmx} "$@"
+  else
+    emxr32${oldEmx} "$@"
+  fi
+else
+  $localbin/emxr64 "$@"
+fi

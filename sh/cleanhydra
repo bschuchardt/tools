@@ -1,0 +1,54 @@
+#!/bin/bash
+function _cleandir
+{
+  here=$PWD
+  if [ ! -d $1 ]; then
+    echo "$1 is not a directory"
+  else
+    cd $1
+#    rm -f *.log core.txt errors.txt *timings.txt nukerun.sh dumprun.sh *.obj \
+#    latest.conf statistics.spec trim.spec latest.prop in_progress.txt in_master.txt \
+#    perfreport.txt mergedLogs.txt
+    ds=`ls -F . | grep "/"`
+    if [ x"$ds" != x ]; then
+      for x in $ds; do
+        if [ -r $x/nukerun.sh -o -r $x/system.log -o -r $x/nukerun.bat ]; then
+          echo "rm -rf $x"
+          rm -rf $x
+        elif [ $x != bugdir ]; then
+          echo "not deleting $x"
+        fi
+      done
+    fi
+    rm -f build.log batterytest.log batterytest.bt summ-B*.txt
+    if [ $1 == "." -a -r oneliner.txt ]; then
+      echo "----------------------------" >>past-oneliner.txt
+      cat oneliner.txt >> past-oneliner.txt
+      rm -f oneliner.txt
+    else
+      rm -f oneliner.txt
+    fi
+    if [ -r untilfail.log ]; then
+      ls -l untilfail.log >>past-untilfail.log
+      echo "-----------------------------" >>past-untilfail.log
+      cat untilfail.log >> past-untilfail.log
+      rm untilfail.log
+    fi
+    if [ -r untilhang.log ]; then
+      ls -l untilhang.log >>past-untilhang.log
+      echo "-----------------------------" >>past-untilhang.log
+      cat untilhang.log >> past-untilhang.log
+      rm untilhang.log
+    fi
+  fi
+  cd $here
+}
+
+if [ x"$1" == x ]; then
+  _cleandir .
+else
+  for x in "$@"; do
+    _cleandir $x
+  done
+fi
+

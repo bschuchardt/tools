@@ -1,0 +1,185 @@
+#!/bin/sh
+# set -x
+
+# See if they want help... 
+
+if [ "x${1}" = "x-help" ]
+then
+    echo " Usage: suntype           - print number for os-architecture combination."
+    echo "        suntype -osver    - print os version for this machine."
+    echo "        suntype -hosttype - print GemStone string for this architecture."
+    echo "        suntype -ostype   - print GemStone string for this operating system."
+    echo "        suntype -help     - print this usage statement."
+    echo 
+    echo "Below is a table of the values (except os version) that suntype may return."
+    echo
+    echo "	##################################################"
+    echo "	# Suntype  |  Architecture  |  Operating System  #"
+    echo "	#----------+----------------+--------------------#"
+    echo "	#     7    |      hppa      |        hpux        #"
+    echo "	#     9    |    RISC6000    |        AIX         #"
+    echo "	#    10    |      sparc     |      Solaris       #"
+    echo "	#    11    |      x86       |      Windows_NT    #"
+    echo "	#    13    |      x86       |      Solaris       #"
+    echo "	#    50    |      x86       |       linux        #"
+    echo "	##################################################"
+    echo
+    echo "Legacy suntypes for which we no longer have hosts:"
+    echo "(This script does not currently support these)"
+    echo
+    echo "	##################################################"
+    echo "	# Suntype  |  Architecture  |  Operating System  #"
+    echo "	#----------+----------------+--------------------#"
+    echo "	#     1    |      DEC       |       Ultrix       #"
+    echo "	#     3    |      MIPSEB    |       sinix        #"
+    echo "	#     4    |      sparc     |       SunOS4       #" 
+    echo "      #     5    |      i386      |       NCR          #" 
+    echo "      #     8    |      Symmetry  |       Dynix        #"
+    echo "      #    20    |      x86       |       win31        #"
+    echo "      #    25    |      x86       |       win32s       #"
+    echo "      #    30    |      x86       |       os2          #"
+    echo "      #    40    |      68k       |       mac          #"
+    echo "      #    41    |      PowerPC   |       mac          #"
+    echo "	##################################################"
+    exit 0
+fi
+
+if [ "x$OS" != "xWindows_NT" ]
+then
+
+    # Use uname for discission information
+    un=`uname -a`
+
+    # typically the os is first field. 
+    # exceptions are handled elsewhere.
+    os=`echo $un| cut -d' ' -f1`
+
+    # typically the os version is the third field. 
+    # exceptions are handled elsewhere.
+    osver=`echo $un| cut -d' ' -f3`
+
+    # typically the host architecture is the sixth field. 
+    # exceptions are handled elsewhere.
+    if [ "$os" = "Linux" ]
+    then
+	    arch=`uname -m`
+    else
+        arch=`echo $un| cut -d' ' -f6`
+    fi
+else
+    suntype=11
+    os=$OS
+    arch=$PROCESSOR_ARCHITECTURE
+    osver=`cmd /c ver | cut -d' ' -f4`
+fi
+
+if [ "x$os" = "xSunOS" ]
+then
+    # We prefer to call it Solaris.
+    os=Solaris
+    # And to use the new version numbers. So subtract 3 from given os version.
+    # For some reason, SunOS 5.7 and Solaris 2.7 are synonymous.
+    osMver=`echo $osver | cut -d'.' -f1`
+    osmver=`echo $osver | cut -d'.' -f2`
+    osMver=`expr $osMver - 3`
+    osver="${osMver}.${osmver}"
+    # We have two architectures for Solaris in house... x86 and sparc...
+    if [ "x$arch" = "xsparc" ]
+    then
+       suntype=10
+    else
+	if [ "x$arch" = "xx86" ]
+        then
+	    suntype=13
+	else
+	    echo "unknown suntype for $arch on $os";
+	    exit 1;
+	fi
+    fi
+fi
+
+if [ "x$os" = "xAIX" ]
+then
+    # We still use old architecture name. RISC6000 instead of PowerPC. 
+    # Should probably consider a change.
+    arch=RISC6000
+    # AIX uname reports os version in two parts, and backwards...
+    osMver=`echo $un | cut -d' ' -f4`
+    osmver=`echo $un | cut -d' ' -f3`
+    osver="${osMver}.${osmver}"
+    suntype=9
+fi
+
+if [ "x$os" = "xHP-UX" ]
+then
+    # Strip off the 'B.' on the front of osver, just give us the numbers.
+    osMver=`echo $osver | cut -d'.' -f2`
+    osmver=`echo $osver | cut -d'.' -f3`
+    osver="${osMver}.${osmver}"
+    suntype=7
+    # The short version of os name. 
+    os=hpux
+    # Uname is too specific here... we just abstract them all to hppa.
+    arch=hppa
+fi
+
+if [ "x$os" = "xLinux" ]
+then
+    # Strip off the 'B.' on the front of osver, just give us the numbers.
+    osMver=`echo $osver | cut -d'.' -f1`
+    osmver=`echo $osver | cut -d'.' -f2`
+    osver="${osMver}.${osmver}"
+    suntype=50
+    # The short version of os name. 
+    os=Linux
+    #arch=i386
+fi
+
+# check to see if we successful determined suntype
+if [ "x$suntype" = "x" ]
+then
+    echo "Cannot determine suntype information for this host."
+    exit 1
+fi
+
+# Now process user arguments... 
+
+# if no args, just print this host's suntype value.
+if [ $# = 0 ]
+then
+    echo $suntype
+    exit 0
+fi
+
+isopt=`echo ${1-} | cut -c1`
+if [ "x${isopt}" = "x-" ]
+then
+
+    if [ "x${1}" = "x-osver" ]
+    then
+	echo $osver
+	exit 0
+    fi
+
+    if [ "x${1}" = "x-hosttype" ]
+    then
+	echo $arch
+	exit 0
+    fi
+
+    if [ "x${1}" = "x-ostype" ]
+    then
+	echo $os
+	exit 0
+    fi
+
+    echo "Error: unknown option $1"
+    exit 1;
+
+else
+    host=$1
+    shift
+    rsh $host suntype $*
+fi
+
+

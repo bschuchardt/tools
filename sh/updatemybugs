@@ -1,0 +1,5 @@
+#!/bin/sh
+cd ~/bugs
+./updatemybugs
+emx mybugs*.txt
+

@@ -1,0 +1,14 @@
+#!/bin/bash
+exec 2>&1
+exec >untilhang.log
+typeset -i i
+i=0
+rm -f stop.txt
+while [ ! -r *-*-*/hang.txt -a ! -r stop.txt ]; do
+rm -f summ*
+#rm -rf *-*-*
+i=$((i + 1))
+echo "run #$i------------------------"
+runbatterytest tests.bt
+delpasses
+done

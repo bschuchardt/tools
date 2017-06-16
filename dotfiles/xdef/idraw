@@ -1,0 +1,60 @@
+/* this file allows me to specify alternate sets of fonts for use with
+   the 'idraw' program.  Life would be much simpler if the *&^% program
+   would have simple font-style and font-size menu picks instead of listing
+   each variation as a seperate font selection */
+
+#ifdef COURIER
+idraw.font1: courier8  courier 8
+idraw.font2: courier_bold8 courier 8
+idraw.font3: courier_oblique8 courier 8
+idraw.font4: courier_boldoblique8 courier 8
+idraw.font5: courier10  courier 10
+idraw.font6: courier_bold10 courier 10
+idraw.font7: courier_oblique10 courier 10
+idraw.font8: courier_boldoblique10 courier 10
+idraw.font9: courier12  courier 12
+idraw.font10: courier_bold12 courier 12
+idraw.font11: courier_oblique12 courier 12
+idraw.font12: courier_boldoblique12 courier 12
+idraw.font13: courier18  courier 18
+idraw.font14: courier_bold18 courier 18
+idraw.font15: courier_oblique18 courier 18
+idraw.font16: courier_boldoblique18 courier 18
+#endif
+#ifdef TIMES
+idraw.font1: times8  times 8
+idraw.font2: times_bold8 times 8
+idraw.font3: times_italic8 times 8
+idraw.font4: times_bolditalic8 times 8
+idraw.font5: times10  times 10
+idraw.font6: times_bold10 times 10
+idraw.font7: times_italic10 times 10
+idraw.font8: times_bolditalic10 times 10
+idraw.font9: times12  times 12
+idraw.font10: times_bold12 times 12
+idraw.font11: times_italic12 times 12
+idraw.font12: times_bolditalic12 times 12
+idraw.font13: times18  times 18
+idraw.font14: times_bold18 times 18
+idraw.font15: times_italic18 times 18
+idraw.font16: times_bolditalic18 times 18
+#endif
+#ifdef HELVETICA
+idraw.font1: helvetica8  helvetica 8
+idraw.font2: helvetica_bold8 helvetica 8
+idraw.font3: helvetica_oblique8 helvetica 8
+idraw.font4: helvetica_boldoblique8 helvetica 8
+idraw.font5: helvetica10  helvetica 10
+idraw.font6: helvetica_bold10 helvetica 10
+idraw.font7: helvetica_oblique10 helvetica 10
+idraw.font8: helvetica_boldoblique10 helvetica 10
+idraw.font9: helvetica12  helvetica 12
+idraw.font10: helvetica_bold12 helvetica 12
+idraw.font11: helvetica_oblique12 helvetica 12
+idraw.font12: helvetica_boldoblique12 helvetica 12
+idraw.font13: helvetica18  helvetica 18
+idraw.font14: helvetica_bold18 helvetica 18
+idraw.font15: helvetica_oblique18 helvetica 18
+idraw.font16: helvetica_boldoblique18 helvetica 18
+#endif
+

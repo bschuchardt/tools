@@ -1,0 +1,2 @@
+#!/bin/sh
+find . -name "*.class" -print -exec jad -r -o -sjava -v $1 {} \;

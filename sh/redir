@@ -1,0 +1,5 @@
+#!/bin/sh
+logfile=$1
+shift
+eval "$@" 2>&1 1>$logfile
+

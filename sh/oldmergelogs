@@ -1,0 +1,22 @@
+#!/bin/bash
+if [ x"$1" != x ]; then
+  mergefiles="$@"
+else
+#  mergefiles=`find . -name "*.log"`
+  mergefiles=`lsdirs | grep -v disk_`
+  mergefiles=". $mergefiles"
+fi
+#  -Dmergelogs.NEWLINE_AFTER_HEADER=true 
+# -noblanks
+TRIM="-Dmergelogs.TRIM_TIMESTAMPS=true"
+DIRCOUNT=${ML_DIRCOUNT:-1}
+TRIM_NAMES="-Dmergelogs.TRIM_NAMES=true"
+#JAR=$HOME/usr/classes/mergelogs.jar
+JAR=$GEMFIRE/lib/gemfire.jar:$GEMFIRE/lib/log4j-api-2.1.jar:$GEMFIRE/lib/log4j-core-2.1.jar
+#USE_PIDS="-pids"
+$JAVA_HOME/jre/bin/java -Xmx1500m -Xms750m -server \
+  $TRIM $TRIM_NAMES\
+  -cp $JAR \
+  com.gemstone.gemfire.internal.MergeLogFiles -dirCount $DIRCOUNT \
+  $USE_PIDS\
+  $mergefiles

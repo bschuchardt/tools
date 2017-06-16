@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ -r /usr/bin/fgrep ]; then
+  FGREP=/usr/bin/fgrep
+else
+  FGREP=/bin/fgrep
+fi
+
+if [ x"$2" != x ]; then
+
+  find . -type f -follow -exec $FGREP -li "$1" "$2" $3 $4 {} \;
+
+else
+
+  find . -type f -follow -exec $FGREP -l "$1" $2 $3 {} \;
+
+fi

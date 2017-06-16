@@ -1,0 +1,12 @@
+#!/bin/sh
+machines=""
+for x in a b c d e   g h i j k l m n; do
+  machines="$machines hs20${x}"
+done
+
+machines=`java -cp /home/bschuchardt/usr/classes ReachableHosts $machines`
+
+for x in $machines; do
+  echo -n "${x}  :"; ssh ${x} "${@:-uptime}"
+done
+      

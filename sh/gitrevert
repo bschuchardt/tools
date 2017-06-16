@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ x"$1" != x ]; then
+  git checkout -- "$@"
+
+else
+
+# preps all modified/removed/renamed/untracked files for reverting changes
+# and pop open an emx window to execute the commands in
+export git_include_deletes=y
+gitchangedfiles | sed -e "s/^/git checkout -- /" >/tmp/gitrevert.tmp
+
+if [ -d open ]; then
+  cd open
+  gitchangedfiles | sed -e "s/^/cd open\; git checkout -- /" >>/tmp/gitrevert.tmp
+  cd ..
+fi
+
+semx /tmp/gitrevert.tmp
+
+fi

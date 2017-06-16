@@ -1,0 +1,9 @@
+#!/bin/sh
+bridgepids=`ls -d bridge* | cut -d _ -f 2`
+if [ x"$bridgepids" == x ]; then
+  echo "could not determine bridge PIDs"
+  exit 2
+fi
+#echo "emlogspid $bridgepids"
+exec emlogspid $bridgepids
+

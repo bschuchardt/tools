@@ -1,0 +1,13 @@
+#!/bin/bash
+# like grepjars, but grepping a specific list of jars
+# find . -name "*.jar" | xargs grepjar string-to-find
+#
+str="$1"
+shift 1
+for x in "$@"; do
+res=`unzip -v $x | grep "$str"`
+if [ x"$res" != x ]; then
+    echo "-------- $x"
+    unzip -v $x | grep "$str"
+fi
+done

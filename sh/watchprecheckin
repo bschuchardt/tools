@@ -1,0 +1,35 @@
+#!/bin/sh
+cd $layer
+TAIL=tailf
+
+function recentfile {
+  files=`find . -name *-progress.txt`
+  echo `ls -t $files | head -1`
+}
+
+
+file=`recentfile`
+curfile=$file
+echo "----- $file -----"
+echo "]2; $file "
+sleep 1
+
+tail -f $file&
+proc=$!
+trap "kill $proc; setlabel" EXIT
+while [ 1 ]; do
+    sleep 15
+    file=`recentfile`
+    if [ x"$file" != x"$curfile" ]; then
+        kill $proc
+        clear
+        echo "----- $file -----"
+        echo "]2; $file "
+        sleep 1
+        curfile=$file
+        $TAIL $file&
+        proc=$!
+        trap "kill $proc; setlabel" EXIT
+    fi
+done
+

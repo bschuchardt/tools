@@ -1,0 +1,5 @@
+#!/bin/sh
+# set the window label
+hn=`hostname`
+echo "]2; $hn [$$]"
+

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# print / findCycle / findSubgraphs + filename.ser
+
+java org.apache.geode.distributed.internal.deadlock.DeadlockDetector "$@"
+

@@ -1,0 +1,8 @@
+plan*menubar*fontList:  -*-helvetica-bold-*-normal-*-14-*
+plan*fontList:          -*-helvetica-*-r-*-*-12-*
+plan*helpFont:          -*-times-medium-r-*-*-18-*
+plan*calNumberFont:     -*-helvetica-*-r-*-*-24-*
+plan*calNoteFont:       -*-helvetica-medium-r-*-*-12-*
+
+plan*calBoxWidth:       150
+plan*calBoxHeight:      90

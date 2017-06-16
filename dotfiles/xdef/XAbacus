@@ -1,0 +1,9 @@
+!Example resources for xabacus (default, as specified)
+!Installation of this file in /usr/lib/X11/app-defaults/ is UNECESSARY
+!
+XAbacus.beadwidth:  30
+XAbacus.beadheight: 20
+XAbacus.framewidth: 10
+XAbacus.ncols: 13
+XAbacus.demofont: -*-times-*-r-*-*-*-180-*
+XAbacus.demo: ./

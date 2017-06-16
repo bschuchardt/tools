@@ -1,0 +1,26 @@
+#/bin/bash
+#find the last telnet connection listed
+whoami=`whoami`
+
+
+l=`last -i | grep $whoami | head -1`
+echo "$l" | cut -c 23-40 | cut -f 1-1 -d " "
+
+#terms=`who | grep $whoami | grep pts | grep "(" | head -1`
+#echo $terms | cut -d "(" -f 2 | cut -d ")" -f 1
+
+#if [ "$mtype" == "50" ]; then
+#  tnet=`netstat --numeric-hosts | grep -v 127.0.0.1 | grep -i ssh | head -1`
+#  #echo $tnet
+  # sles 9 & 10
+#  addr=`echo $tnet | cut -d" " -f5 | cut -d: -f1`
+#  if [ x"$addr" = x ]; then
+    # redhat 4
+#    addr=`echo $tnet | cut -d":" -f 8`
+#  fi
+#  echo $addr
+#else
+#  tnet=`netstat | grep ssh | head -1`
+#  addr=`echo $tnet | cut -d" " -f2 | cut -d. -f1-3`
+#  echo $addr
+#fi

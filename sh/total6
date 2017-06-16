@@ -1,0 +1,13 @@
+#!/bin/sh
+# a script that takes stdin and totals all the numbers in field 6 (e.g., ls -l)
+#
+# you can override the field to be totalled with the env var "totalField"
+#
+
+totalField=${totalField:-6}
+awkpgm=`dirname $0`/sumN.awk
+if [ ! -r $awkpgm ]; then
+  echo `basename $0`": This script needs $awkpgm"
+  exit 3
+fi
+awk -v N=$totalField -f $awkpgm

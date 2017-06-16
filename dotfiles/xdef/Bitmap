@@ -1,0 +1,199 @@
+*TransientShell.allowShellResize:	True
+*font:			-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-iso*-*
+*shapeStyle:				oval
+*cursor:				left_ptr
+*pane.orientation:			horizontal
+
+*Form*top:				ChainTop
+*Form*bottom:				ChainTop
+*Form*left:				ChainLeft
+*Form*right:				ChainLeft
+
+*MenuButton.leftBitmap:			menu12
+*form*width:              		120
+*form*height:             		15
+
+*Toggle.translations:	<EnterWindow>:	highlight(WhenUnset)\n\
+			<LeaveWindow>:	unhighlight()\n\
+			<Btn1Down>,<Btn1Up>: 	set() notify()
+
+*MenuButton.translations:	<EnterWindow>:  highlight()\n\
+				<LeaveWindow>:  reset()\n\
+				<BtnDown>:  reset() fix-menu() PopupMenu()
+
+*Dialog.value.translations:#override<Key>Return:set-okay()
+*image.label.translations:#override<Btn1Down>,<Btn1Up>:image()
+
+*bitmap.bitmapWidth:			32
+*bitmap.bitmapHeight:			32
+*bitmap.squareSize:			15
+*bitmap.dashes:				/engr/users/bruce/lib/bitmaps/gbitmaps/Dashes
+*bitmap.dashed:				on
+*bitmap.cursor:           		tcross
+*bitmap.stipple:			Stipple
+
+*info*label.font:-adobe-helvetica-bold-r-normal--*-100-*-*-p-*-iso8859-1
+*info*icon:				xlogo64
+*info*label.height:			150
+
+*TransientShell.width:			300
+
+*input*icon:				/engr/users/bruce/lib/bitmaps/gbitmaps/Term
+*qsave*icon:				/engr/users/bruce/lib/bitmaps/gbitmaps/Term
+*error*icon:				/engr/users/bruce/lib/bitmaps/gbitmaps/Excl
+!*Dialog.value.borderWidth:		0
+*Dialog.yes.label:			Yes
+*Dialog.no.label:			No
+*Dialog.okay.label:			OK
+*Dialog.abort.label:			Abort
+*Dialog.cancel.label:			Cancel
+*Dialog.retry.label:			Retry
+
+*infoButton.width:			48
+*infoButton.label:			Info
+
+*infoPopup.width:			300
+*infoPopup.height:			100
+
+*MenuButton.width:			48
+
+*SimpleMenu.width:			0
+*SimpleMenu.height:			0
+*SimpleMenu.cursor:			hand2
+*SimpleMenu.line.height:		0
+
+*fileButton.label:			File
+*fileButton.fromHoriz: 			infoButton
+*fileButton.menuName:			fileMenu
+
+*editButton.label:			Edit
+*editButton.fromHoriz: 			fileButton
+*editButton.menuName:			editMenu
+
+*formy.status*top:			ChainTop
+*formy.status*bottom:			ChainTop
+*formy.status*left:			ChainLeft
+*formy.status*right:			ChainRight
+*status.fromHoriz:			editButton
+*status.borderWidth:			0
+
+*SmeBSB.HorizontalMargins:		32
+
+*fileMenu.load.label:			Load...
+*fileMenu.insert.label:			Insert...
+*fileMenu.save.label:			Save
+*fileMenu.saveAs.label:			Save As...
+*fileMenu.resize.label:			Resize...
+*fileMenu.rescale.label:		Rescale...
+*fileMenu.filename.label:		Filename...
+*fileMenu.basename.label:		Basename...
+*fileMenu.quit.label:			Quit
+
+*editMenu.image.label:			Image
+*editMenu.grid.label:			Grid
+*editMenu.dashed.label:			Dashed
+*editMenu.axes.label:			Axes
+*editMenu.stippled.label:		Stippled
+*editMenu.proportional.label:		Proportional
+*editMenu.zoom.label:			Zoom
+*editMenu.cut.label:			Cut
+*editMenu.copy.label:			Copy
+*editMenu.paste.label:			Paste
+
+*form.clear.label:			Clear
+*form.set.fromVert: 			clear
+*form.set.label:			Set
+*form.invert.fromVert: 			set
+*form.invert.label:			Invert
+
+*form.copy.vertDistance:		10
+*form.copy.fromVert: 			invert
+*form.copy.label:			Copy
+*form.move.fromVert: 			copy
+*form.move.radioGroup:			copy
+*form.move.label:			Move
+
+*form.flipHoriz.vertDistance:		10
+*form.flipHoriz.width:			36
+*form.flipHoriz.height:			36
+*form.flipHoriz.fromVert: 		move
+*form.flipHoriz.bitmap:			/engr/users/bruce/lib/bitmaps/gbitmaps/FlipHoriz
+*form.up.vertDistance:			10
+*form.up.width:				36
+*form.up.height:			36
+*form.up.fromVert: 			move
+*form.up.fromHoriz:			flipHoriz
+*form.up.bitmap:			/engr/users/bruce/lib/bitmaps/gbitmaps/Up
+*form.flipVert.vertDistance:		10
+*form.flipVert.width:			36
+*form.flipVert.height:			36
+*form.flipVert.fromVert: 		move
+*form.flipVert.fromHoriz:		up
+*form.flipVert.bitmap:			/engr/users/bruce/lib/bitmaps/gbitmaps/FlipVert
+*form.left.width:			36
+*form.left.height:			36
+*form.left.fromVert: 			flipHoriz
+*form.left.bitmap:			/engr/users/bruce/lib/bitmaps/gbitmaps/Left
+*form.fold.width:			36
+*form.fold.height:			36
+*form.fold.fromVert: 			up
+*form.fold.fromHoriz: 			left
+*form.fold.bitmap:			/engr/users/bruce/lib/bitmaps/gbitmaps/Fold
+*form.right.width:			36
+*form.right.height:			36
+*form.right.fromVert: 			flipVert
+*form.right.fromHoriz: 			fold
+*form.right.bitmap:			/engr/users/bruce/lib/bitmaps/gbitmaps/Right
+*form.rotateLeft.width:			36
+*form.rotateLeft.height:		36
+*form.rotateLeft.fromVert:		left
+*form.rotateLeft.bitmap:		/engr/users/bruce/lib/bitmaps/gbitmaps/RotateLeft
+*form.down.width:			36
+*form.down.height:			36
+*form.down.fromVert: 			fold
+*form.down.fromHoriz: 			rotateLeft
+*form.down.bitmap:			/engr/users/bruce/lib/bitmaps/gbitmaps/Down
+*form.rotateRight.width:		36
+*form.rotateRight.height:		36
+*form.rotateRight.fromVert:		right
+*form.rotateRight.fromHoriz:		down
+*form.rotateRight.bitmap:		/engr/users/bruce/lib/bitmaps/gbitmaps/RotateRight
+
+*form.point.vertDistance:		10
+*form.point.fromVert: 			rotateLeft
+*form.point.radioGroup:  		move
+*form.point.label:			Point
+*form.curve.fromVert: 			point
+*form.curve.radioGroup:  		point
+*form.curve.label:			Curve
+*form.line.fromVert: 			curve
+*form.line.radioGroup: 			curve
+*form.line.label:			Line
+*form.rectangle.fromVert: 		line
+*form.rectangle.radioGroup:  		line
+*form.rectangle.label:			Rectangle
+*form.filledRectangle.fromVert: 	rectangle
+*form.filledRectangle.radioGroup:  	rectangle
+*form.filledRectangle.label:		Filled Rectangle
+*form.circle.fromVert: 			filledRectangle
+*form.circle.radioGroup:  		filledRectangle
+*form.circle.label:			Circle
+*form.filledCircle.fromVert: 		circle
+*form.filledCircle.radioGroup:  	circle
+*form.filledCircle.label:		Filled Circle
+*form.floodFill.fromVert:		filledCircle
+*form.floodFill.radioGroup:  		filledCircle
+*form.floodFill.label:			Flood Fill
+
+*form.setHotSpot.vertDistance:		10
+*form.setHotSpot.fromVert: 		floodFill
+*form.setHotSpot.radioGroup:  		floodFill
+*form.setHotSpot.label:			Set Hot Spot
+*form.clearHotSpot.fromVert: 		setHotSpot
+*form.clearHotSpot.label:		Clear Hot Spot
+
+*form.undo.vertDistance:		10
+*form.undo.fromVert:			clearHotSpot
+*form.undo.label:			Undo
+
+

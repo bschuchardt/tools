@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ x"$1" = x"-d" ]; then
+  debug=1
+  shift 1
+fi
+#files=`svn status | grep ^[A,M,C] | cut -c8-`
+files=`gitchangedfiles`
+if [ x"$debug" = x1 ]; then
+  echo $files
+else
+  exec emx $files
+fi

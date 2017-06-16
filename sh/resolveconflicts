@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ x"$1" = x"-d" ]; then
+  debug=1
+  shift 1
+fi
+log=${1:-buildLinux.log}
+files=`git status -s | grep ^[UU] | cut -c3-`
+if [ x"$debug" = x1 ]; then
+  echo $files
+else
+  git add $files
+fi

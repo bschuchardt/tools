@@ -1,0 +1,68 @@
+! dronePath specifies a path where the drone executable may
+! be found.  This is used by the master process when executing
+! remote drones via rsh.  The full path name is needed since
+! the drone executable will probably not be found in rsh's
+! PATH.
+Chaos*dronePath: /usr/local/bin/X11/drone
+
+! mapDir specifies the pathname where colormap specification
+! files are stored.  These files have the extension ".map"
+! and are plain ASCII files consisting of red-green-blue 
+! triplets one to a line with values in the range 0-255.
+! New maps may be created by hand or with the help of the
+! gencmap utility.  This path should probably be changed
+! to some directory under the users home directory.
+! Currently it is set to work if chaos is executed from
+! chaos/master.
+Chaos*mapDir: ../maps
+
+! imageDir specifies the pathname where images are to be
+! saved to and loaded from.  Images have filenames with
+! the extension ".cif" (chaos image format).  This format is
+! is an extension of the X window dump format which means
+! that chaos image format files may be loaded with xwud or
+! processed with any other conversion utility which recognizes
+! X window dump formatted images.  This path should be changed
+! to where the user wishes to store these images.
+Chaos*imageDir: .
+
+! zoomDir specifies the pathname where the images of the zoom
+! stack are to be stored.  Zoom images have filenames of the
+! form "LEVEL##.cif".  This path should be changed to a 
+! directory where there is sufficient disk space to hold a
+! number of potentially large files.  The directory /tmp 
+! might be a good choice since this directory will be
+! periodically cleared of any old images.
+Chaos*zoomDir: .
+
+! taskWidth and taskHeight are the width and height of the
+! tasks that the drawing region is divided into for 
+! computation by drone processes.
+Chaos*taskWidth: 32
+Chaos*taskHeight: 32
+
+! keepTasksSquare is a boolean value which determines if the
+! tasks should be forced to be square.  If the value is True,
+! taskWidth and taskHeight are set to their average and are
+! constrained to remain equal.  If the value is False, the
+! values may vary independently.
+Chaos*keepTasksSquare: True
+
+! retainAspectRatio is a boolean value which determines if the
+! aspect ratio will be preserved while zooming.  If the value is
+! True, the zoom will occur around the center of the zoom
+! rectangle while preserving the same aspect ratio.  If the
+! value is False, the zoom will occur within the limits of the
+! zoom rectangle and the aspect ratio will be distorted.
+Chaos*retainAspectRatio: True
+
+! iterationLimit specifies the maximum number of iterations
+! before a point will be considered to be within the Mandelbrot 
+! set (and colored black).
+Chaos*iterationLimit: 256
+
+! hosts is a list of hostnames of machines which are available
+! to run one or more drone processes.  This resource should be
+! tailored to each site's environment.
+Chaos*hosts: calvin hobbes
+

@@ -1,0 +1,59 @@
+#!/bin/bash
+dir1=$1
+dir2=$2
+
+
+function diff1 {
+#  dos2unix -q $dir1/$1
+#  dos2unix -q $dir2/$1
+  if [ -r $dir1/$1 -a -r $dir2/$1 ]; then
+    any=`diff -wq $dir1/$1 $dir2/$1`
+    if [ x"$any" != x ]; then
+    echo "************************************************paralleldiff $dir1/$1 $dir2/$1*************************************************************************"
+      paralleldiff $dir1/$1 $dir2/$1
+      echo ""
+    fi
+  fi
+}
+function diffList {
+  for x in "$@"; do
+    diff1 $x
+  done
+}
+
+there=$PWD
+cd $dir1
+java_src=`find . -name "*.java" -print`
+xml_files=`find . -name "*.xml" -print`
+cd $there
+
+echo "**************************************************************"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "* J A V A"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "**************************************************************"
+diffList $java_src
+echo "**************************************************************"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "* X M L"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "*"
+echo "**************************************************************"
+diffList $xml_files

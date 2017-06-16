@@ -1,0 +1,4 @@
+*editor.font:	  8x10
+*editor.tabsOnIndent: False
+*editor.verticalScroll: True
+*editor.initRows:    30

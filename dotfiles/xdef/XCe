@@ -1,0 +1,78 @@
+!
+! Example resources for xce, a color editor for X11
+!
+! Andrew Peebles
+!
+! These resources assume you have a color display, which if you didn't
+! you wouldn't likely be using xce, or reading this comment for that
+! matter.
+!
+
+!
+! Some decent internal spacing for the main window
+!
+xce*verticalSpacing:	7
+xce*horizontalSpacing:	7
+
+!
+! global colors and font
+!
+xce*background:		#00979e
+xce*foreground:		black
+xce*fontList:		9x15
+
+!
+! a different color for the `color under test' screen
+!
+xce*pix*background:	gold
+
+!
+! the color palet row column widget
+!
+xce*palet.numColumns:		5
+xce*palet.packing:		PACK_COLUMN
+xce*palet.orientation:		VERTICAL
+xce*palet.spacing:		5
+
+!
+! size of buttons on palet
+!
+xce*palet*color.marginWidth:	25
+xce*palet*color.marginHeight:	25
+
+!
+! smaller font for sliders
+!
+xce*Red*fontList:		6x13
+xce*Green*fontList:		6x13
+xce*Blue*fontList:		6x13
+xce*Intensity*fontList:		6x13
+
+!
+! I like no value or text, just color on my sliders.  If you like value
+! and text as well, use a resource like this:
+!
+! xce*Red.showValue:   True
+! xce*Red.titleString: red, dude!
+!
+xce*Red*foreground: 		red
+xce*Green*foreground: 		green
+xce*Blue*foreground: 		blue
+xce*Intensity*foreground:	black
+
+!
+! The help sceen (I'm already using xce to make colors!)
+!
+xce*helpWindow.foreground:	#ffff00
+xce*helpWindow.background:	#cc4b32
+
+!
+! The rgb screen
+!
+xce*rgb.numColumns:		5
+xce*rgb.packing:		PACK_COLUMN
+xce*rgb.orientation:		VERTICAL
+xce*rgb.spacing:		5
+xce*rgb*fontList:		fgb-13
+xce*rgb*background:		#007d5b
+

@@ -1,0 +1,33 @@
+#!/bin/sh
+# before running this script, edit the perf dir list and report name, and
+# in buildlinux.properties
+# set savedresults.dir=dir with perf result dirs
+# set osbuild.dir
+#
+# peerFeedPlain was run in the evening and performed better than peerFeedPlain2
+#
+
+dirs="$@"
+
+rptDir=~/temp
+there=`pwd`
+cd $rptDir
+
+thereDirs=""
+for x in $dirs; do
+  thereDirs="$thereDirs "$there/$x"
+done
+
+rpt=perf.txt
+
+$layer/release/build/getperf.sh ops $thereDirs
+mv perfcomparison.txt $rpt
+
+$layer/release/build/getperf.sh $dirs
+cat perfcomparison.txt >>$rpt
+
+$layer/release/build/getperf.sh raw addTestKey $thereDirs
+cat perfcomparison.txt >>$rpt
+
+echo "results are in $rpt"
+emx $rpt&

@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ -r /usr/bin/fgrep ]; then
+  fgrep=/usr/bin/fgrep
+else
+  fgrep=/bin/fgrep
+fi
+#set -x
+files=`find . -name "*.log" -follow -exec $fgrep -l "$@" {} \;`
+if [ x"$1" = x"-i" ]; then
+  shift 1
+fi
+emx -s "$1" ${files}

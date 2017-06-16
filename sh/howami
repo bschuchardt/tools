@@ -1,0 +1,13 @@
+day=`date | cut -c1-3`
+p=${1:-`whoami`}
+case $day in
+    Sun ) echo "$p isn't so good if $p is working today" ;;
+    Mon ) echo "$p is ready to get to work" ;;
+    Tue ) echo "$p made it past Monday" ;;
+    Wed ) echo "$p could use a nap" ;;
+    Thu ) echo "$p is especially motivated today" ;;
+    Fri ) echo "$p is watching the clock" ;;
+    Sat ) echo "$p needs to get a better life" ;;
+    * ) echo "$p doesn't know what day it is" ;;
+esac
+

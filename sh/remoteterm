@@ -1,0 +1,11 @@
+#/usr/sh
+XAPPLRESDIR=$HOME/.xdef
+export XAPPLRESDIR
+if [ -r /usr/bin/xterm ]; then
+  exec /usr/bin/xterm -ls -e bash -login
+elif [ -r $localbin/xterm ]; then
+  exec $localbin/xterm -ls -e bash -login
+elif [ -r /usr/openwin/bin/xterm ]; then
+  exec /usr/openwin/bin/xterm -ls -e bash -login
+fi
+

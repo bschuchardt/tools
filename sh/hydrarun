@@ -1,0 +1,44 @@
+#!/bin/bash
+
+defns=""
+while [ "${1:0:2}" == "-D" ]; do
+  defns="$defns $1"
+  shift 1
+done
+echo "definitions = \'${defns}\'"
+
+if [ x$1 == x ]; then
+  file=`ls *.conf | head -1`
+else
+  file=$1
+fi
+
+blcl=$build/tests/classes
+
+target=$file
+if [ ! -r $file ]; then
+  if [ -r $blcl/$file ]; then
+    target=$blcl/$file
+  else
+     echo "can't find test file '$file' here or in the build directory"
+    exit 1
+  fi
+fi
+
+#echo "cleaning"
+#cleanhydra
+
+echo "running test $file"
+export CLASSPATH=$GEMFIRE/lib/gemfire.jar:$blcl
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$build/hidden/lib
+java -DGEMFIRE=$GEMFIRE \
+  -Dgemfire.home=$GEMFIRE \
+  -DenableSM=false \
+  -DJTESTS=$blcl \
+  -DconfigFileName=$target \
+  $defns \
+  hydra.MasterController
+
+if [ -r oneliner.txt ]; then
+  cat oneliner.txt
+fi

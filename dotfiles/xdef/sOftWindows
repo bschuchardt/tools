@@ -1,0 +1,1077 @@
+!
+!	(c)Copyright Insignia Solutions Ltd., 1992. All rights reserved.
+!	SccsID:	@(#)sOftWindows.src	1.17 10/28/93
+!
+sOftWindows*dosTitle:	SoftWindows
+sOftWindows*windowsTitle:	SoftWindows Desktop
+sOftWindows*pTWarningString:	Warning
+sOftWindows*pTErrorString:		Error
+sOftWindows*pTInformString:	Information
+sOftWindows*pTQuestionString:	Question
+sOftWindows*pTWorkingString:	Working
+sOftWindows*eHWarningString:	SoftWindows Warning
+sOftWindows*eHErrorString:		SoftWindows Error
+sOftWindows*eHConfigString:	SoftWindows Configuration Problem
+sOftWindows*eHInstallString:	SoftWindows Installation Problem
+sOftWindows*fSNewDiskString:	New Hard Disk Selection
+sOftWindows*fSOpenCString:		Drive C File Name Selection
+sOftWindows*fSOpenDString:		Drive D File Name Selection
+sOftWindows*fSOpenFSAString:	FSA Directory Selection
+sOftWindows*fSKeybFileString:	Keyboard Mapping File Selection
+sOftWindows*pSExitString:		This will end the current SoftWindows session.  Save your work before you exit SoftWindows.
+sOftWindows*pSInitString:		The PC Emulation is initializing.\n \nTo detach the mouse from SoftWindows,\nuse Ctrl + Alt + Middle Mouse Button.
+sOftWindows*pSMswinString:		SoftWindows is about to launch MS-Windows.  Please change the window to your desired size, as MS-Windows cannot be resized once running.
+sOftWindows*pSRestartString:	This will end the current SoftWindows session and start a new one.  Save your work before restarting SoftWindows.
+sOftWindows*pSReplaceString:	\n \nThis file exists. Do you wish to replace it?
+sOftWindows*pSMouseString:	To detach the mouse from SoftWindows,\nuse Ctrl + Alt + Middle Mouse Button.
+sOftWindows*errorECharVR.labelString:	Option Name   :
+sOftWindows*errorECharCV.labelString:	Current Value :
+sOftWindows*errorBadFileLG.labelString:	Problem File:
+sOftWindows*errorSBValueVR.labelString:	Value required for :
+sOftWindows*errorSBValueCV.labelString:	Current Value      :
+sOftWindows*errorBadValueVR.labelString:	Value required for :
+sOftWindows*errorBadValueDV.labelString:	Default Value      :
+sOftWindows*errorBadValueCV.labelString:	Current Value      :
+sOftWindows*errorBadInputPL.labelString:	Problem Line :
+sOftWindows*errorDefaultPBG.labelString:	Default
+sOftWindows*errorExitPBG.labelString:	Exit
+sOftWindows*errorContPBG.labelString:	Continue
+sOftWindows*errorRebootPBG.labelString:	Reboot
+sOftWindows*errorSpacer.labelString:	
+sOftWindows*spcShell.title:	SoftWindows
+sOftWindows*exitPBG.labelString:	Exit...
+sOftWindows*exitPBG.mnemonic:	x
+sOftWindows*fileCBW.labelString:	File
+sOftWindows*openPBG.labelString:	Open Drive...
+sOftWindows*openPBG.mnemonic:	O
+sOftWindows*newPBG.labelString:	New Drive...
+sOftWindows*newPBG.mnemonic:	N
+sOftWindows*driveCBG.labelString:	Disk Drives
+sOftWindows*driveCBG.mnemonic:	D
+sOftWindows*printerPBG.labelString:	Printer Ports...
+sOftWindows*printerPBG.mnemonic:	P
+sOftWindows*commPBG.labelString:	Comm Ports...
+sOftWindows*commPBG.mnemonic:	C
+sOftWindows*cmlpCBG.labelString:	COM/LPT Ports
+sOftWindows*cmlpCBG.mnemonic:	C
+sOftWindows*dispPBG.labelString:	Display...
+sOftWindows*dispPBG.mnemonic:	i
+sOftWindows*terminalPBG.labelString:	Keyboard...
+sOftWindows*terminalPBG.mnemonic:	K
+sOftWindows*memoryPBG.labelString:	Memory...
+sOftWindows*memoryPBG.mnemonic:	M
+sOftWindows*autoFlushPBG.labelString:	Auto Flush...
+sOftWindows*autoFlushPBG.mnemonic:	l
+sOftWindows*autoFreezeTBG.labelString:	Auto Freeze
+sOftWindows*autoFreezeTBG.mnemonic:	z
+sOftWindows*soundTBG.labelString:	Sound
+sOftWindows*soundTBG.mnemonic:	S
+sOftWindows*npxTBG.labelString:	FPU Emulation
+sOftWindows*npxTBG.mnemonic:	F
+sOftWindows*optionCBW.labelString:	Options
+sOftWindows*flushAllPBG.labelString:	All
+sOftWindows*flushAllPBG.mnemonic:	A
+sOftWindows*flushCBG.labelString:	Flush Ports
+sOftWindows*flushCBG.mnemonic:	P
+sOftWindows*aTBG.labelString:	A Drive
+sOftWindows*aTBG.mnemonic:	A
+sOftWindows*bTBG.labelString:	B Drive
+sOftWindows*bTBG.mnemonic:	B
+sOftWindows*cTBG.labelString:	C Drive
+sOftWindows*cTBG.mnemonic:	C
+sOftWindows*dTBG.labelString:	D Drive
+sOftWindows*dTBG.mnemonic:	D
+sOftWindows*activeCBG.labelString:	Activate
+sOftWindows*activeCBG.mnemonic:	A
+sOftWindows*attachMouseTBG.labelString:	Attach Mouse
+sOftWindows*attachMouseTBG.mnemonic:	M
+sOftWindows*freezeTBG.labelString:	Freeze
+sOftWindows*freezeTBG.mnemonic:	F
+sOftWindows*restartPBG.labelString:	Restart...
+sOftWindows*restartPBG.mnemonic:	R
+sOftWindows*actionCBW.labelString:	Actions
+sOftWindows*capsLock.labelString:	Caps Lock
+sOftWindows*scrollLock.labelString:	Scroll Lock
+sOftWindows*numLock.labelString:	Num Lock
+sOftWindows*spcSpacer.labelString:	
+sOftWindows*newForm.dialogTitle:	New Hard Disk
+sOftWindows*newMsgLG.labelString:	SoftWindows will automatically assign this new hard disk as drive D.  The disk will have one partition and will be formatted as a bootable disk with MS-DOS installed. 
+sOftWindows*newFileSelPBG.labelString:	New File...
+sOftWindows*scTitle.labelString:	New Hard Disk Size (Mbytes)
+sOftWindows*newOkPBG.labelString:	OK
+sOftWindows*newResetPBG.labelString:	Reset
+sOftWindows*newCancelPBG.labelString:	Cancel
+sOftWindows*newSpacer.labelString:	
+sOftWindows*openForm.dialogTitle:	Open Disk Drives
+sOftWindows*driveCPBG.labelString:	Hard Disk Drive C: File Name...
+sOftWindows*driveDPBG.labelString:	Hard Disk Drive D: File Name...
+sOftWindows*driveEPBG.labelString:	FSA Root Directory Name...
+sOftWindows*driveCDLG.labelString:	CD-ROM Device File Name
+sOftWindows*driveALG.labelString:	Floppy Drive A: Device File Name
+sOftWindows*driveBLG.labelString:	Floppy Drive B: Device File Name
+sOftWindows*openOkPBG.labelString:	OK
+sOftWindows*openResetPBG.labelString:	Reset
+sOftWindows*openCancelPBG.labelString:	Cancel
+sOftWindows*openSpacer.labelString:	
+sOftWindows*dCColonLG.labelString:	:
+sOftWindows*dDColonLG.labelString:	:
+sOftWindows*dEColonLG.labelString:	:
+sOftWindows*dCDColonLG.labelString:	:
+sOftWindows*dAColonLG.labelString:	:
+sOftWindows*dBColonLG.labelString:	:
+sOftWindows*sPCColonLG.labelString:	:
+sOftWindows*panelExitTBG.labelString:	Save Configuration Changes
+sOftWindows*panelOkPBG.labelString:	OK
+sOftWindows*panelCancelPBG.labelString:	Cancel
+sOftWindows*panelSpacer.labelString:	
+sOftWindows*comForm.dialogTitle:	Comms Ports
+sOftWindows*comTypeLG.labelString:	Device Type
+sOftWindows*comValueLG.labelString:	Value Assigned
+sOftWindows*comOkPBG.labelString:	OK
+sOftWindows*comResetPBG.labelString:	Reset
+sOftWindows*comCancelPBG.labelString:	Cancel
+sOftWindows*comSpacer.labelString:	
+sOftWindows*lptForm.dialogTitle:	Printer Ports
+sOftWindows*lptTypeLG.labelString:	Device Type
+sOftWindows*lptValueLG.labelString:	Value Assigned
+sOftWindows*lptOkPBG.labelString:	OK
+sOftWindows*lptResetPBG.labelString:	Reset
+sOftWindows*lptCancelPBG.labelString:	Cancel
+sOftWindows*lptSpacer.labelString:	
+sOftWindows*displayForm.dialogTitle:	Display
+sOftWindows*dispTypeLG.labelString:	Display Type
+sOftWindows*dispColLG.labelString:	MS-Windows\nColors
+sOftWindows*displayOkPBG.labelString:	OK
+sOftWindows*displayResetPBG.labelString:	Reset
+sOftWindows*displayCancelPBG.labelString:	Cancel
+sOftWindows*displaySpacer.labelString:	
+sOftWindows*memoryForm.dialogTitle:	Memory
+sOftWindows*extTitleLG.labelString:	Main Memory Size (Mbytes)
+sOftWindows*LIMTitleLG.labelString:	Expanded Memory Size (Mbytes)
+sOftWindows*memoryLIMTBG.labelString:	Replace the 256 - 640 Kbytes of\nconventional memory with expanded memory?
+sOftWindows*memoryOkPBG.labelString:	OK
+sOftWindows*memoryResetPBG.labelString:	Reset
+sOftWindows*memoryCancelPBG.labelString:	Cancel
+sOftWindows*memorySpacer.labelString:	
+sOftWindows*keybForm.dialogTitle:	Keyboard
+sOftWindows*keybFileSelPBG.labelString:	Mapping File...
+sOftWindows*keybOkPBG.labelString:	OK
+sOftWindows*keybResetPBG.labelString:	Reset
+sOftWindows*keybCancelPBG.labelString:	Cancel
+sOftWindows*keybSpacer.labelString:	
+sOftWindows*flushForm.dialogTitle:	Auto Flush
+sOftWindows*flushTitleLG.labelString:	Autoflush Delay Time (Seconds)
+sOftWindows*flushTBG.labelString:	Enable Automatic Flushing
+sOftWindows*flushOkPBG.labelString:	OK
+sOftWindows*flushResetPBG.labelString:	Reset
+sOftWindows*flushCancelPBG.labelString:	Cancel
+sOftWindows*flushSpacer.labelString:	
+sOftWindows*copyButton:		Left
+sOftWindows*pasteButton:		Middle
+sOftWindows*pSExitTitle:		SoftWindows Exit
+sOftWindows*pSInitTitle:		SoftWindows Initializing
+sOftWindows*pSMswinTitle:		MS-Windows Launch
+sOftWindows*pSRestartTitle:	SoftWindows Restart
+sOftWindows*pSReplaceTitle:	File Exists
+sOftWindows*pSMouseTitle:		Mouse Detachment
+sOftWindows*allowShellResize:	True
+sOftWindows*LPT1Menu.leftAttachment:	attach_form
+sOftWindows*LPT1Menu.leftOffset:	10
+sOftWindows*LPT1Menu.topAttachment:	attach_widget
+sOftWindows*LPT1Menu.topOffset:	-2
+sOftWindows*LPT1T.bottomAttachment:	attach_opposite_widget
+sOftWindows*LPT1T.bottomOffset:	0
+sOftWindows*LPT1T.leftAttachment:	attach_widget
+sOftWindows*LPT1T.leftOffset:	10
+sOftWindows*LPT1T.rightAttachment:	attach_form
+sOftWindows*LPT1T.rightOffset:	10
+sOftWindows*LPT2Menu.leftAttachment:	attach_form
+sOftWindows*LPT2Menu.leftOffset:	10
+sOftWindows*LPT2Menu.topAttachment:	attach_widget
+sOftWindows*LPT2Menu.topOffset:	5
+sOftWindows*LPT2T.bottomAttachment:	attach_opposite_widget
+sOftWindows*LPT2T.bottomOffset:	0
+sOftWindows*LPT2T.leftAttachment:	attach_widget
+sOftWindows*LPT2T.leftOffset:	10
+sOftWindows*LPT2T.rightAttachment:	attach_form
+sOftWindows*LPT2T.rightOffset:	10
+sOftWindows*LPT3Menu.leftAttachment:	attach_form
+sOftWindows*LPT3Menu.leftOffset:	10
+sOftWindows*LPT3Menu.topAttachment:	attach_widget
+sOftWindows*LPT3Menu.topOffset:	5
+sOftWindows*LPT3T.bottomAttachment:	attach_opposite_widget
+sOftWindows*LPT3T.bottomOffset:	0
+sOftWindows*LPT3T.leftAttachment:	attach_widget
+sOftWindows*LPT3T.leftOffset:	10
+sOftWindows*LPT3T.rightAttachment:	attach_form
+sOftWindows*LPT3T.rightOffset:	10
+sOftWindows*COM1Menu.leftAttachment:	attach_form
+sOftWindows*COM1Menu.leftOffset:	10
+sOftWindows*COM1Menu.topAttachment:	attach_widget
+sOftWindows*COM1Menu.topOffset:	-2
+sOftWindows*COM1T.bottomAttachment:	attach_opposite_widget
+sOftWindows*COM1T.bottomOffset:	0
+sOftWindows*COM1T.leftAttachment:	attach_widget
+sOftWindows*COM1T.leftOffset:	10
+sOftWindows*COM1T.rightAttachment:	attach_form
+sOftWindows*COM1T.rightOffset:	10
+sOftWindows*COM2Menu.leftAttachment:	attach_form
+sOftWindows*COM2Menu.leftOffset:	10
+sOftWindows*COM2Menu.topAttachment:	attach_widget
+sOftWindows*COM2Menu.topOffset:	5
+sOftWindows*COM2T.bottomAttachment:	attach_opposite_widget
+sOftWindows*COM2T.bottomOffset:	0
+sOftWindows*COM2T.leftAttachment:	attach_widget
+sOftWindows*COM2T.leftOffset:	10
+sOftWindows*COM2T.rightAttachment:	attach_form
+sOftWindows*COM2T.rightOffset:	10
+sOftWindows*COM3Menu.leftAttachment:	attach_form
+sOftWindows*COM3Menu.leftOffset:	10
+sOftWindows*COM3Menu.topAttachment:	attach_widget
+sOftWindows*COM3Menu.topOffset:	5
+sOftWindows*COM3T.bottomAttachment:	attach_opposite_widget
+sOftWindows*COM3T.bottomOffset:	0
+sOftWindows*COM3T.leftAttachment:	attach_widget
+sOftWindows*COM3T.leftOffset:	10
+sOftWindows*COM3T.rightAttachment:	attach_form
+sOftWindows*COM3T.rightOffset:	10
+sOftWindows*COM4Menu.leftAttachment:	attach_form
+sOftWindows*COM4Menu.leftOffset:	10
+sOftWindows*COM4Menu.topAttachment:	attach_widget
+sOftWindows*COM4Menu.topOffset:	5
+sOftWindows*COM4T.bottomAttachment:	attach_opposite_widget
+sOftWindows*COM4T.bottomOffset:	0
+sOftWindows*COM4T.leftAttachment:	attach_widget
+sOftWindows*COM4T.leftOffset:	10
+sOftWindows*COM4T.rightAttachment:	attach_form
+sOftWindows*COM4T.rightOffset:	10
+sOftWindows*errorForm.width:	400
+sOftWindows*errorForm.allowOverlap:	False
+sOftWindows*errorForm.dialogStyle:	dialog_application_modal
+sOftWindows*errorSymbolLG.leftAttachment:	attach_form
+sOftWindows*errorSymbolLG.leftOffset:	10
+sOftWindows*errorSymbolLG.topAttachment:	attach_form
+sOftWindows*errorSymbolLG.topOffset:	10
+sOftWindows*errorTitleLG.leftAttachment:	attach_widget
+sOftWindows*errorTitleLG.leftOffset:	12
+sOftWindows*errorTitleLG.topAttachment:	attach_opposite_widget
+sOftWindows*errorTitleLG.topOffset:	3
+sOftWindows*errorMsgLG.alignment:	alignment_beginning
+sOftWindows*errorMsgLG.marginHeight:	10
+sOftWindows*errorMsgLG.marginWidth:	10
+sOftWindows*errorMsgLG.leftAttachment:	attach_form
+sOftWindows*errorMsgLG.leftOffset:	0
+sOftWindows*errorMsgLG.topAttachment:	attach_widget
+sOftWindows*errorMsgLG.topOffset:	0
+sOftWindows*errorExtraCharF.leftAttachment:	attach_form
+sOftWindows*errorExtraCharF.leftOffset:	1
+sOftWindows*errorExtraCharF.rightAttachment:	attach_form
+sOftWindows*errorExtraCharF.rightOffset:	1
+sOftWindows*errorExtraCharF.topAttachment:	attach_widget
+sOftWindows*errorExtraCharF.topOffset:	0
+sOftWindows*errorECharSG.leftAttachment:	attach_form
+sOftWindows*errorECharSG.leftOffset:	0
+sOftWindows*errorECharSG.rightAttachment:	attach_form
+sOftWindows*errorECharSG.rightOffset:	0
+sOftWindows*errorECharSG.topAttachment:	attach_form
+sOftWindows*errorECharSG.topOffset:	0
+sOftWindows*errorECharVR.marginHeight:	0
+sOftWindows*errorECharVR.marginLeft:	10
+sOftWindows*errorECharVR.marginTop:	10
+sOftWindows*errorECharVR.marginWidth:	0
+sOftWindows*errorECharVR.leftAttachment:	attach_form
+sOftWindows*errorECharVR.leftOffset:	0
+sOftWindows*errorECharVR.topAttachment:	attach_form
+sOftWindows*errorECharVR.topOffset:	0
+sOftWindows*errorECharCV.marginHeight:	10
+sOftWindows*errorECharCV.marginLeft:	10
+sOftWindows*errorECharCV.marginWidth:	0
+sOftWindows*errorECharCV.leftAttachment:	attach_form
+sOftWindows*errorECharCV.leftOffset:	0
+sOftWindows*errorECharCV.topAttachment:	attach_widget
+sOftWindows*errorECharCV.topOffset:	0
+sOftWindows*errorECharRMsg.marginHeight:	0
+sOftWindows*errorECharRMsg.marginTop:	10
+sOftWindows*errorECharRMsg.marginWidth:	10
+sOftWindows*errorECharRMsg.leftAttachment:	attach_widget
+sOftWindows*errorECharRMsg.leftOffset:	0
+sOftWindows*errorECharRMsg.topAttachment:	attach_form
+sOftWindows*errorECharRMsg.topOffset:	0
+sOftWindows*errorECharVMsg.marginHeight:	10
+sOftWindows*errorECharVMsg.marginWidth:	10
+sOftWindows*errorECharVMsg.leftAttachment:	attach_widget
+sOftWindows*errorECharVMsg.leftOffset:	0
+sOftWindows*errorECharVMsg.topAttachment:	attach_opposite_widget
+sOftWindows*errorECharVMsg.topOffset:	0
+sOftWindows*errorBadFileF.leftAttachment:	attach_form
+sOftWindows*errorBadFileF.leftOffset:	1
+sOftWindows*errorBadFileF.rightAttachment:	attach_form
+sOftWindows*errorBadFileF.rightOffset:	1
+sOftWindows*errorBadFileF.topAttachment:	attach_widget
+sOftWindows*errorBadFileF.topOffset:	0
+sOftWindows*errorBadFileSG.leftAttachment:	attach_form
+sOftWindows*errorBadFileSG.leftOffset:	0
+sOftWindows*errorBadFileSG.rightAttachment:	attach_form
+sOftWindows*errorBadFileSG.rightOffset:	0
+sOftWindows*errorBadFileSG.topAttachment:	attach_form
+sOftWindows*errorBadFileSG.topOffset:	0
+sOftWindows*errorBadFileLG.marginHeight:	10
+sOftWindows*errorBadFileLG.marginLeft:	10
+sOftWindows*errorBadFileLG.leftAttachment:	attach_form
+sOftWindows*errorBadFileLG.leftOffset:	0
+sOftWindows*errorBadFileLG.topAttachment:	attach_form
+sOftWindows*errorBadFileLG.topOffset:	0
+sOftWindows*errorBadFileMsgLG.marginHeight:	10
+sOftWindows*errorBadFileMsgLG.marginWidth:	10
+sOftWindows*errorBadFileMsgLG.leftAttachment:	attach_widget
+sOftWindows*errorBadFileMsgLG.leftOffset:	0
+sOftWindows*errorBadFileMsgLG.topAttachment:	attach_form
+sOftWindows*errorBadFileMsgLG.topOffset:	0
+sOftWindows*errorSBValueF.leftAttachment:	attach_form
+sOftWindows*errorSBValueF.leftOffset:	1
+sOftWindows*errorSBValueF.rightAttachment:	attach_form
+sOftWindows*errorSBValueF.rightOffset:	1
+sOftWindows*errorSBValueF.topAttachment:	attach_widget
+sOftWindows*errorSBValueF.topOffset:	0
+sOftWindows*errorSBValueSG.leftAttachment:	attach_form
+sOftWindows*errorSBValueSG.leftOffset:	0
+sOftWindows*errorSBValueSG.rightAttachment:	attach_form
+sOftWindows*errorSBValueSG.rightOffset:	0
+sOftWindows*errorSBValueSG.topAttachment:	attach_form
+sOftWindows*errorSBValueSG.topOffset:	0
+sOftWindows*errorSBValueVR.marginHeight:	0
+sOftWindows*errorSBValueVR.marginLeft:	10
+sOftWindows*errorSBValueVR.marginTop:	10
+sOftWindows*errorSBValueVR.marginWidth:	0
+sOftWindows*errorSBValueVR.leftAttachment:	attach_form
+sOftWindows*errorSBValueVR.leftOffset:	0
+sOftWindows*errorSBValueVR.topAttachment:	attach_form
+sOftWindows*errorSBValueVR.topOffset:	0
+sOftWindows*errorSBValueCV.marginHeight:	10
+sOftWindows*errorSBValueCV.marginLeft:	10
+sOftWindows*errorSBValueCV.marginWidth:	0
+sOftWindows*errorSBValueCV.leftAttachment:	attach_form
+sOftWindows*errorSBValueCV.leftOffset:	0
+sOftWindows*errorSBValueCV.topAttachment:	attach_widget
+sOftWindows*errorSBValueCV.topOffset:	0
+sOftWindows*errorSBValueRMsg.marginHeight:	0
+sOftWindows*errorSBValueRMsg.marginTop:	10
+sOftWindows*errorSBValueRMsg.marginWidth:	10
+sOftWindows*errorSBValueRMsg.leftAttachment:	attach_widget
+sOftWindows*errorSBValueRMsg.leftOffset:	0
+sOftWindows*errorSBValueRMsg.topAttachment:	attach_form
+sOftWindows*errorSBValueRMsg.topOffset:	0
+sOftWindows*errorSBValueVMsg.marginHeight:	10
+sOftWindows*errorSBValueVMsg.marginWidth:	10
+sOftWindows*errorSBValueVMsg.leftAttachment:	attach_widget
+sOftWindows*errorSBValueVMsg.leftOffset:	0
+sOftWindows*errorSBValueVMsg.topAttachment:	attach_opposite_widget
+sOftWindows*errorSBValueVMsg.topOffset:	0
+sOftWindows*errorBadValueF.leftAttachment:	attach_form
+sOftWindows*errorBadValueF.leftOffset:	1
+sOftWindows*errorBadValueF.rightAttachment:	attach_form
+sOftWindows*errorBadValueF.rightOffset:	1
+sOftWindows*errorBadValueF.topAttachment:	attach_widget
+sOftWindows*errorBadValueF.topOffset:	0
+sOftWindows*errorBadValueSG.leftAttachment:	attach_form
+sOftWindows*errorBadValueSG.leftOffset:	0
+sOftWindows*errorBadValueSG.rightAttachment:	attach_form
+sOftWindows*errorBadValueSG.rightOffset:	0
+sOftWindows*errorBadValueSG.topAttachment:	attach_form
+sOftWindows*errorBadValueSG.topOffset:	0
+sOftWindows*errorBadValueVR.marginHeight:	0
+sOftWindows*errorBadValueVR.marginLeft:	10
+sOftWindows*errorBadValueVR.marginTop:	10
+sOftWindows*errorBadValueVR.marginWidth:	0
+sOftWindows*errorBadValueVR.leftAttachment:	attach_form
+sOftWindows*errorBadValueVR.leftOffset:	0
+sOftWindows*errorBadValueVR.topAttachment:	attach_form
+sOftWindows*errorBadValueVR.topOffset:	0
+sOftWindows*errorBadValueDV.marginHeight:	0
+sOftWindows*errorBadValueDV.marginLeft:	10
+sOftWindows*errorBadValueDV.marginTop:	10
+sOftWindows*errorBadValueDV.marginWidth:	0
+sOftWindows*errorBadValueDV.leftAttachment:	attach_form
+sOftWindows*errorBadValueDV.leftOffset:	0
+sOftWindows*errorBadValueDV.topAttachment:	attach_widget
+sOftWindows*errorBadValueDV.topOffset:	0
+sOftWindows*errorBadValueCV.marginHeight:	10
+sOftWindows*errorBadValueCV.marginLeft:	10
+sOftWindows*errorBadValueCV.marginWidth:	0
+sOftWindows*errorBadValueCV.leftAttachment:	attach_form
+sOftWindows*errorBadValueCV.leftOffset:	0
+sOftWindows*errorBadValueCV.topAttachment:	attach_widget
+sOftWindows*errorBadValueCV.topOffset:	0
+sOftWindows*errorBadValueRMsg.marginHeight:	0
+sOftWindows*errorBadValueRMsg.marginTop:	10
+sOftWindows*errorBadValueRMsg.marginWidth:	10
+sOftWindows*errorBadValueRMsg.leftAttachment:	attach_widget
+sOftWindows*errorBadValueRMsg.leftOffset:	0
+sOftWindows*errorBadValueRMsg.topAttachment:	attach_form
+sOftWindows*errorBadValueRMsg.topOffset:	0
+sOftWindows*errorBadValueDMsg.marginHeight:	10
+sOftWindows*errorBadValueDMsg.marginWidth:	10
+sOftWindows*errorBadValueDMsg.leftAttachment:	attach_widget
+sOftWindows*errorBadValueDMsg.leftOffset:	0
+sOftWindows*errorBadValueDMsg.topAttachment:	attach_opposite_widget
+sOftWindows*errorBadValueDMsg.topOffset:	0
+sOftWindows*errorBadValueCT.leftAttachment:	attach_widget
+sOftWindows*errorBadValueCT.leftOffset:	8
+sOftWindows*errorBadValueCT.rightAttachment:	attach_form
+sOftWindows*errorBadValueCT.rightOffset:	10
+sOftWindows*errorBadValueCT.topAttachment:	attach_opposite_widget
+sOftWindows*errorBadValueCT.topOffset:	7
+sOftWindows*errorBadInputF.leftAttachment:	attach_form
+sOftWindows*errorBadInputF.leftOffset:	1
+sOftWindows*errorBadInputF.rightAttachment:	attach_form
+sOftWindows*errorBadInputF.rightOffset:	1
+sOftWindows*errorBadInputF.topAttachment:	attach_widget
+sOftWindows*errorBadInputF.topOffset:	0
+sOftWindows*errorBadInputSG.leftAttachment:	attach_form
+sOftWindows*errorBadInputSG.leftOffset:	0
+sOftWindows*errorBadInputSG.rightAttachment:	attach_form
+sOftWindows*errorBadInputSG.rightPosition:	0
+sOftWindows*errorBadInputSG.topAttachment:	attach_form
+sOftWindows*errorBadInputSG.topOffset:	0
+sOftWindows*errorBadInputPL.marginHeight:	10
+sOftWindows*errorBadInputPL.marginWidth:	10
+sOftWindows*errorBadInputPL.leftAttachment:	attach_form
+sOftWindows*errorBadInputPL.leftOffset:	0
+sOftWindows*errorBadInputPL.topAttachment:	attach_form
+sOftWindows*errorBadInputPL.topOffset:	0
+sOftWindows*errorBadInputT.leftAttachment:	attach_widget
+sOftWindows*errorBadInputT.leftOffset:	0
+sOftWindows*errorBadInputT.rightAttachment:	attach_form
+sOftWindows*errorBadInputT.rightOffset:	10
+sOftWindows*errorBadInputT.topAttachment:	attach_opposite_widget
+sOftWindows*errorBadInputT.topOffset:	7
+sOftWindows*errorButtonSG.leftAttachment:	attach_form
+sOftWindows*errorButtonSG.leftOffset:	0
+sOftWindows*errorButtonSG.rightAttachment:	attach_form
+sOftWindows*errorButtonSG.rightOffset:	0
+sOftWindows*errorButtonSG.topAttachment:	attach_widget
+sOftWindows*errorButtonSG.topOffset:	0
+sOftWindows*errorBGF.leftAttachment:	attach_form
+sOftWindows*errorBGF.leftOffset:	10
+sOftWindows*errorBGF.rightAttachment:	attach_form
+sOftWindows*errorBGF.rightOffset:	10
+sOftWindows*errorBGF.topAttachment:	attach_widget
+sOftWindows*errorBGF.topOffset:	0
+sOftWindows*errorSpacer.width:	400
+sOftWindows*errorSpacer.height:	10
+sOftWindows*errorSpacer.leftAttachment:	attach_form
+sOftWindows*errorSpacer.leftOffset:	0
+sOftWindows*errorSpacer.topAttachment:	attach_widget
+sOftWindows*errorSpacer.topOffset:	0
+sOftWindows*spcShell.iconName:	SoftWindows
+sOftWindows*mainMenu.leftAttachment:	attach_form
+sOftWindows*mainMenu.leftOffset:	1
+sOftWindows*mainMenu.rightAttachment:	attach_form
+sOftWindows*mainMenu.rightOffset:	1
+sOftWindows*mainMenu.topAttachment:	attach_form
+sOftWindows*mainMenu.topOffset:	0
+sOftWindows*spcDraw.width:	640
+sOftWindows*spcDraw.height:	350
+sOftWindows*spcDraw.background:	black
+sOftWindows*spcDraw.borderColor:	black
+sOftWindows*spcDraw.borderWidth:	5
+sOftWindows*spcDraw.marginHeight:	0
+sOftWindows*spcDraw.marginWidth:	0
+sOftWindows*spcDraw.leftAttachment:	attach_form
+sOftWindows*spcDraw.leftOffset:	0
+sOftWindows*spcDraw.topAttachment:	attach_widget
+sOftWindows*spcDraw.topOffset:	0
+sOftWindows*statusLine.leftAttachment:	attach_form
+sOftWindows*statusLine.leftOffset:	1
+sOftWindows*statusLine.rightAttachment:	attach_form
+sOftWindows*statusLine.rightOffset:	1
+sOftWindows*statusLine.topAttachment:	attach_widget
+sOftWindows*statusLine.topOffset:	0
+sOftWindows*floppyA.leftAttachment:	attach_position
+sOftWindows*floppyA.leftPosition:	5
+sOftWindows*floppyA.rightAttachment:	attach_position
+sOftWindows*floppyA.rightPosition:	9
+sOftWindows*floppyA.topAttachment:	attach_form
+sOftWindows*floppyA.topOffset:	2
+sOftWindows*floppyB.leftAttachment:	attach_position
+sOftWindows*floppyB.leftPosition:	10
+sOftWindows*floppyB.rightAttachment:	attach_position
+sOftWindows*floppyB.rightPosition:	15
+sOftWindows*floppyB.topAttachment:	attach_form
+sOftWindows*floppyB.topOffset:	2
+sOftWindows*capsLock.leftAttachment:	attach_position
+sOftWindows*capsLock.leftPosition:	17
+sOftWindows*capsLock.rightAttachment:	attach_position
+sOftWindows*capsLock.rightPosition:	40
+sOftWindows*capsLock.topAttachment:	attach_form
+sOftWindows*capsLock.topOffset:	2
+sOftWindows*scrollLock.leftAttachment:	attach_position
+sOftWindows*scrollLock.leftPosition:	40
+sOftWindows*scrollLock.rightAttachment:	attach_position
+sOftWindows*scrollLock.rightPosition:	63
+sOftWindows*scrollLock.topAttachment:	attach_form
+sOftWindows*scrollLock.topOffset:	2
+sOftWindows*numLock.leftAttachment:	attach_position
+sOftWindows*numLock.leftPosition:	63
+sOftWindows*numLock.rightAttachment:	attach_position
+sOftWindows*numLock.rightPosition:	85
+sOftWindows*numLock.topAttachment:	attach_form
+sOftWindows*numLock.topOffset:	2
+sOftWindows*videoAdapt.leftAttachment:	attach_position
+sOftWindows*videoAdapt.leftPosition:	85
+sOftWindows*videoAdapt.rightAttachment:	attach_position
+sOftWindows*videoAdapt.rightPosition:	97
+sOftWindows*videoAdapt.topAttachment:	attach_form
+sOftWindows*videoAdapt.topOffset:	2
+sOftWindows*spcSpacer.height:	2
+sOftWindows*spcSpacer.leftAttachment:	attach_form
+sOftWindows*spcSpacer.rightAttachment:	attach_form
+sOftWindows*spcSpacer.rightOffset:	0
+sOftWindows*spcSpacer.topAttachment:	attach_widget
+sOftWindows*spcSpacer.topOffset:	0
+sOftWindows*newForm.width:	420
+sOftWindows*newMsgLG.width:	420
+sOftWindows*newMsgLG.height:	70
+sOftWindows*newMsgLG.alignment:	alignment_beginning
+sOftWindows*newMsgLG.marginHeight:	10
+sOftWindows*newMsgLG.marginWidth:	10
+sOftWindows*newMsgLG.leftAttachment:	attach_form
+sOftWindows*newMsgLG.leftOffset:	0
+sOftWindows*newMsgLG.rightAttachment:	attach_form
+sOftWindows*newMsgLG.rightOffset:	0
+sOftWindows*newMsgLG.topAttachment:	attach_form
+sOftWindows*newMsgLG.topOffset:	0
+sOftWindows*newNameForm.borderWidth:	0
+sOftWindows*newNameForm.leftAttachment:	attach_form
+sOftWindows*newNameForm.leftOffset:	10
+sOftWindows*newNameForm.rightAttachment:	attach_form
+sOftWindows*newNameForm.rightOffset:	1
+sOftWindows*newNameForm.topAttachment:	attach_widget
+sOftWindows*newNameForm.topOffset:	0
+sOftWindows*newFileSelPBG.leftAttachment:	attach_form
+sOftWindows*newFileSelPBG.leftOffset:	0
+sOftWindows*newFileSelPBG.topAttachment:	attach_form
+sOftWindows*newFileSelPBG.topOffset:	2
+sOftWindows*newNameText.leftAttachment:	attach_widget
+sOftWindows*newNameText.leftOffset:	10
+sOftWindows*newNameText.rightAttachment:	attach_form
+sOftWindows*newNameText.rightOffset:	10
+sOftWindows*newNameText.topAttachment:	attach_opposite_widget
+sOftWindows*newNameText.topOffset:	-1
+sOftWindows*newFileScale.orientation:	horizontal
+sOftWindows*newFileScale.processingDirection:	max_on_right
+sOftWindows*newFileScale.showValue:	True
+sOftWindows*newFileScale.value:	10
+sOftWindows*newFileScale.leftAttachment:	attach_form
+sOftWindows*newFileScale.leftOffset:	10
+sOftWindows*newFileScale.rightAttachment:	attach_form
+sOftWindows*newFileScale.rightOffset:	10
+sOftWindows*newFileScale.topAttachment:	attach_widget
+sOftWindows*newFileScale.topOffset:	5
+sOftWindows*scMin.leftAttachment:	attach_opposite_widget
+sOftWindows*scMin.leftOffset:	0
+sOftWindows*scMin.topAttachment:	attach_widget
+sOftWindows*scMin.topOffset:	5
+sOftWindows*scMax.rightAttachment:	attach_opposite_widget
+sOftWindows*scMax.rightPosition:	0
+sOftWindows*scMax.topAttachment:	attach_widget
+sOftWindows*scMax.topOffset:	5
+sOftWindows*scTitle.leftAttachment:	attach_opposite_widget
+sOftWindows*scTitle.leftOffset:	0
+sOftWindows*scTitle.rightAttachment:	attach_opposite_widget
+sOftWindows*scTitle.rightOffset:	0
+sOftWindows*scTitle.topAttachment:	attach_widget
+sOftWindows*scTitle.topOffset:	5
+sOftWindows*newCPBForm.leftAttachment:	attach_form
+sOftWindows*newCPBForm.leftOffset:	10
+sOftWindows*newCPBForm.rightAttachment:	attach_form
+sOftWindows*newCPBForm.rightOffset:	10
+sOftWindows*newCPBForm.topAttachment:	attach_widget
+sOftWindows*newCPBForm.topOffset:	0
+sOftWindows*newSpacer.width:	420
+sOftWindows*newSpacer.height:	10
+sOftWindows*newSpacer.topAttachment:	attach_widget
+sOftWindows*newSpacer.topOffset:	0
+sOftWindows*openForm.width:	480
+sOftWindows*openfsBRC.spacing:	10
+sOftWindows*openfsBRC.leftAttachment:	attach_form
+sOftWindows*openfsBRC.leftOffset:	7
+sOftWindows*openfsBRC.topAttachment:	attach_form
+sOftWindows*openfsBRC.topOffset:	7
+sOftWindows*driveEPBG.alignment:	alignment_beginning
+sOftWindows*driveCDLG.alignment:	alignment_beginning
+sOftWindows*driveCDLG.leftAttachment:	attach_opposite_widget
+sOftWindows*driveCDLG.leftOffset:	0
+sOftWindows*driveCDLG.topAttachment:	attach_widget
+sOftWindows*driveCDLG.topOffset:	15
+sOftWindows*driveALG.alignment:	alignment_beginning
+sOftWindows*driveALG.leftAttachment:	attach_opposite_widget
+sOftWindows*driveALG.leftOffset:	0
+sOftWindows*driveALG.topAttachment:	attach_widget
+sOftWindows*driveALG.topOffset:	15
+sOftWindows*driveBLG.alignment:	alignment_beginning
+sOftWindows*driveBLG.leftAttachment:	attach_opposite_widget
+sOftWindows*driveBLG.leftOffset:	0
+sOftWindows*driveBLG.rightAttachment:	attach_opposite_widget
+sOftWindows*driveBLG.rightOffset:	0
+sOftWindows*driveBLG.topAttachment:	attach_widget
+sOftWindows*driveBLG.topOffset:	16
+sOftWindows*openCPBForm.leftAttachment:	attach_form
+sOftWindows*openCPBForm.leftOffset:	10
+sOftWindows*openCPBForm.rightAttachment:	attach_form
+sOftWindows*openCPBForm.rightOffset:	10
+sOftWindows*openCPBForm.topAttachment:	attach_widget
+sOftWindows*openCPBForm.topOffset:	10
+sOftWindows*openSpacer.width:	480
+sOftWindows*openSpacer.height:	10
+sOftWindows*openSpacer.leftAttachment:	attach_form
+sOftWindows*openSpacer.leftOffset:	0
+sOftWindows*openSpacer.topAttachment:	attach_widget
+sOftWindows*openSpacer.topOffset:	0
+sOftWindows*dCColonLG.leftAttachment:	attach_widget
+sOftWindows*dCColonLG.leftOffset:	5
+sOftWindows*dCColonLG.topAttachment:	attach_opposite_widget
+sOftWindows*dCColonLG.topOffset:	5
+sOftWindows*driveCT.leftAttachment:	attach_widget
+sOftWindows*driveCT.leftOffset:	3
+sOftWindows*driveCT.rightAttachment:	attach_form
+sOftWindows*driveCT.rightOffset:	10
+sOftWindows*driveCT.topAttachment:	attach_opposite_widget
+sOftWindows*driveCT.topOffset:	-2
+sOftWindows*dDColonLG.leftAttachment:	attach_opposite_widget
+sOftWindows*dDColonLG.leftOffset:	0
+sOftWindows*dDColonLG.topAttachment:	attach_widget
+sOftWindows*dDColonLG.topOffset:	14
+sOftWindows*dEColonLG.leftAttachment:	attach_opposite_widget
+sOftWindows*dEColonLG.leftOffset:	0
+sOftWindows*dEColonLG.topAttachment:	attach_widget
+sOftWindows*dEColonLG.topOffset:	14
+sOftWindows*dCDColonLG.leftAttachment:	attach_opposite_widget
+sOftWindows*dCDColonLG.leftOffset:	0
+sOftWindows*dCDColonLG.topAttachment:	attach_opposite_widget
+sOftWindows*dCDColonLG.topOffset:	0
+sOftWindows*dAColonLG.leftAttachment:	attach_opposite_widget
+sOftWindows*dAColonLG.leftOffset:	0
+sOftWindows*dAColonLG.topAttachment:	attach_opposite_widget
+sOftWindows*dAColonLG.topOffset:	0
+sOftWindows*dBColonLG.leftAttachment:	attach_opposite_widget
+sOftWindows*dBColonLG.leftOffset:	0
+sOftWindows*dBColonLG.topAttachment:	attach_opposite_widget
+sOftWindows*dBColonLG.topOffset:	0
+sOftWindows*sPCColonLG.leftAttachment:	attach_opposite_widget
+sOftWindows*sPCColonLG.leftOffset:	0
+sOftWindows*sPCColonLG.topAttachment:	attach_opposite_widget
+sOftWindows*sPCColonLG.topOffset:	0
+sOftWindows*driveDT.leftAttachment:	attach_opposite_widget
+sOftWindows*driveDT.leftOffset:	0
+sOftWindows*driveDT.rightAttachment:	attach_form
+sOftWindows*driveDT.rightOffset:	10
+sOftWindows*driveDT.topAttachment:	attach_opposite_widget
+sOftWindows*driveDT.topOffset:	-2
+sOftWindows*driveET.leftAttachment:	attach_opposite_widget
+sOftWindows*driveET.leftOffset:	0
+sOftWindows*driveET.rightAttachment:	attach_form
+sOftWindows*driveET.rightOffset:	10
+sOftWindows*driveET.topAttachment:	attach_opposite_widget
+sOftWindows*driveET.topOffset:	-2
+sOftWindows*driveCD.leftAttachment:	attach_opposite_widget
+sOftWindows*driveCD.leftOffset:	0
+sOftWindows*driveCD.rightAttachment:	attach_form
+sOftWindows*driveCD.rightOffset:	10
+sOftWindows*driveCD.topAttachment:	attach_opposite_widget
+sOftWindows*driveCD.topOffset:	-2
+sOftWindows*driveAT.leftAttachment:	attach_opposite_widget
+sOftWindows*driveAT.leftOffset:	0
+sOftWindows*driveAT.rightAttachment:	attach_form
+sOftWindows*driveAT.rightOffset:	10
+sOftWindows*driveAT.topAttachment:	attach_opposite_widget
+sOftWindows*driveAT.topOffset:	-2
+sOftWindows*driveBT.leftAttachment:	attach_opposite_widget
+sOftWindows*driveBT.leftOffset:	0
+sOftWindows*driveBT.rightAttachment:	attach_form
+sOftWindows*driveBT.rightOffset:	10
+sOftWindows*driveBT.topAttachment:	attach_opposite_widget
+sOftWindows*driveBT.topOffset:	-2
+sOftWindows*panelForm.width:	300
+sOftWindows*panelSymbolLG.leftAttachment:	attach_form
+sOftWindows*panelSymbolLG.leftOffset:	10
+sOftWindows*panelSymbolLG.topAttachment:	attach_form
+sOftWindows*panelSymbolLG.topOffset:	10
+sOftWindows*panelTitleLG.leftAttachment:	attach_widget
+sOftWindows*panelTitleLG.leftOffset:	12
+sOftWindows*panelTitleLG.topAttachment:	attach_opposite_widget
+sOftWindows*panelTitleLG.topOffset:	3
+sOftWindows*panelMsgLG.width:	300
+sOftWindows*panelMsgLG.alignment:	alignment_beginning
+sOftWindows*panelMsgLG.marginHeight:	10
+sOftWindows*panelMsgLG.marginWidth:	10
+sOftWindows*panelMsgLG.leftAttachment:	attach_form
+sOftWindows*panelMsgLG.leftOffset:	0
+sOftWindows*panelMsgLG.rightAttachment:	attach_form
+sOftWindows*panelMsgLG.rightOffset:	0
+sOftWindows*panelMsgLG.topAttachment:	attach_widget
+sOftWindows*panelMsgLG.topOffset:	0
+sOftWindows*panelExitForm.leftAttachment:	attach_form
+sOftWindows*panelExitForm.leftOffset:	1
+sOftWindows*panelExitForm.rightAttachment:	attach_form
+sOftWindows*panelExitForm.rightOffset:	1
+sOftWindows*panelExitForm.topAttachment:	attach_widget
+sOftWindows*panelExitForm.topOffset:	0
+sOftWindows*panelExitSG.leftAttachment:	attach_form
+sOftWindows*panelExitSG.leftOffset:	0
+sOftWindows*panelExitSG.rightAttachment:	attach_form
+sOftWindows*panelExitSG.rightOffset:	0
+sOftWindows*panelExitSG.topAttachment:	attach_form
+sOftWindows*panelExitSG.topOffset:	0
+sOftWindows*panelExitTBG.leftAttachment:	attach_form
+sOftWindows*panelExitTBG.leftOffset:	10
+sOftWindows*panelExitTBG.topAttachment:	attach_widget
+sOftWindows*panelExitTBG.topOffset:	10
+sOftWindows*panelCPBSG.leftAttachment:	attach_form
+sOftWindows*panelCPBSG.leftOffset:	1
+sOftWindows*panelCPBSG.rightAttachment:	attach_form
+sOftWindows*panelCPBSG.rightOffset:	1
+sOftWindows*panelCPBSG.topAttachment:	attach_widget
+sOftWindows*panelCPBSG.topOffset:	10
+sOftWindows*panelCPBForm.leftAttachment:	attach_form
+sOftWindows*panelCPBForm.leftOffset:	10
+sOftWindows*panelCPBForm.rightAttachment:	attach_form
+sOftWindows*panelCPBForm.rightOffset:	10
+sOftWindows*panelCPBForm.topAttachment:	attach_widget
+sOftWindows*panelCPBForm.topOffset:	0
+sOftWindows*panelSpacer.width:	300
+sOftWindows*panelSpacer.height:	10
+sOftWindows*panelSpacer.topAttachment:	attach_widget
+sOftWindows*panelSpacer.topOffset:	0
+sOftWindows*comPlHoLG.marginHeight:	10
+sOftWindows*comPlHoLG.marginWidth:	8
+sOftWindows*comTypeLG.marginHeight:	10
+sOftWindows*comTypeLG.marginWidth:	8
+sOftWindows*comTypeLG.bottomAttachment:	attach_widget
+sOftWindows*comTypeLG.bottomOffset:	-2
+sOftWindows*comTypeLG.rightAttachment:	attach_opposite_widget
+sOftWindows*comTypeLG.rightOffset:	0
+sOftWindows*comValueLG.marginHeight:	10
+sOftWindows*comValueLG.marginWidth:	5
+sOftWindows*comValueLG.bottomAttachment:	attach_opposite_widget
+sOftWindows*comValueLG.bottomOffset:	0
+sOftWindows*comValueLG.leftAttachment:	attach_widget
+sOftWindows*comValueLG.leftOffset:	10
+sOftWindows*comCPBForm.leftAttachment:	attach_form
+sOftWindows*comCPBForm.leftOffset:	10
+sOftWindows*comCPBForm.rightAttachment:	attach_form
+sOftWindows*comCPBForm.rightOffset:	10
+sOftWindows*comCPBForm.topAttachment:	attach_widget
+sOftWindows*comCPBForm.topOffset:	5
+sOftWindows*comSpacer.width:	480
+sOftWindows*comSpacer.height:	10
+sOftWindows*comSpacer.leftAttachment:	attach_form
+sOftWindows*comSpacer.leftOffset:	0
+sOftWindows*comSpacer.topAttachment:	attach_widget
+sOftWindows*comSpacer.topOffset:	0
+sOftWindows*lptShell.allowShellResize:	True
+sOftWindows*lptForm.width:	480
+sOftWindows*lptPlHoLG.marginHeight:	10
+sOftWindows*lptPlHoLG.marginWidth:	8
+sOftWindows*lptTypeLG.marginHeight:	10
+sOftWindows*lptTypeLG.marginWidth:	8
+sOftWindows*lptTypeLG.bottomAttachment:	attach_widget
+sOftWindows*lptTypeLG.bottomOffset:	-2
+sOftWindows*lptTypeLG.rightAttachment:	attach_opposite_widget
+sOftWindows*lptTypeLG.rightOffset:	0
+sOftWindows*lptValueLG.marginHeight:	10
+sOftWindows*lptValueLG.marginWidth:	5
+sOftWindows*lptValueLG.bottomAttachment:	attach_opposite_widget
+sOftWindows*lptValueLG.bottomOffset:	0
+sOftWindows*lptValueLG.leftAttachment:	attach_widget
+sOftWindows*lptValueLG.leftOffset:	10
+sOftWindows*lptCPBForm.leftAttachment:	attach_form
+sOftWindows*lptCPBForm.leftOffset:	10
+sOftWindows*lptCPBForm.rightAttachment:	attach_form
+sOftWindows*lptCPBForm.rightOffset:	10
+sOftWindows*lptCPBForm.topAttachment:	attach_widget
+sOftWindows*lptCPBForm.topOffset:	5
+sOftWindows*lptSpacer.width:	480
+sOftWindows*lptSpacer.height:	10
+sOftWindows*lptSpacer.leftAttachment:	attach_form
+sOftWindows*lptSpacer.leftOffset:	0
+sOftWindows*lptSpacer.topAttachment:	attach_widget
+sOftWindows*lptSpacer.topOffset:	0
+sOftWindows*displayForm.width:	300
+sOftWindows*dispTypeLG.leftAttachment:	attach_position
+sOftWindows*dispTypeLG.leftPosition:	1
+sOftWindows*dispTypeLG.rightAttachment:	attach_position
+sOftWindows*dispTypeLG.rightPosition:	49
+sOftWindows*dispTypeLG.topAttachment:	attach_form
+sOftWindows*dispTypeLG.topOffset:	8
+sOftWindows*dispTypeFr.leftAttachment:	attach_form
+sOftWindows*dispTypeFr.topAttachment:	attach_widget
+sOftWindows*dispTypeFr.topOffset:	0
+sOftWindows*dispColLG.leftAttachment:	attach_position
+sOftWindows*dispColLG.leftPosition:	51
+sOftWindows*dispColLG.rightAttachment:	attach_position
+sOftWindows*dispColLG.topAttachment:	attach_form
+sOftWindows*dispColLG.topOffset:	8
+sOftWindows*dispColFr.rightAttachment:	attach_form
+sOftWindows*dispColFr.topAttachment:	attach_widget
+sOftWindows*dispColFr.topOffset:	0
+sOftWindows*displayCPBForm.leftAttachment:	attach_form
+sOftWindows*displayCPBForm.leftOffset:	10
+sOftWindows*displayCPBForm.rightAttachment:	attach_form
+sOftWindows*displayCPBForm.rightOffset:	10
+sOftWindows*displayCPBForm.topAttachment:	attach_widget
+sOftWindows*displayCPBForm.topOffset:	0
+sOftWindows*displaySpacer.width:	300
+sOftWindows*displaySpacer.height:	10
+sOftWindows*displaySpacer.topAttachment:	attach_widget
+sOftWindows*displaySpacer.topOffset:	0
+sOftWindows*memoryForm.width:	400
+sOftWindows*memoryExtScale.orientation:	horizontal
+sOftWindows*memoryExtScale.processingDirection:	max_on_right
+sOftWindows*memoryExtScale.showValue:	True
+sOftWindows*memoryExtScale.leftAttachment:	attach_form
+sOftWindows*memoryExtScale.leftOffset:	10
+sOftWindows*memoryExtScale.rightAttachment:	attach_form
+sOftWindows*memoryExtScale.rightOffset:	10
+sOftWindows*memoryExtScale.topAttachment:	attach_form
+sOftWindows*memoryExtScale.topOffset:	10
+sOftWindows*extMinLG.leftAttachment:	attach_opposite_widget
+sOftWindows*extMinLG.leftOffset:	0
+sOftWindows*extMinLG.topAttachment:	attach_widget
+sOftWindows*extMinLG.topOffset:	5
+sOftWindows*extMaxLG.rightAttachment:	attach_opposite_widget
+sOftWindows*extMaxLG.rightPosition:	0
+sOftWindows*extMaxLG.topAttachment:	attach_widget
+sOftWindows*extMaxLG.topOffset:	5
+sOftWindows*extTitleLG.leftAttachment:	attach_opposite_widget
+sOftWindows*extTitleLG.leftOffset:	0
+sOftWindows*extTitleLG.rightAttachment:	attach_opposite_widget
+sOftWindows*extTitleLG.rightOffset:	0
+sOftWindows*extTitleLG.topAttachment:	attach_widget
+sOftWindows*extTitleLG.topOffset:	5
+sOftWindows*memoryLIMScale.orientation:	horizontal
+sOftWindows*memoryLIMScale.showValue:	True
+sOftWindows*memoryLIMScale.leftAttachment:	attach_form
+sOftWindows*memoryLIMScale.leftOffset:	10
+sOftWindows*memoryLIMScale.rightAttachment:	attach_form
+sOftWindows*memoryLIMScale.rightOffset:	10
+sOftWindows*memoryLIMScale.topAttachment:	attach_widget
+sOftWindows*memoryLIMScale.topOffset:	10
+sOftWindows*LIMMinLG.leftAttachment:	attach_opposite_widget
+sOftWindows*LIMMinLG.leftOffset:	0
+sOftWindows*LIMMinLG.topAttachment:	attach_widget
+sOftWindows*LIMMinLG.topOffset:	5
+sOftWindows*LIMMaxLG.rightAttachment:	attach_opposite_widget
+sOftWindows*LIMMaxLG.rightPosition:	0
+sOftWindows*LIMMaxLG.topAttachment:	attach_widget
+sOftWindows*LIMMaxLG.topOffset:	5
+sOftWindows*LIMTitleLG.leftAttachment:	attach_opposite_widget
+sOftWindows*LIMTitleLG.leftOffset:	0
+sOftWindows*LIMTitleLG.rightAttachment:	attach_opposite_widget
+sOftWindows*LIMTitleLG.rightOffset:	0
+sOftWindows*LIMTitleLG.topAttachment:	attach_widget
+sOftWindows*LIMTitleLG.topOffset:	5
+sOftWindows*memoryLIMTBG.leftAttachment:	attach_opposite_widget
+sOftWindows*memoryLIMTBG.leftOffset:	0
+sOftWindows*memoryLIMTBG.topAttachment:	attach_widget
+sOftWindows*memoryLIMTBG.topOffset:	10
+sOftWindows*memoryCPBForm.leftAttachment:	attach_form
+sOftWindows*memoryCPBForm.leftOffset:	10
+sOftWindows*memoryCPBForm.rightAttachment:	attach_form
+sOftWindows*memoryCPBForm.rightOffset:	10
+sOftWindows*memoryCPBForm.topAttachment:	attach_widget
+sOftWindows*memoryCPBForm.topOffset:	0
+sOftWindows*memorySpacer.width:	400
+sOftWindows*memorySpacer.height:	10
+sOftWindows*memorySpacer.topAttachment:	attach_widget
+sOftWindows*memorySpacer.topOffset:	0
+sOftWindows*keybForm.width:	400
+sOftWindows*keybNameForm.borderWidth:	0
+sOftWindows*keybNameForm.leftAttachment:	attach_form
+sOftWindows*keybNameForm.leftOffset:	10
+sOftWindows*keybNameForm.rightAttachment:	attach_form
+sOftWindows*keybNameForm.rightOffset:	1
+sOftWindows*keybNameForm.topAttachment:	attach_form
+sOftWindows*keybNameForm.topOffset:	10
+sOftWindows*keybFileSelPBG.leftAttachment:	attach_form
+sOftWindows*keybFileSelPBG.leftOffset:	0
+sOftWindows*keybFileSelPBG.topAttachment:	attach_form
+sOftWindows*keybFileSelPBG.topOffset:	2
+sOftWindows*keybNameText.leftAttachment:	attach_widget
+sOftWindows*keybNameText.leftOffset:	10
+sOftWindows*keybNameText.rightAttachment:	attach_form
+sOftWindows*keybNameText.rightOffset:	10
+sOftWindows*keybNameText.topAttachment:	attach_opposite_widget
+sOftWindows*keybNameText.topOffset:	-1
+sOftWindows*keybCPBForm.leftAttachment:	attach_form
+sOftWindows*keybCPBForm.leftOffset:	10
+sOftWindows*keybCPBForm.rightAttachment:	attach_form
+sOftWindows*keybCPBForm.rightOffset:	10
+sOftWindows*keybCPBForm.topAttachment:	attach_widget
+sOftWindows*keybCPBForm.topOffset:	0
+sOftWindows*keybSpacer.width:	400
+sOftWindows*keybSpacer.height:	10
+sOftWindows*keybSpacer.topAttachment:	attach_widget
+sOftWindows*keybSpacer.topOffset:	0
+sOftWindows*flushForm.width:	400
+sOftWindows*flushScale.orientation:	horizontal
+sOftWindows*flushScale.showValue:	True
+sOftWindows*flushScale.leftAttachment:	attach_form
+sOftWindows*flushScale.leftOffset:	10
+sOftWindows*flushScale.rightAttachment:	attach_form
+sOftWindows*flushScale.rightOffset:	10
+sOftWindows*flushScale.topAttachment:	attach_form
+sOftWindows*flushScale.topOffset:	10
+sOftWindows*flushMinLG.leftAttachment:	attach_opposite_widget
+sOftWindows*flushMinLG.leftOffset:	0
+sOftWindows*flushMinLG.topAttachment:	attach_widget
+sOftWindows*flushMinLG.topOffset:	5
+sOftWindows*flushMaxLG.rightAttachment:	attach_opposite_widget
+sOftWindows*flushMaxLG.rightPosition:	0
+sOftWindows*flushMaxLG.topAttachment:	attach_widget
+sOftWindows*flushMaxLG.topOffset:	5
+sOftWindows*flushTitleLG.leftAttachment:	attach_opposite_widget
+sOftWindows*flushTitleLG.leftOffset:	0
+sOftWindows*flushTitleLG.rightAttachment:	attach_opposite_widget
+sOftWindows*flushTitleLG.rightOffset:	0
+sOftWindows*flushTitleLG.topAttachment:	attach_widget
+sOftWindows*flushTitleLG.topOffset:	5
+sOftWindows*flushTBG.leftAttachment:	attach_opposite_widget
+sOftWindows*flushTBG.leftOffset:	0
+sOftWindows*flushTBG.topAttachment:	attach_widget
+sOftWindows*flushTBG.topOffset:	10
+sOftWindows*flushCPBForm.leftAttachment:	attach_form
+sOftWindows*flushCPBForm.leftOffset:	10
+sOftWindows*flushCPBForm.rightAttachment:	attach_form
+sOftWindows*flushCPBForm.rightOffset:	10
+sOftWindows*flushCPBForm.topAttachment:	attach_widget
+sOftWindows*flushCPBForm.topOffset:	0
+sOftWindows*flushSpacer.width:	400
+sOftWindows*flushSpacer.height:	10
+sOftWindows*flushSpacer.topAttachment:	attach_widget
+sOftWindows*flushSpacer.topOffset:	0
+!
+! General Stuff
+!
+sOftWindows*selectColor:   yellow
+sOftWindows*indicatorOn:   True
+sOftWindows*separatorType: XmSHADOW_ETCHED_IN
+sOftWindows*shadowType:    XmSHADOW_ETCHED_IN
+sOftWindows*licensePBG.labelString:    Licensing
+!
+! Top level FLEXlm dialog widget
+!
+sOftWindows*flexlm_dialog_popup.title:       Insignia FLEXlm License Manager
+sOftWindows*autherror_popup.title:
+sOftWindows*serialerror_popup.title: Serial Number Error
+sOftWindows*serialerror.messageString:       Serial number does not match
+sOftWindows*autherror_popup.title:   Authorization Number Error
+sOftWindows*autherror.messageString: Authorization number does not match
+sOftWindows*iderror_popup.title:     Host ID Error
+sOftWindows*iderror.messageString:   Host ID is not for this machine
+sOftWindows*dateerror_popup.title:   Date Error
+sOftWindows*dateerror.messageString: Invalid date
+sOftWindows*quit_sure_popup.title:   Quitting SoftWindows
+sOftWindows*quit_sure.messageString: Are you sure you want to quit SoftWindows
+sOftWindows*inittab_warn_popup.title:    Change /etc/inittab Warning
+sOftWindows*inittab_warn.messageString:  SoftWindows needs to run the FLEXlm license manager\nto control its license.\nIs it OK to append a line to /etc/inittab to\ndo this?
+sOftWindows*inittab_warn.cancelLabelString:      Cancel
+sOftWindows*inittab_warn.okLabelString:  Change
+!
+! Radio box for demo/concurrent license
+!
+sOftWindows*radio1.radioBehavior: True
+sOftWindows*region11.rightAttachment: XmATTACH_POSITION
+sOftWindows*region11.rightPosition: 30
+sOftWindows*region11.leftAttachment: XmATTACH_FORM
+sOftWindows*region11.leftOffset: 10
+sOftWindows*region11.topAttachment: XmATTACH_FORM
+sOftWindows*region11.topOffset: 10
+sOftWindows*type.labelString:        Type Of License
+sOftWindows*demo.labelString:        Demonstration
+sOftWindows*demo.set:        True
+sOftWindows*concurrent.labelString:  Concurrent
+!
+! Radio box for SoftWindows/SoftWindows license
+!
+sOftWindows*region13.radio2.radioBehavior: True
+sOftWindows*region13.rightAttachment: XmATTACH_POSITION
+sOftWindows*region13.rightPosition: 30
+sOftWindows*region13.leftAttachment: XmATTACH_FORM
+sOftWindows*region13.leftOffset: 10
+sOftWindows*region13.topAttachment: XmATTACH_WIDGET
+sOftWindows*region13.topWidget: region11
+sOftWindows*region13.bottomAttachment: XmATTACH_FORM
+sOftWindows*region13.bottomOffset: 10
+sOftWindows*license.labelString:     Application Type
+sOftWindows*bk.labelString:  Soft Windows
+!
+! row column to hold text fields
+!
+sOftWindows*region12.spacing:    3
+sOftWindows*region12.marginWidth:    3
+sOftWindows*region12.marginHeight:    3
+sOftWindows*region121.packing:    XmPACK_COLUMN
+!sOftWindows*region121.packing:    XmPACK_TIGHT
+sOftWindows*region121.orientation:    XmVERTICAL
+sOftWindows*region121.numColumns:    2
+sOftWindows*region12.leftAttachment: XmATTACH_WIDGET
+sOftWindows*region12.leftWidget: region11
+sOftWindows*region12.topAttachment: XmATTACH_FORM
+sOftWindows*region12.topOffset: 10
+sOftWindows*region12.rightAttachment: XmATTACH_FORM
+sOftWindows*region12.rightOffset: 10
+sOftWindows*region12.bottomAttachment: XmATTACH_FORM
+sOftWindows*region12.bottomOffset: 10
+!
+! Labels in region 1 row column
+!
+sOftWindows*region12*hostid.labelString:    FLEXlm HostID
+sOftWindows*region12*server.labelString:    Server Name
+sOftWindows*region12*serial.labelString:    Serial Number
+sOftWindows*region12*users.labelString:    Number Of Users
+sOftWindows*region12*users.sensitive:    False
+sOftWindows*region12*usersval.sensitive:    False
+sOftWindows*region12*expiry.labelString:    Expiry Date
+sOftWindows*region12*day.labelString:    Day
+sOftWindows*region12*month.labelString:    Month
+sOftWindows*region12*year.labelString:    Year
+sOftWindows*serial_num.value:    False
+sOftWindows*serial_num.resizeWidth:    False
+sOftWindows*serial_num.columns:    19
+sOftWindows*serial_num.maxLength:    19
+sOftWindows*expiryrc.orientation: XmHORIZONTAL
+sOftWindows*expiryrc.packing: XmPACK_TIGHT
+sOftWindows*expiryrc.numColumns: 7
+sOftWindows*expiryrc*columns:    2
+sOftWindows*expiryrc*maxLength:    2
+sOftWindows*expiryrc*yearval.columns:    4
+sOftWindows*expiryrc*yearval.maxLength:    4
+!
+! Region2 is for authorization code.
+!
+sOftWindows*authorization.leftAttachment: XmATTACH_FORM
+sOftWindows*authorization.leftOffset: 10
+sOftWindows*authorization.topAttachment: XmATTACH_FORM
+sOftWindows*authorization.topOffset: 10
+sOftWindows*authorization.labelString: Authorization Code
+sOftWindows*code.leftAttachment: XmATTACH_WIDGET
+sOftWindows*code.leftWidget: authorization
+sOftWindows*code.columns:    24
+sOftWindows*code.maxLength:    24
+!
+! Region3 is for the row of buttons
+!
+sOftWindows*region3.orientation: XmHORIZONTAL
+sOftWindows*region3.packing: XmPACK_COLUMN
+sOftWindows*advanced.labelString: Advanced
+sOftWindows*cancel.labelString: Cancel
+sOftWindows*install.labelString: Install License
+sOftWindows*quit.labelString: Quit SoftWindows
+!
+! Advanced region
+!
+sOftWindows*tcprc.orientation: XmHORIZONTAL
+sOftWindows*tcprc.packing: XmPACK_COLUMN
+sOftWindows*admin_label.labelString: TCP Port Number should only be changed by network administrator
+sOftWindows*tcp_label.labelString:   TCP Port Number

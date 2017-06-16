@@ -1,0 +1,7 @@
+#!/bin/sh
+where=`find . -name $1 -print`
+if [ x"$where" != x ]; then
+  cd `dirname $where`
+else
+  echo "could not find $1"
+fi
