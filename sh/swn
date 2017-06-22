@@ -1,5 +1,5 @@
 #!/bin/bash
 hn=${1:-`hostname`}
 #echo -e "\e]0;${hn} [$$]\007"
-echo -e "\e]0;${hn} [$PPID]\007"
+echo -e "]0;${hn} [$PPID]"
 
