@@ -1,6 +1,0 @@
-#!/bin/sh
-for x in jade1a jade1b jade1c jade1d jade1e; do
-echo -n "${x}	:"; ssh -xn ${x} "${@:-uptime}"
-done
-      
-

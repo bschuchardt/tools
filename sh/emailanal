@@ -1,3 +1,0 @@
-#!/bin/bash
-# analyse the frm lines of an email folder for word frequency
-frm ${1:-"=externalMail"} | splitline | sort | uniq -c | sort -nr

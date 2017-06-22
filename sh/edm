@@ -1,7 +1,0 @@
-#/bin/sh
-# a script to load mail into an editor for viewing
-exec 2>&1
-filename=${TMPDIR:-/tmp}/`whoami`mail.txt
-cat >$filename
-${VISUAL:-vi} $filename
-rm -f $filename

@@ -1,6 +1,0 @@
-for x in $@; do
-if [ ! -d $x ]; then
-rm $x
-cvs remove $x
-fi
-done

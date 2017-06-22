@@ -1,9 +1,0 @@
-#!/bin/sh
-for x in $*; do
-  echo "a2ps -p -ns -nh -f10.5 $x | lpr"
-if [ $OSTYPE = Linux ]; then
-  a2ps -R --borders no --columns=1 -B -f10.5 $x | lpr
-else
-  a2ps -p -ns -nh -f10.5 $x | lpr
-fi
-done

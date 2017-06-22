@@ -1,5 +1,0 @@
-#!/bin/sh
-for x in a b c d e   g h i j k l m n; do
-  match=`grep -A 1 "USER: .[a-z,A-Z]" -m 1 /gcm/where/machine_use/hs20${x}`
-  echo ${x}: $match
-done

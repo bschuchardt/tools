@@ -1,3 +1,0 @@
-#!/bin/sh
-a2ps -w -f6.5 $* | lpr
-#a2ps -nf $* | lpr
