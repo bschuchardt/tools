@@ -55,6 +55,10 @@ fi
 export ANT_HOME=$GCMDIR/where/java/ant/apache-ant-1.8.4
 PATH=$ANT_HOME/bin:$PATH
 
+if [ -d $layer/open ]; then
+  export CDPATH=$layer/closed:$layer/open:$CDPATH
+fi
+
 export PATH=$cmds:$JAVA_HOME/bin:$PATH
 
 function go {
