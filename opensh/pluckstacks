@@ -1,0 +1,26 @@
+#!/bin/sh
+if [ x"$1" = x"-p" ]; then
+  usePerl=true
+  shift 1
+fi
+if [ x"$1" = x"-oneStack" ]; then
+  oneStack="-DoneDump=true"
+  shift 1
+fi
+files="$@"
+if [ x"$files" = x ]; then
+  files=bgexec*
+fi
+
+if [ x"$usePerl" = xtrue ]; then
+  if [ ! -r /bin/perl5 ]; then
+    exec perl $layer/tests/bin/pluckStacks.pl ${files} | emx - &
+  else
+    exec perl5 $layer/tests/bin/pluckStacks.pl ${files} | emx - &
+  fi
+else
+#  debug="-DPluckStacks.DEBUG=true"
+  debug=""
+#  java -cp ~/usr/classes/mergelogs.jar $debug $oneStack com.gemstone.gemfire.internal.util.PluckStacks $files | emx -&
+  java $debug $oneStack org.apache.geode.internal.util.PluckStacks $files | emx -&
+fi

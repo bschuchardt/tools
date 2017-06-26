@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ ! -d ./closed/gemfire-test ]; then
+  echo "please run this script from your top-level checkout directory"
+  exit 2
+fi
+
+homedir=$PWD
+cd closed
+echo "***** combining test results"
+./gradlew combineReports
+
+serveTestResults

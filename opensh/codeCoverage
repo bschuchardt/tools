@@ -1,0 +1,19 @@
+#!/bin/bash
+cd $layer
+
+exec 2>&1
+exec 1>codecoverage.log
+
+if [ x"$1" != x"-noclean" ]; then
+  ffdel *Test-progress.txt
+  buildfiles=`ff build`
+  if [ x"$buildfiles" != x ]; then
+    rm -rf $buildfiles
+  fi
+else
+  shift 1
+fi
+
+cd $layer/open
+gr preCheckin --continue -PcodeCoverage jacocoOverallTestReport
+

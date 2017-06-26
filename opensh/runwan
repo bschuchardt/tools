@@ -1,0 +1,4 @@
+#!/bin/bash
+cd $layer/closed/gemfire-wan
+gr distributedTest --continue 2>&1 1>distributedTest.log
+

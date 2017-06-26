@@ -1,0 +1,13 @@
+#!/bin/bash
+exec 2>&1
+exec | tee dunit.log
+COVER=""
+if [ $1 == -cover ]; then
+  COVER=-PcodeCoverage
+  shift
+fi
+test=$1
+shift
+#rm -rf build/distributedTest build/test-results
+gr $COVER -x javadoc -DdistributedTest.single=$test  distributedTest "$@"
+
