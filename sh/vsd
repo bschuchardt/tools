@@ -1,7 +1,11 @@
 #!/bin/bash
 #$GEMFIRE/vsd/bin/vsd "$@"
 
-if [ $mtype = 50 ]; then
+if [ $mtype = 90 ]; then
+  $HOME/usr/vsd5.3.0-i386.Darwin/bin/vsd "$@"
+  exit 0
+  
+elif [ $mtype = 50 ]; then
   if [ `hostname` == carlos ]; then
     $HOME/usr/vsd50.old/bin/vsd "$@"
     exit 0

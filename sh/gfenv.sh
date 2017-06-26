@@ -12,6 +12,8 @@ if [ $buildnum = "at" ]; then
     export layer=$1
 elif [ $buildnum = "here" ]; then
     export layer=$PWD
+elif [ -d /Applications ]; then
+    export layer=/Users/bschuchardt/devel/gf$buildnum
 elif [ -d /${hn}2/users/bschuchardt/devel/gf$buildnum ]; then
     export layer=/export/${hn}2/users/bschuchardt/devel/gf$buildnum
 elif [ -d /${hn}2/users/bschuchardt/devel/gf$buildnum ]; then
@@ -41,28 +43,23 @@ fi
 un=`uname`
 #export GCMDIR=/export/ent1/users/bschuchardt/devel/gcm
 export GCMDIR=/export/gcm
-if [ $un = "Linux" ]; then
-#  export JAVA_HOME=$GCMDIR/where/jdk/1.6.0_45/x86.linux
-#  export JAVA_HOME=$GCMDIR/where/jdk/1.7.0_72/x86_64.linux
-#  export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_45/x86_64.linux
 
+if [ $un = "Darwin" ]; then
+  export JAVA_HOME=/Library/Java/Home
+elif [ $un = "Linux" ]; then
   export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_66/x86_64.linux
-
-#  export JAVA_HOME=$HOME/usr/jdk/1.8.0_121/x86_64.linux
-  export ANT_HOME=$GCMDIR/where/java/ant/apache-ant-1.8.4
-  PATH=$ANT_HOME/bin:$PATH
-elif [ $un = "AIX" ]; then
-  export JAVA_HOME=$GCMDIR/where/jdk/1.6.0-ibm/RISC6000.AIX
 else
-#  export JAVA_HOME=$GCMDIR/where/jdk/1.6.0_17/sparc.Solaris
   export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_45/sparc.Solaris
 fi
 
+export ANT_HOME=$GCMDIR/where/java/ant/apache-ant-1.8.4
+PATH=$ANT_HOME/bin:$PATH
+
+if [ -d $layer/open ]; then
+  export CDPATH=$layer/closed:$layer/open:$CDPATH
+fi
+
 export PATH=$cmds:$JAVA_HOME/bin:$PATH
-
-export REGR_SERVER=/export/snaps/rs/r5.0/snaps.Any/snapshot.3fd4c2727975695d0606337a9175847b18466b44/antbuild
-
-#export USESUN=true
 
 function go {
   while [ x"$1" != x ]; do
@@ -82,10 +79,12 @@ export go
 
 if [ ! -r $layer/build.sh ]; then
 
-export GRADLE_USER_HOME=$HOME/.grhomes/`hostname`
-#if [ ! -d $GRADLE_USER_HOME ]; then
-#  echo "gradle user home not found:  use mkdir \$GRADLE_USER_HOME"
-#fi
+if [ $un != "Darwin" ]; then
+  export GRADLE_USER_HOME=$HOME/.grhomes/`hostname`
+  #if [ ! -d $GRADLE_USER_HOME ]; then
+  #  echo "gradle user home not found:  use mkdir \$GRADLE_USER_HOME"
+  #fi
+fi
 
 export ocmds=~/usr/opencmds
 PATH=$ocmds:$PATH
