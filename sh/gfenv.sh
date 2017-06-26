@@ -86,7 +86,7 @@ if [ $un != "Darwin" ]; then
   #fi
 fi
 
-export ocmds=~/usr/opencmds
+export ocmds=~/usr/opensh
 PATH=$ocmds:$PATH
 
 export GEMFIRE=$layer/closed/pivotalgf-assembly/build/install/pivotal-gemfire
