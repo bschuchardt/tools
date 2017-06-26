@@ -1,3 +1,0 @@
-#!/bin/sh
-# after using conflictdiff you may just want to use the right-hand merge source
-cp ${1}.merge-right* ${1}

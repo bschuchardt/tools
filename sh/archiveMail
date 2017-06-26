@@ -1,5 +1,0 @@
-#!/bin/bash
-# package up digested mail, and save it in archive
-if [ -r $HOME/Mail/advancedJava ]; then
-  cat $HOME/Mail/advancedJava >>$HOME/Mail/archive/advancedJava
-fi

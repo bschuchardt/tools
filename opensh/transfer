@@ -1,0 +1,102 @@
+#!/bin/sh
+#
+# You can affect this script by creating a "transferhost.txt" file
+# in the top directory of your checkout.  The file should look like
+# this:
+#     remotehost=frodo.gemstone.com
+#     destdir=fdevel/gfquorum
+#
+# $srcname is set to the name of the source directory on the PC
+#
+echo "synching $PWD..."
+
+PATH=/bin:/usr/bin:$HOME/usr/sh:$HOME/usr/bin
+export PATH
+
+archive=pc.zip
+
+if [ x"$1" == xpause ]; then
+  pause=true
+  shift 1
+fi
+
+#if [ x"$1" != x ]; then
+#  echo "using $HOME/devel/gf${1}"
+#  cd $HOME/devel/gf${1}
+#fi
+
+THEXT="txt"
+if [ x"$1" != x ]; then
+  THEXT=$1
+  shift 1
+fi
+
+if [ ! -r open ]; then
+  echo "$PWD is not a checkout directory - 'open' directory not found"
+  exit 2
+fi
+
+localdir=$PWD
+srcname=`$HOME/usr/bin/filename $PWD`
+remotehost=trout.gemstone.com
+destdir=devel/$srcname
+
+if [ $THEXT != "txt" -a ! -r ./transferhost.$THEXT ]; then
+  echo "transferhost.$THEXT is missing"
+  exit 2
+fi
+
+if [ -r ./transferhost.$THEXT ]; then
+  . ./transferhost.$THEXT
+fi
+
+thedate=`date +"%g%m%d"`
+
+function archive {
+    subdir=$1
+    srctype=$2
+    
+    cd $localdir/$subdir
+    
+    echo "finding changed $srctype files in $1"
+    files=`gitchangedfiles`
+    if [ x"$files" == x ]; then
+      echo no changes found
+      return
+    fi
+    rm -f $archive
+    
+    echo "archiving changed $srctype files"
+    echo "chmod u+rw $files"
+    chmod u+rw $files
+    git log -n 4 >gitinfo.txt
+    zip -q $archive $files gitinfo.txt
+    count=`echo $files | wc -w`
+    
+    echo "transfering changed $srctype files archive to ${remotehost}"
+    #scp ${archive} bschuchardt@${remotehost}:$destdir/$archive
+    ssh ${remotehost} cd ${destdir}\; rm -f $subdir/pc.zip
+    scp ${archive} ${remotehost}:$destdir/$subdir/$archive
+    
+    echo "unpacking archive on ${remotehost}"
+    #ssh bschuchardt@${remotehost} cd ${destdir}/$subdir\; svn -Rq revert .\; unzip -o ${archive}\; \
+    #ssh bschuchardt@${remotehost} cd ${destdir}/$subdir\; unzip -o ${archive}\; \
+    ssh ${remotehost} cd ${destdir}/$subdir\; unzip -o ${archive}\; \
+    cp ${archive} /home/bschuchardt/backup/${thedir}${thedate}${srcname}_${srctype}.zip
+    now=`date`
+    echo "${count} files transfered to ${destdir} on ${remotehost} at ${now}"
+    echo "archive file backed up to /home/bschuchardt/backup/${thedir}${thedate}${srcname}_${srctype}.zip"
+    rm -f pc.zip
+    cd $localdir
+}
+
+echo "synching closed-source"
+archive . closed-source
+
+echo "synching open-source"
+archive open open-source
+
+if [ x"$pause" == xtrue ]; then
+  echo -n "press Enter to continue"
+  read aline
+fi

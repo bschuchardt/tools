@@ -1,0 +1,151 @@
+#!/bin/bash
+if [ ! -r ./precheckin.log ]; then
+  echo "please run this script from your top-level checkout directory"
+  exit 2
+fi
+
+hn=`hostname`
+report=`mktemp /tmp/checkunittests_${hn}_rpt_XXXX.txt`
+details=`mktemp /tmp/checkunittests_${hn}_details_XXXX.txt`
+
+rm -f $report $details
+
+homedir=$PWD
+
+ratreport=closed/build/reports/rat/rat-report.txt
+
+if [ -r precheckin.log ]; then
+  failed=`grep -m 1 FAILED precheckin.log`
+  if [ x"$failed" != x ]; then
+    echo "FAILED - build was declared to have failed" >>$report
+    echo "" >>$report
+  fi
+  failed=`grep "spotlessJavaCheck FAILED" precheckin.log`
+  if [ x"$failed" != x ]; then
+    echo "FAILED: spotlessJavaCheck reported errors - rerun it to see them" >>$report
+    echo "" >>$report
+  fi
+  if [ -r $ratreport ]; then
+    ratpassed=`grep "^0 Unknown Licenses" $ratreport`
+    if [ x"$ratpassed" == x ]; then
+      echo "FAILED: rat failed (report attached)" >>$report
+      echo "" >>$report
+    fi
+  fi
+fi
+
+progFiles=`find . -name "*-progress.txt" -print`
+
+if [ x"$progFiles" != x ]; then
+
+  for x in $progFiles; do
+
+    ttype=`dirname $x`
+    fname=`dirname $ttype`
+    fname=`dirname $fname`
+    fname=`basename $fname`
+    ttype=`basename $ttype`
+    if [ $ttype != "checkMissedTests" ]; then
+      fname="$fname:$ttype"
+
+      failures=`grep FAIL $x | wc -l`
+      if [ $failures == "0" ]; then
+
+        echo "PASSED $fname" >>$report
+
+      else
+
+        echo "FAILED $failures failures in $fname" >>$report
+        echo "" >>$report
+
+        echo "" >>$details
+        echo "--------------------- $fname -----------------------" >>$details
+        grep FAIL $x >>$details
+
+      fi
+    fi
+    
+  done
+
+fi
+
+legacy=$homedir/closed/pivotalgf-assembly/build/legacyDunit
+if [ -r $legacy ]; then
+  cd $legacy/dunit-tests-*
+  numfailures=`grep -c FAIL dunit-progress*.txt`
+  if [ x"$numfailures" != x"0" ]; then
+    echo "FAILED $numfailures in legacyDunit" >>$report
+    echo "--------------------- pivotalgf-assembly:legacyDunit -----------------------" >>$details
+    grep "FAIL" dunit-progress*.txt >>$details
+  else
+    echo "PASSED pivotalgf-assembly:legacyDunit" >>$report
+  fi
+  cd $homedir
+fi
+
+missedTests=$homedir/open/gemfire-core/build/checkMissedTests
+if [ -r $missedTests ]; then
+  cd $missedTests
+  if [ -r checkMissedTests-progress.txt ]; then
+    numsuccess=`grep -c SUCCESS *-progress.txt`
+    if [ x"$numsuccess" != x"0" ]; then
+      echo "FAILED $numsuccess in gemfire-core:checkMissedTests" >>$report
+      echo "" >>$report
+      echo "--------------------- gemfire-core:checkMissedTests -----------------------" >>$details
+      grep "SUCCESS" *-progress.txt >>$details
+      echo "" >>$details
+    else
+      echo "PASSED gemfire-core:checkMissedTests" >>$report
+    fi
+  else
+    echo "PASSED gemfire-core:checkMissedTests" >>$report
+  fi
+  cd $homedir
+fi     
+  
+smoke=$homedir/closed/pivotalgf-assembly/build/smokeTest
+if [ -r $smoke ]; then
+  cd $smoke
+  numpass=`grep -c " P " oneliner.txt`
+  numhangs=`grep -c " H " oneliner.txt`
+  numfailures=`grep -c " F " oneliner.txt`
+  if [ x"$numhangs" != x"0"  -o x"$numfailures" != x"0" ]; then
+    echo "smokeTest: ${numpass} passed, ${numhangs} hanged, ${numfailures} failed" >> $report
+    if [ $numhangs != "0"  -o  $numfailures != "0" ]; then
+      echo "" >>$details
+      echo "--------------------- pivotalgf-assembly:smokeTest -----------------------" >>$details
+      grep -v " P " oneliner.txt >>$details
+    fi
+  else
+    echo "PASSED pivotalgf-assembly:smokeTest" >>$report
+  fi
+  cd $homedir
+fi
+
+
+if [ -r $details ]; then
+
+  echo "" >>$report
+  echo "" >>$report
+  echo "" >>$report
+  cat $details >>$report
+
+fi
+
+
+if [ -r $homedir/precheckin.log ]; then
+  echo "" >>$report
+  echo "" >>$report
+  echo "build log --------------------------------------------------" >>$report
+  cat $layer/precheckin.log >>$report
+fi
+
+if [ x"$ratpassed" == x ]; then
+  cat $report | emx - $ratreport &
+else
+  cat $report | emx -&
+fi
+sleep 3
+rm -f $details $report
+
+    

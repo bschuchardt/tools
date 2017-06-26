@@ -1,0 +1,63 @@
+#!/bin/bash
+
+if [ ! -d ./open/gemfire-core ]; then
+  echo "please run this script from your top-level checkout directory"
+  exit 2
+fi
+
+cd open
+
+hn=`hostname`
+report=`mktemp /tmp/checkunittests_${hn}_rpt_XXXX.txt`
+details=`mktemp /tmp/checkunittests_${hn}_details_XXXX.txt`
+
+rm -f $report $details
+
+homedir=$PWD
+
+progFiles=`find . -name "*-progress.txt" -print`
+
+if [ x"$progFiles" != x ]; then
+
+  for x in $progFiles; do
+
+    ttype=`dirname $x`
+    fname=`dirname $ttype`
+    fname=`dirname $fname`
+    fname=`basename $fname`
+    ttype=`basename $ttype`
+    fname="$fname:$ttype"
+
+    failures=`grep FAIL $x | wc -l`
+    if [ $failures == "0" ]; then
+
+      echo "PASSED $fname" >>$report
+
+    else
+
+      echo "FAILED $failures failures in $fname" >>$report
+
+      echo "" >>$details
+      echo "--------------------- $fname -----------------------" >>$details
+      grep FAIL $x >>$details
+
+    fi
+    
+  done
+
+fi
+
+if [ -r $details ]; then
+
+  echo "" >>$report
+  echo "" >>$report
+  echo "" >>$report
+  cat $details >>$report
+
+fi
+    
+cat $report
+ 
+rm -f $details $report
+
+    

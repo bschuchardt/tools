@@ -1,1 +1,0 @@
-$GEMSTONE/bin/java com.gemstone.CORBA.util.vmconfigUtil $@

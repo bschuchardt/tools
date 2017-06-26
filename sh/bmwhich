@@ -1,5 +1,0 @@
-#!/bin/sh
-files=`bmgrep "$@" | cut -f 1-1 -d ":" | uniq`
-for x in ${files}; do
-  grep -H -m 1 "Bug Comment" $x | cut -c27- | cut -d ":" -f1,3
-done

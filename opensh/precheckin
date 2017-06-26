@@ -1,0 +1,29 @@
+#!/bin/bash
+#cd $layer
+
+set -v
+set -x
+
+exec 2>&1
+exec 1>precheckin.log
+
+if [ x"$1" != x"-noclean" ]; then
+  ffdel *Test-progress.txt
+  buildfiles=`ff build`
+  if [ x"$buildfiles" != x ]; then
+    rm -rf $buildfiles
+  fi
+else
+  shift 1
+fi
+
+if [ -d closed ]; then
+  cd closed
+fi
+skip="-x extensions/geode-modules-tomcat8:distributedTest"
+if [ x"$@" != x ]; then
+  gr precheckin --continue $skip "$@"
+else
+  gr precheckin --continue $skip
+fi
+

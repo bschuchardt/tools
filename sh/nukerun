@@ -1,6 +1,0 @@
-#!/bin/sh
-if [ -r ./nukerun.sh ]; then
-  ./nukerun.sh
-else
-  echo "there is no nukerun.sh in this directory"
-fi

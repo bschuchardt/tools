@@ -1,0 +1,4 @@
+#!/bin/bash
+cd $layer/closed
+gr clean
+rm -f ~/PULSE*

@@ -1,0 +1,89 @@
+#! /bin/bash
+if [ -r batterytest.log ];  then
+  echo "This is actually a batterytest directory - switching to watchbt"
+  sleep 2
+  exec watchbt
+  exit 0
+fi
+conffile=latest.conf
+me=`whoami`
+watchfile=`mktemp $HOME/tmp/watchdunit.XXX`
+grep "UNITTEST " $conffile >$watchfile
+trap "rm -f $watchfile; color fg default bg default" EXIT
+numtests=`wc -l $watchfile`
+numtests=`echo $numtests | cut -d " " -f 1`
+typeset -i numfailures
+typeset -i numfailedtests
+typeset -i num
+typeset -i filefailures
+typeset -i fileerrors
+#exit 1
+while [ 0 ]
+do
+  dunitfile=`ls *-progress*.txt | head -1`
+  clear
+  if [ x"$startedat" = x -a x"$dunitfile" != x ]; then
+    startedat=`head -2 $dunitfile | tail -1 | cut -c 18-22`
+  fi
+  echo "started at: $startedat"
+#  date
+  echo -n "uptime: "
+  uptime
+  # ls -l *.txt
+  #ls -l dunit-passed.txt $dunitfile
+  color fg blue
+  echo ""
+  numfailedtests=`ls -1 failures 2>/dev/null | wc -l`
+  #ls -lrt failures 2>/dev/null | tail -5
+  numfailures=0
+  for x in *-progress*.txt; do
+    filefailures=`grep -c "FAILURE" $x`
+    fileerrors=`grep -c "ERROR" $x`
+    numfailures=$((numfailures + filefailures))
+    numfailures=$((numfailures + fileerrors))
+  done
+  if [ $numfailures -gt 0 ]; then
+    color fg red
+    echo "failures so far = $numfailures in $numfailedtests tests"
+  else
+    color fg green
+    echo "no failures so far"
+  fi
+  color fg default
+  echo ""
+  echo "$numtests total test classes to execute"
+  echo ""
+  for x in *-progress*.txt; do
+    test=`grep START $x | tail -1 | cut -d '(' -f 2 | cut -d ')' -f 1`
+    #echo "test=($test)"
+    if [ x"$test" != x ]; then
+      color fg green bg black
+      echo -n "#"
+      fgrep -h -n -o $test $watchfile
+      color fg default bg default
+    fi
+    tail -1 $x
+  done
+  hang=`grep TIMEDOUT *-progress*.txt | head -1`
+  if [ x"$hang" != x ]; then
+    echo ""
+    echo ""
+    color fg red
+    echo "********tests hung*********"
+    color fg default
+    exit 1
+  fi
+  if [ ! -f in_progress.txt ]; then
+    echo ""
+    echo ""
+    echo "completed"
+    exit 0
+  fi
+  if [ -f errors.txt ]; then
+    echo ""
+    echo ""
+    echo "********completed with errors********"
+    exit 1
+  fi
+  sleep 10
+done

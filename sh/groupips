@@ -1,5 +1,0 @@
-#!/bin/sh
-for x in balrog bilbo biscuit ent frodo hobbes kili merry oin pippin carlos; do
-ypcat hosts | grep $x | grep -v gloin
-done
-      

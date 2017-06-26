@@ -1,0 +1,42 @@
+#!/bin/bash
+testFile=`ls *-progress.txt | head -1`
+while [ 0 ]
+do
+  clear
+  
+  echo -n "uptime: "
+  uptime
+  
+  echo ""
+  echo -n "started at "
+  head -1 $testFile | cut -c 1-19
+  
+  echo ""
+  echo -n "tests run: "
+  color fg blue
+  grep -i "starting test" $testFile | wc -l
+  color fg default
+  
+  echo ""
+  echo -n "failures: "
+  count=`grep FAIL $testFile | wc -l`
+  if [ x"$count" == x0 ]; then
+    color fg green
+  else
+    color fg red
+  fi
+  echo $count
+  color fg default
+
+  echo ""
+  tail -3 $testFile
+  line=`tail -1 $testFile | grep "Starting test"`
+  if [ x"$line" == x ]; then
+    sleep 5
+    line=`tail -1 $testFile | grep "Starting test"`
+    if [ x"$line" == x ]; then
+      exit
+    fi
+  fi
+  sleep 10
+done

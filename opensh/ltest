@@ -1,0 +1,7 @@
+#!/bin/bash
+#cd $layer/closed/gemfire-test
+test=$1
+shift
+#rm -rf build/distributedTest build/test-results
+gr -DlegacyDUnit.single=$test  legacyDUnit "$@"
+

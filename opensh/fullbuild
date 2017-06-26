@@ -1,0 +1,6 @@
+#!/bin/bash
+cd $layer/closed
+gr -x javadoc -x regressionDistTar -x regressionDistZip -x srcDistTar \
+ -x srcDistZip -x distZip -x distTar -Dskip.tests=true \
+ assemble installDist testClasses createHydraClassesDir
+

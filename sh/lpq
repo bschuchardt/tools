@@ -1,5 +1,0 @@
-if [ -z "$*" ]; then
-  lpstat ${PRINTER:-hplj4_1}
-else
-  lpstat $*
-fi

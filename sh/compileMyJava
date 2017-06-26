@@ -1,3 +1,0 @@
-#!/bin/sh
-cd ~/sources/mine/java
-javac -cp ../:$CLASSPATH -d ~/usr/classes "$@"
