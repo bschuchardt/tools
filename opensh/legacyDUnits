@@ -1,5 +1,0 @@
-#!/bin/bash
-cd $layer/closed/pivotalgf-assembly
-rm -rf build/distributedTest build/legacyDunit
-gr legacyDunit "$@"
-
