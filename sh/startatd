@@ -1,0 +1,4 @@
+#!/bin/sh
+# start atd on macs
+#  --> see man atrun
+launchctl load -w /System/Library/LaunchDaemons/com.apple.atrun.plist
