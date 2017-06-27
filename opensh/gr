@@ -1,12 +1,14 @@
 #!/bin/bash
-gradle "$@"
 
-#if [ -r ./gradlew ]; then
-#  exec ./gradlew --no-daemon "$@"
-#elif [ -r ../gradlew ]; then
-#  exec ../gradlew --no-daemon "$@"
-#else
-#  echo "can't find ./gradlew or ../gradlew"
-#  exit 2
-#fi
-
+if [ $mtype = 90 ]; then
+  gradle "$@"
+else
+    if [ -r ./gradlew ]; then
+      exec ./gradlew --no-daemon "$@"
+    elif [ -r ../gradlew ]; then
+      exec ../gradlew --no-daemon "$@"
+    else
+      echo "can't find ./gradlew or ../gradlew"
+      exit 2
+    fi
+fi
