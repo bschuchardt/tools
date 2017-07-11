@@ -52,8 +52,6 @@ else
   export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_45/sparc.Solaris
 fi
 
-export ANT_HOME=$GCMDIR/where/java/ant/apache-ant-1.8.4
-PATH=$ANT_HOME/bin:$PATH
 
 if [ -d $layer/open ]; then
   export CDPATH=$CDPATH:$layer/closed:$layer/open
@@ -111,9 +109,14 @@ if [ $un = SunOS ]; then
     ht=sol
 elif [ $un = AIX ]; then
     ht=aix
+elif [ $un = Darwin ]; then
+    ht=mac
 else
     ht=linux
 fi
+
+export ANT_HOME=$GCMDIR/where/java/ant/apache-ant-1.8.4
+PATH=$ANT_HOME/bin:$PATH
 
 unset buildlayer
 if [ -r $layer/build$ht.properties ]; then
