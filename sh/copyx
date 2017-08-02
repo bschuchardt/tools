@@ -1,4 +1,8 @@
 #!/bin/sh
 # copy primary selection to the clipboard
 #xclip -o | xclip -selection clipboard
-xclip -o | pbcopy
+if [ x"$1" = x"r" ]; then
+  pbpaste -pboard general -Prefer txt | xclip -selection primary
+else
+  xclip -o | pbcopy
+fi

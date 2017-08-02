@@ -6,7 +6,7 @@ fi
 
 homedir=$PWD
 
-checkunittests | semx -&
+checkunittests
 
 cd closed/build/reports/combined
 httpServer

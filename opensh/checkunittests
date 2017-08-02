@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -r ./precheckin.log ]; then
+if [ ! -r ./open ]; then
   echo "please run this script from your top-level checkout directory"
   exit 2
 fi

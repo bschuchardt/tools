@@ -88,7 +88,7 @@ export ocmds=~/usr/opensh
 PATH=$ocmds:$PATH
 
 export GEMFIRE=$layer/closed/pivotalgf-assembly/build/install/pivotal-gemfire
-PATH=$GEMFIRE/bin:$PATH
+PATH=$PATH:$GEMFIRE/bin
 
 CLASSPATH=$GEMFIRE/lib/geode-dependencies.jar:$CLASSPATH
 

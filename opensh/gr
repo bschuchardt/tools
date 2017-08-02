@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $mtype = 90 ]; then
-  gradle "$@"
+  gradle --no-daemon "$@"
 else
     if [ -r ./gradlew ]; then
       exec ./gradlew --no-daemon "$@"

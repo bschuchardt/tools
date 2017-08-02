@@ -9,4 +9,5 @@ cd closed
 echo "***** combining test results"
 ./gradlew combineReports
 
+cd $homedir
 serveTestResults

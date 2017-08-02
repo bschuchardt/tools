@@ -1,0 +1,6 @@
+#!/bin/sh
+LANG=en_US.ISO_8859-1
+export LANG
+set -v
+tag=${1:-bschuchardt-precheckin}
+./precheckin/destroy_developer_pipeline.sh $tag
