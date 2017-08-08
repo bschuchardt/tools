@@ -1,5 +1,5 @@
 #!/bin/sh
-#  precheckin.sh geode-diff
+#  precheckin.sh closed-branch open-branch geode-diff
 
 LANG=en_US.ISO_8859-1
 export LANG
@@ -8,18 +8,23 @@ if [ x"$3" == x ]; then
   echo "precheckinBranch.sh closedBranch openBranch diffFile"
   exit 2
 fi
-set -v
-set -x
+
 clbranch=$1
 obranch=$2
-cp $3 ./precheckin/diff.txt
+cp $3 ~/devel/gemfire-deployments/precheckin/diff.txt
+
+cd ~/devel/gemfire-deployments
+git pull
+
+set -v
+set -x
 cd precheckin
 #-r https://git-wip-us.apache.org/repos/asf/geode.git
 ./deploy_developer_pipeline.sh -e bschuchardt@pivotal.io \
 -c $clbranch \
 -g $obranch \
 -G diff.txt \
--r git@github.com:gemfire/gemfire.git \
+-r git@github.com:gemfire/geode-support.git \
 -R git@github.com:gemfire/gemfire.git \
 -t bschuchardt-precheckin
 

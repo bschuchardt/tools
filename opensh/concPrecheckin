@@ -1,0 +1,14 @@
+#!/bin/sh
+#  precheckin.sh geode-diff
+
+LANG=en_US.ISO_8859-1
+export LANG
+
+cd ~/devel/gemfire-deployments
+git pull
+
+set -v
+cp $1 ./precheckin/diff.txt
+cd precheckin
+./deploy_developer_pipeline.sh -e bschuchardt@pivotal.io -G diff.txt \
+-t bschuchardt-precheckin
