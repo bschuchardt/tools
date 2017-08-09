@@ -1,14 +1,15 @@
 #!/bin/sh
-#  precheckin.sh geode-diff
+#  precheckin.sh geode-diff tag-number
 
 LANG=en_US.ISO_8859-1
 export LANG
+
+cp $1 ~/devel/gemfire-deployments/precheckin/diff.txt
 
 cd ~/devel/gemfire-deployments
 git pull
 
 set -v
-cp $1 ./precheckin/diff.txt
 cd precheckin
 ./deploy_developer_pipeline.sh -e bschuchardt@pivotal.io -G diff.txt \
--t bschuchardt-precheckin
+-t bschuchardt-precheckin$2

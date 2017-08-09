@@ -3,4 +3,4 @@
 cd ~/devel/gemfire-deployments
 git pull
 cd ./precheckin
-./destroy_developer_pipeline.sh bschuchardt-precheckin
+./destroy_developer_pipeline.sh bschuchardt-precheckin$1
