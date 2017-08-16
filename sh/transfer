@@ -31,8 +31,8 @@ if [ x"$1" != x ]; then
   shift 1
 fi
 
-if [ ! -r open ]; then
-  echo "$PWD is not a checkout directory - 'open' directory not found"
+if [ ! -r open && ! -r build.sh ]; then
+  echo "$PWD is not a checkout directory"
   exit 2
 fi
 
@@ -93,8 +93,10 @@ function archive {
 echo "synching closed-source"
 archive . closed-source
 
-echo "synching open-source"
-archive open open-source
+if [ -d open ]; then
+  echo "synching open-source"
+  archive open open-source
+fi
 
 if [ x"$pause" == xtrue ]; then
   echo -n "press Enter to continue"
