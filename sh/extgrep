@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ x"$2" = x"-i" ]; then
-find . -name "*.$1" -follow -exec /bin/fgrep -li "$3" $4 $5 {} \;
+find . -name "*.$1" -follow -exec grep -li "$3" $4 $5 {} \;
 else
-find . -name "*.$1" -follow -exec /bin/fgrep -l "$2" $3 $4 {} \;
+find . -name "*.$1" -follow -exec grep -l "$2" $3 $4 {} \;
 fi

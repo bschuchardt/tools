@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#if [ $mtype = 90 ]; then
-#  gradle --no-daemon "$@"
-#else
     if [ -r ./gradlew ]; then
       exec ./gradlew --no-daemon "$@"
     elif [ -r ../gradlew ]; then
@@ -11,4 +8,4 @@
       echo "can't find ./gradlew or ../gradlew"
       exit 2
     fi
-#fi
+

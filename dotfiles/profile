@@ -53,7 +53,7 @@ set -o emacs
 # lookup commands for functions (faster this way)
   set -h
 
-  stty erase ^H
+  stty erase ^?
 
 #  default histsize is 500
 HISTSIZE=200
