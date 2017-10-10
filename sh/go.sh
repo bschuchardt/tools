@@ -48,6 +48,7 @@ case $1 in
     l )   echo $layer ;;
     mi )  echo $coresrc/org/apache/geode/distributed/internal/membership/gms ;;
     o )   echo $layer/open ;;
+    p )  echo $layer/open/geode-protobuf/src/main/java/org/apache/geode/protocol ;;
     r ) ls -tF | grep / | head -1 ;;
     rt ) dir=`ls -tF $tdir | grep / | head -1`; echo $tdir/$dir ;;
     smoke ) echo $layer/closed/pivotalgf-assembly/build/smokeTest ;;

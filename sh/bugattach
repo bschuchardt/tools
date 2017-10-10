@@ -1,0 +1,4 @@
+#!/bin/sh
+# bugattach directory ticket-name
+
+$HOME/devel/gemfire-deployments/scripts/buglog.py attach -d $1 $2

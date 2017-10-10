@@ -10,8 +10,8 @@
 #
 echo "synching $PWD..."
 
-PATH=/bin:/usr/bin:$HOME/usr/sh:$HOME/usr/bin
-export PATH
+#PATH=/bin:/usr/bin:$HOME/usr/sh:$HOME/usr/bin
+#export PATH
 
 archive=pc.zip
 
