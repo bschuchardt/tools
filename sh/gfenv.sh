@@ -47,7 +47,7 @@ export GCMDIR=/export/gcm
 if [ $un = "Darwin" ]; then
   export JAVA_HOME=/Library/Java/Home
 elif [ $un = "Linux" ]; then
-  export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_66/x86_64.linux
+  export JAVA_HOME=~/usr/jdk/jdk1.8.0_144
 else
   export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_45/sparc.Solaris
 fi
@@ -58,6 +58,7 @@ if [ -d $layer/open ]; then
 fi
 
 export PATH=$cmds:$JAVA_HOME/bin:$PATH
+export JTESTS=${layer}/closed/gemfire-test/build/resources/test
 
 function go {
   while [ x"$1" != x ]; do
@@ -135,7 +136,6 @@ fi
 export buildlayer
 export build=$buildlayer/build-artifacts/$ht
 export GEMFIRE=$build/product
-export SQLFIRE=$build/product-gfxd
 export JTESTS=$build/tests/classes
 
 if [ x"$LD_LIBRARY_PATH" != x ]; then
@@ -148,10 +148,6 @@ $build/tests/classes:$GEMFIRE/lib/gemfire-core-dependencies.jar:\
 $JTESTS
 GFCLASSPATH=$CLASSPATH
 export PATH=$GEMFIRE/bin:$PATH
-if [ -r $SQLFIRE/quickstart ]; then
-  SQLFCLASSPATH=$SQLFIRE/lib/gemfirexd.jar:$SQLFIRE/lib/gemfirexd-tools.jar:$SQLFIRE/lib/commons-cli-1.2.jar:$SQLFIRE/lib/jline-1.0.jar:$SQLFIRE/lib/jna-3.5.1.jar:$CLASSPATH
-  PATH=$PATH:$SQLFIRE/bin
-fi
 export gdir=$layer/src/com/gemstone/gemfire
 export intdir=$gdir/internal
 export icdir=$gdir/internal/cache

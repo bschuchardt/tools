@@ -32,7 +32,7 @@ do
   tail -3 $testFile
   line=`tail -1 $testFile | grep "Starting test"`
   if [ x"$line" == x ]; then
-    sleep 5
+    sleep 10
     line=`tail -1 $testFile | grep "Starting test"`
     if [ x"$line" == x ]; then
       exit

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ ! -d ./open/gemfire-core ]; then
-  echo "please run this script from your top-level checkout directory"
+if [ ! -d ./geode-core ]; then
+  echo "please run this script from your geode checkout directory"
   exit 2
 fi
 

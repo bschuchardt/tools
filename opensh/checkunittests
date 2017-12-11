@@ -1,8 +1,8 @@
 #!/bin/bash
-if [ ! -r ./open ]; then
-  echo "please run this script from your top-level checkout directory"
-  exit 2
-fi
+#if [ ! -r ./open -a ! -r ../open ]; then
+#  echo "please run this script from your top-level checkout directory"
+#  exit 2
+#fi
 
 hn=`hostname`
 report=`mktemp /tmp/checkunittests_${hn}_rpt_XXXX.txt`

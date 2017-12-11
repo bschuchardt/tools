@@ -20,6 +20,7 @@ function _cleandir
         fi
       done
     fi
+#    cat summ-B*.txt >> past_summary.txt
     rm -f build.log batterytest.log batterytest.bt summ-B*.txt
     if [ $1 == "." -a -r oneliner.txt ]; then
       echo "----------------------------" >>past-oneliner.txt

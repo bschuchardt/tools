@@ -1,11 +1,9 @@
 #!/bin/bash
-cd $layer/open
-
 exec 2>&1
-exec 1>precheckin.log
+exec >precheckin.log
 
-ffdel *-progress.txt
+#cd $layer/open
+ffdel *-progress.txtz
 
-cd $layer/open
-./gradlew precheckin --continue "$@"
+./gradlew precheckin "$@"
 

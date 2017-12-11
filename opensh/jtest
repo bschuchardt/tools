@@ -1,4 +1,2 @@
 #!/bin/bash
-#cd $layer/closed/gemfire-test
 gr -Dtest.single=$1 test
-

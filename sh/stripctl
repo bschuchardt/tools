@@ -1,5 +1,7 @@
 #!/bin/sh
 set -v
-sed -i bak 's/[\d128-\d255]//g' "$@"
-sed -i bak 's/[\d0-\d31]//g' "$@"
+#sed -i 's/[\d128-\d255]//g' "$@"
+#$sed -i 's/[\d0-\d31]//g' "$@"
 
+# with tr you must pipe the data through stripctl
+tr -cd '\11\12\15\40-\176'
