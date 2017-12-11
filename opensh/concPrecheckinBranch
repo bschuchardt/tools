@@ -19,13 +19,11 @@ git pull
 set -v
 set -x
 cd precheckin
-#-r https://git-wip-us.apache.org/repos/asf/geode.git
+#-r git@github.com:gemfire/geode-support.git \
 ./deploy_developer_pipeline.sh -e bschuchardt@pivotal.io \
 -c $clbranch \
 -g $obranch \
 -G diff.txt \
--r git@github.com:gemfire/geode-support.git \
--R git@github.com:gemfire/gemfire.git \
 -t bschuchardt-precheckin
 
 

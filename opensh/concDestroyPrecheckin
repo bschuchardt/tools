@@ -1,6 +1,11 @@
 #!/bin/sh
-
+# concDestroyPrecheckin <-n> <#>
 cd ~/devel/gemfire-deployments
 git pull
 cd ./precheckin
-./destroy_developer_pipeline.sh -n bschuchardt-precheckin$1
+dashn=""
+if [ x"$1" == "x-n" ]; then
+  dashn="-n"
+  shift 1
+fi
+./destroy_developer_pipeline.sh $dashn bschuchardt-precheckin$1

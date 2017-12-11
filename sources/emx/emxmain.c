@@ -2460,8 +2460,9 @@ XAnyEvent   *event;
 	    XA_STRING, 8, PropModeReplace, (unsigned char *)valuep, len);
           /* put the selection in the clipboard, too, if it's not there already */
           if (req->property != XA_CLIPBOARD) {
-	    XChangeProperty(g_display, req->requestor, XA_CLIPBOARD,
-	      XA_STRING, 8, PropModeReplace, (unsigned char *)valuep, len);
+//	    XChangeProperty(g_display, req->requestor, XA_CLIPBOARD,
+//	      XA_STRING, 8, PropModeReplace, (unsigned char *)valuep, len);
+            XStoreBuffer(g_display, (char *)valuep, (int)len, 0);
           }
 	  response.xselection.property=req->property;
 	}

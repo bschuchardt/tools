@@ -1,5 +1,5 @@
 #!/bin/sh
 set -v
-sed -i 's/[\d128-\d255]//g' "$@"
-sed -i 's/[\d0-\d31]//g' "$@"
+sed -i bak 's/[\d128-\d255]//g' "$@"
+sed -i bak 's/[\d0-\d31]//g' "$@"
 

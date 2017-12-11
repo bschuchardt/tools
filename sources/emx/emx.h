@@ -648,7 +648,7 @@ extern MODE_DESC emxmodetable[]; /* in emxmatch.c */
 
 /* The date is updated by 'make version' */
 
-GLOBAL char g_version[]		VALUE("EMX - Version 1.0: Tue May 23 11:34:05 PDT 2017");
+GLOBAL char g_version[]		VALUE("EMX - Version 1.0: Mon Dec 11 11:59:36 PST 2017");
 GLOBAL char g_emptybuf[]	VALUE("?");
 GLOBAL char g_bufferlist[]	VALUE("Buffer List");
 GLOBAL char g_strhelp[]		VALUE("Help Buffer");

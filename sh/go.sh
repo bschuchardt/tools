@@ -39,6 +39,7 @@ case $1 in
     du )  echo $layer/open/geode-core/build/distributedTest ;;
     duo ) echo $layer/open/geode-core/build/test-results/binary/distributedTest ;;
     g )   echo $coresrc/org/apache/geode ;;
+    gr )  echo $layer/open/geode-core/src/main/resources/org/apache/geode ;;
     hr )  echo $layer/closed/gemfire-test/src/test/resources ;;
     ht )  echo $layer/closed/gemfire-test/src/test/java ;;
     i )   echo $coresrc/org/apache/geode/internal ;;

@@ -52,7 +52,11 @@ if [ x"$seed" == x ]; then
   fi
 fi
 echo "${seed};" >> ${destdir}/local.conf
-cat ~/sdevel/testing/conf/verbose >>${destdir}/local.conf
+if [ -r ~/sdevel/testing/conf/verbose ]; then
+  cat ~/sdevel/testing/conf/verbose >>${destdir}/local.conf
+else
+  cat ~/devel/testing/conf/verbose >>${destdir}/local.conf
+fi
 echo "created ${destdir}/local.conf"
 
 if [ x"$noedit" == x ]; then

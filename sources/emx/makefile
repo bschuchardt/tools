@@ -137,10 +137,10 @@ mac:		version
 	$(MAKE) -f makef \
 		TARGET="emxr64" \
 		OBJECTS="$(EMX) $(OBJS)" \
-		INCLUDES="$(INC) $(WINC)" \
-		CFLAGS="-g -I/usr/X11R6/include -DSTANDALONE -DUNIX -DFLG_PROTOTYPE -DLINUX -DMACOS" \
-		FLAGS="-g" \
-		LIBS="-Bstatic -L/usr/X11R6/lib -lXt -lX11 -lz"
+		INCLUDES="$(INC) $(WINC) -I/usr/X11/include" \
+		CFLAGS="-g -I/usr/X11/include -DSTANDALONE -DUNIX -DFLG_PROTOTYPE -DLINUX -DMACOS" \
+		FLAGS="" \
+		LIBS="-Bstatic -L/usr/X11/lib -lXt -lX11 -lz"
 
 rh64:	version
 	$(MAKE) -f makef \
@@ -149,7 +149,7 @@ rh64:	version
 		INCLUDES="$(INC) $(WINC)"	\
 		CFLAGS="-O -DSTANDALONE -DUNIX -DFLG_PROTOTYPE -DLINUX -I/usr/X11R6/include $(LIN64_OPTS)" \
 		FLAGS="-O $(LIN64_OPTS)"	\
-		LIBS="-L/usr/X11R6/lib64 -lXt -lX11 -lz"
+		LIBS="-L/usr/X11/lib -lXt -lX11 -lz"
 
 linuxw64:
 	$(MAKE) -f makef \

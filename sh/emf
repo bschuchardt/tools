@@ -1,7 +1,7 @@
 #!/bin/sh
 files=`ff "$*"`
 if [ ! -z "$files" ]; then
-$VISUAL $files
+emx $files
 else
 echo "no files found"
 fi

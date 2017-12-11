@@ -2,6 +2,8 @@
 
 # watchbt noexit - never exits
 # watchbt msg - uses xmessage to notify when done
+#set -x
+#set -v
 
 if [ -r dunit-tests.prop ]; then
   echo "this is really a dunit directory"
@@ -10,6 +12,16 @@ if [ -r dunit-tests.prop ]; then
 fi
 if [ x"$1" = x"noexit" ]; then
   noexit="y"
+fi
+freepgm=`which free`
+if [ x"$freepgm" == x ]; then
+function showmem {
+  top -l 1 | grep PhysMem
+}
+else
+function showmem {
+  freepgm="free | head -2"
+}
 fi
 typeset -i numParentDirs
 typeset -i testCount
@@ -42,7 +54,7 @@ typeset -i numParentDirs
 
 # figure out the last field of a oneliner.txt entry so the entries
 # can be trimmed later on
-lastOnelinerField=`pwd -P | cut -d/ --output-delimiter=" " -f1-50 | wc -w`
+lastOnelinerField=`pwd -P | tr / ' ' | wc -w`
 lastOnelinerField=$((lastOnelinerField + 2))
 
 # reset colors on exit (/home/bschuchardt/usr/bin50/color)
@@ -62,7 +74,7 @@ do
 
   clear
   color fg white bg blue
-  free | head -2
+  showmem
   echo ""
 #  color fg white bg blue
   uptime
@@ -93,7 +105,7 @@ do
     echo ""
     color fg default bg default
     echo "oneliner.txt:"
-    tail -4 oneliner.txt | cut -d" " -f 2-100 | stripfront | cut -d"/" --output-delimiter=" " -f1,$lastOnelinerField
+    tail -4 oneliner.txt | cut -d" " -f 2-100 | stripfront | cut -d"/" -f1,$lastOnelinerField | tr / ' '
   fi
   if [ x"$noexit" = x ]; then
     if [ $numrun -eq $testCount ]; then

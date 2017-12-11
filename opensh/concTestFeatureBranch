@@ -13,7 +13,7 @@ clbranch=$1
 obranch=$2
 
 cd ~/devel/gemfire-deployments
-#git pull
+git pull
 
 set -v
 set -x

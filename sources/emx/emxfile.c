@@ -629,7 +629,7 @@ static COMPLETION(emxreadincomplete)
 
     if (strcmp(g_filenamep, g_strstdin) == 0)
 	bp->filename[0] = 0;
-    else
+    else if (bp->filename != g_filenamep)
         strcpy(bp->filename, g_filenamep);
 
     s = FIOSUC;
