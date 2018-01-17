@@ -1,0 +1,7 @@
+#!/bin/bash
+rm -f untilfail.log
+at now <<END
+pinCpu 1 $cmds/untilfail
+END
+sleep 2
+tail -f untilfail.log

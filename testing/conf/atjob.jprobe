@@ -1,0 +1,6 @@
+#!/bin/sh
+at now <<END
+#runbatterytest -DJPROBE=$JPROBE -DJPROBE_HOME=$JPROBE tests.bt
+runbatterytest tests.bt
+END
+

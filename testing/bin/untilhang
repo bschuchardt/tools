@@ -1,0 +1,24 @@
+#!/bin/bash
+exec 2>&1
+exec >untilhang.log
+typeset -i n
+n=${1:0}
+typeset -i i
+i=0
+rm -f stop.txt
+while [ ! -r stop.txt -a ! -r *-*-*/hang.txt ]; do
+rm -rf *-*-*
+i=$((i + 1))
+if [ ${n} -gt 0 ]; then
+  if [ ${i} -gt ${n} ]; then
+    echo "that was the last run"
+    exit 0
+  fi
+fi
+thetime=`date`
+echo "run #$i------------------------ $thetime"
+runbatterytest tests.bt
+if [ -r stop.txt ]; then
+  exit 0
+fi
+done

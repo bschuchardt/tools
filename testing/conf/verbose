@@ -1,0 +1,10 @@
+hydra.VmPrms-extraVMArgs += "-DDistributionManager.VERBOSE=true";
+hydra.GemFirePrms-logLevel = fine;
+
+//hydra.VmPrms-extraVMArgs += "-DDistributionManager.DEBUG_JAVAGROUPS=true";
+//hydra.VmPrms-extraVMArgs += "-DStateFlushOperation.DEBUG=true";
+//hydra.GemFirePrms-extraLocatorVMArgs += "-DDistributionManager.VERBOSE=true";
+
+//hydra.VmPrms-extraVMArgs += "-Djava.util.logging.config.file=/home/bruce/.java.logging.properties";
+
+

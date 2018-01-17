@@ -1,0 +1,2 @@
+hydra.VmPrms-extraVMArgs += "-Dgemfire.verbose-lru=true -Dgemfire.verbose-lru-clock=true";
+

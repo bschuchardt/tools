@@ -1,0 +1,3 @@
+// In the WDC and Beaverton networks, we need to use the ldapServer named scandium
+// in order to avoid connection timeouts.  See BUG 43337 for more information.
+security.LdapUserPasswordPrms-ldapServer = ldap.gemstone.com;

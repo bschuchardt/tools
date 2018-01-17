@@ -1,0 +1,15 @@
+#!/bin/bash
+HERE=$PWD
+typedef -i success
+for x in *-*-*; do
+  echo "checking $x"
+  cd $x
+  $layer/tests/bin/greplogs . 2>&1 >errors.grep
+  success=$?
+  echo $success errors
+  if [ $success -eq 0 ]; then
+    removing $x/errors.grep
+    rm $x/errors.grep
+  fi
+  cd $HERE
+done

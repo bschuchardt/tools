@@ -1,0 +1,2 @@
+hydra.VmPrms-extraVMArgs += "-Dgemfire.TombstoneService.VERBOSE=true";
+hydra.VmPrms-extraVMArgs += "-Dgemfire.VersionVector.VERBOSE=true";

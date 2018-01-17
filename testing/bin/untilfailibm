@@ -1,0 +1,21 @@
+#!/bin/bash
+exec 2>&1
+exec >untilfail.log
+typeset -i n
+n=${1:0}
+typeset -i i
+i=0
+rm -f stop.txt
+while [ ! -r stop.txt -a ! -r *-*-*/errors.txt ]; do
+i=$((i + 1))
+if [ $n .gt 0 -a $i .gt $n ]; then
+  echo "that was the last run"
+  exit 0
+fi
+echo "run #$i------------------------"
+../bin/runibmbt tests.bt
+~/devel/testing/bin/delpasses.sh
+if [ -r stop.txt ]; then
+  exit 0
+fi
+done

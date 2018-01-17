@@ -1,0 +1,10 @@
+#!/bin/sh
+thelog=$1
+shift 1
+thejob=$1
+shift 1
+at now <<END
+exec 2>&1
+exec >$thelog
+$thejob "$@"
+END

@@ -1,0 +1,7 @@
+#!/bin/sh
+there=`pwd`
+cd $layer
+build/quick
+cd $there
+cleanhydra
+untilfail@

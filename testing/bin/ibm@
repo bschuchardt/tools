@@ -1,0 +1,16 @@
+#!/bin/bash
+t=tests.bt
+if [ -r dunit-tests.bt ]; then
+  t=dunit-tests.bt
+fi
+testfile=${1:-$t}
+#rm -f batterytest.bt batterytest.log
+echo "batch testing $testfile"
+at now <<END
+#runbatterytest -DJPROBE=$JPROBE -DJPROBE_HOME=$JPROBE $testfile
+../bin/runibmbt $testfile
+END
+#sleep 2
+#if [ -r oneliner.txt ]; then
+#  tail -f oneliner.txt
+#fi

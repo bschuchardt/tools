@@ -1,0 +1,5 @@
+#!/bin/sh
+java -cp $GEMFIRE/lib/gemfire.jar:$JTESTS -Xmx750m -DstatSpecFile=puts.spec \
+-Dmode=ratio -DcompareByKey=true -DJTESTS=$JTESTS \
+-Dgemfire.home=$GEMFIRE -DaddTestKey=true \
+perffmwk.PerfComparer 60 patch alllocal
