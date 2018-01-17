@@ -1,4 +1,4 @@
 #!/bin/bash
 #cd $layer/closed/gemfire-test
-gr -DintegrationTest.single=$1 integrationTest
+gr -x javadoc -x docs -DintegrationTest.single=$1 integrationTest
 

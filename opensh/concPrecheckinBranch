@@ -24,6 +24,6 @@ cd precheckin
 -c $clbranch \
 -g $obranch \
 -G diff.txt \
--t bschuchardt-precheckin
+-t bschuchardt-precheckin${4}
 
 

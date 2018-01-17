@@ -10,4 +10,4 @@ if [ ! -r $awkpgm ]; then
   echo `basename $0`": This script needs $awkpgm"
   exit 3
 fi
-gawk -v N=$totalField -f $awkpgm
+awk -v N=$totalField -f $awkpgm

@@ -9,5 +9,5 @@ fi
 test=$1
 shift
 #rm -rf build/distributedTest build/test-results
-gr $COVER -x javadoc -DdistributedTest.single=$test  distributedTest "$@"
+gr $COVER -x javadoc -x docs -DdistributedTest.single=$test  distributedTest "$@"
 
