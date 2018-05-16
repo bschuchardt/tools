@@ -65,6 +65,7 @@ esac
 
 
 else
+unittestdir=$build/tests/results64
 case $1 in
     ai ) echo $layer/src/com/gemstone/gemfire/admin/internal ;;
     b ) echo $build ;;
@@ -75,8 +76,8 @@ case $1 in
     cu ) echo $layer/src/com/gemstone/gemfire/cache/util ;;
     d )   echo `dirname $layer` ;;
     dt )  echo ${tdir} ;;
-    du )  ls -td $build/tests/results/dunit/dunit-tests-* | head -1 ;;
-    dur ) ls -td $build/tests/results/dunit-rerun/dunit-tests-* | head -1 ;;
+    du )  ls -td $unittestdir/dunit/dunit-tests-* | head -1 ;;
+    dur ) ls -td $unittestdir/dunit-rerun/dunit-tests-* | head -1 ;;
     cdu ) echo ./dunit/dunit-tests-* ;;
     ct )  echo /home/bschuchardt/sdevel/caches/tangosol ;;
     g )   echo $layer/src/com/gemstone/gemfire ;;
@@ -86,12 +87,10 @@ case $1 in
     di )  echo $layer/src/com/gemstone/gemfire/distributed/internal ;;
     it )  echo $layer/src/com/gemstone/gemfire/internal/tcp ;;
     jgo )  echo $layer/src/com/gemstone/org/javagroups ;;
-    jgcvs ) echo /export/ent1/users/bschuchardt/software/jgroups ;;
     jg ) echo $layer/src/com/gemstone/org/jgroups ;;
     jgs ) echo /export/ent1/users/bschuchardt/software/jgcvs/src/com/gemstone/org/jgroups ;;
     jgst ) echo /export/ent1/users/bschuchardt/software/jgcvs ;;
     jgt ) echo $HOME/sdevel/caches/jgperf ;;
-    jsrc ) echo /home/bschuchardt/devel/layers.f30/vm/j2se/src/share/classes ;;
     l )   echo $layer ;;
     mi )  echo $layer/src/com/gemstone/gemfire/distributed/internal/membership/jgroup ;;
     p )   echo $jgdir/protocols ;;
@@ -103,7 +102,7 @@ case $1 in
     tg )  echo $layer/tests/com/gemstone/gemfire ;;
     tc )  echo $layer/tests/com/gemstone/gemfire/cache30 ;;
     tic ) echo $layer/tests/com/gemstone/gemfire/internal/cache ;;
-    tr )  echo $build/tests/results64 ;;
+    tr )  echo $unittestdir ;;
     ts )  echo $layer/src/com/gemstone/gemfire/internal/cache/tier/sockets ;;
     tt )  echo $HOME/sdevel/caches/gfcache ;;
     * )   echo ${1} ;;

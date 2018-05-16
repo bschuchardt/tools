@@ -1,4 +1,3 @@
-hydra.VmPrms-extraVMArgs += "-DDistributionManager.VERBOSE=true";
 hydra.GemFirePrms-logLevel = fine;
 
 //hydra.VmPrms-extraVMArgs += "-DDistributionManager.DEBUG_JAVAGROUPS=true";

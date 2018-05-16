@@ -48,7 +48,7 @@ fi
 #echo $JTESTS
 #echo $CLASSPATH
 
-#REMOVE_PASSES="-DremovePassedTest=true"
+REMOVE_PASSES="-DremovePassedTest=true"
 
 if [ `hostname` != "bruces-mbpro" ]; then
   OLD_RELEASE_DIR="-DRELEASE_DIR=/export/trout1/users/bschuchardt/devel/gemfire-releases"
@@ -59,6 +59,7 @@ fi
 set -x
 java -server -d64 \
   -cp $CLASSPATH \
+  -DautoDiagnose=true \
   -DprovideBugReportTemplate=true -DprovideRegressionSummary=true \
   -DnukeHungTest=true -DJTESTS=$JTESTS -DGEMFIRE=$GEMFIRE \
   $REMOVE_PASSES \

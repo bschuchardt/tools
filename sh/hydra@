@@ -5,6 +5,10 @@ if [ -r dunit-tests.bt ]; then
 fi
 testfile=${1:-$t}
 #rm -f batterytest.bt batterytest.log
+if [ ! -r $testfile ]; then
+  echo "file not found: $testfile"
+  exit 1
+fi
 echo "batch testing $testfile"
 at now <<END
 #runbatterytest -DJPROBE=$JPROBE -DJPROBE_HOME=$JPROBE $testfile
