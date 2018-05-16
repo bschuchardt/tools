@@ -13,6 +13,16 @@ if [ -r untilhang.log ]; then
 elif [ -r untilfailgrep ]; then
   untilfailgrep="y"
 fi
+freepgm=`which free`
+if [ x"$freepgm" == x ]; then
+function showmem {
+  top -l 1 | grep PhysMem
+}
+else
+function showmem {
+  freepgm="free | head -2"
+}
+fi
 trap "color fg default bg default" EXIT
 while [ 0 ]
 do
@@ -23,7 +33,7 @@ do
   clear
   clear
   color fg white bg blue
-  free | head -2
+  showmem
   echo ""
   color fg white bg blue
   uptime

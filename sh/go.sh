@@ -59,7 +59,7 @@ case $1 in
     tic ) echo $utestsrc/org/apache/geode/internal/cache ;;
     tr )  echo $layer/open/geode-core/src/test/resources/org/apache/geode ;;
     ts )  echo $coresrc/org/apache/geode/internal/cache/tier/sockets ;;
-    tt )  echo /home/bschuchardt/sdevel/caches/gfcache ;;
+    tt )  echo $HOME/sdevel/caches/gfcache ;;
     * )   echo ${1} ;;
 esac
 
@@ -75,8 +75,8 @@ case $1 in
     cu ) echo $layer/src/com/gemstone/gemfire/cache/util ;;
     d )   echo `dirname $layer` ;;
     dt )  echo ${tdir} ;;
-    du )  ls -td $build/tests/results64/dunit/dunit-tests-* | head -1 ;;
-    dur ) ls -td $build/tests/results64/dunit-rerun/dunit-tests-* | head -1 ;;
+    du )  ls -td $build/tests/results/dunit/dunit-tests-* | head -1 ;;
+    dur ) ls -td $build/tests/results/dunit-rerun/dunit-tests-* | head -1 ;;
     cdu ) echo ./dunit/dunit-tests-* ;;
     ct )  echo /home/bschuchardt/sdevel/caches/tangosol ;;
     g )   echo $layer/src/com/gemstone/gemfire ;;
@@ -105,8 +105,7 @@ case $1 in
     tic ) echo $layer/tests/com/gemstone/gemfire/internal/cache ;;
     tr )  echo $build/tests/results64 ;;
     ts )  echo $layer/src/com/gemstone/gemfire/internal/cache/tier/sockets ;;
-    tts ) echo $ttsdir ;;
-    tt )  echo /home/bschuchardt/sdevel/caches/gfcache ;;
+    tt )  echo $HOME/sdevel/caches/gfcache ;;
     * )   echo ${1} ;;
 esac
 fi

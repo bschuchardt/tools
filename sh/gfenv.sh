@@ -45,7 +45,7 @@ un=`uname`
 export GCMDIR=/export/gcm
 
 if [ $un = "Darwin" ]; then
-  export JAVA_HOME=/Library/Java/Home
+  export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
 elif [ $un = "Linux" ]; then
   export JAVA_HOME=~/usr/jdk/jdk1.8.0_144
 else

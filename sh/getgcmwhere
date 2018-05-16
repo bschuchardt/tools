@@ -12,4 +12,4 @@ mkdh $thedir
 cd $there
 set -x
 set -v
-scp -r india.gemstone.com:/gcm/where/${1} /c/gcm/where/${1}
+scp -r india.gemstone.com:/gcm/where/${1} /gcm/where/${1}

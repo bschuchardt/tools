@@ -34,6 +34,7 @@ CLASSPATH=$GEMFIRE/lib/geode-dependencies.jar:\
 $GEMFIRE/lib/gfsh-dependencies.jar:\
 $JTESTS:$JTESTS/../../classes/hydraClasses:\
 $JTESTS/../extraJars/groovy-all-2.4.3.jar:\
+$JTESTS/../extraJars/rest-client-dependencies.jar:\
 $layer/closed/gemfire-test/build/classes/main:\
 $layer/open/geode-core/build/classes/test
 
@@ -48,13 +49,19 @@ fi
 
 #REMOVE_PASSES="-DremovePassedTest=true"
 
+if [ `hostname` != "bruces-mbpro" ]; then
+  OLD_RELEASE_DIR="-DRELEASE_DIR=/export/trout1/users/bschuchardt/devel/gemfire-releases"
+else
+  OLD_RELEASE_DIR="-DRELEASE_DIR=/export/gcm/where/gemfire/releases"
+fi
+
 set -x
 java -server -d64 \
   -cp $CLASSPATH \
   -DprovideBugReportTemplate=true -DprovideRegressionSummary=true \
   -DnukeHungTest=true -DJTESTS=$JTESTS -DGEMFIRE=$GEMFIRE \
   $REMOVE_PASSES \
-  -DRELEASE_DIR=/export/trout1/users/bschuchardt/devel/gemfire-releases \
+  $OLD_RELEASE_DIR \
   -DtestFileName=$BTFILE -DnumTimesToRun=1 \
   batterytest.BatteryTest
 set +x

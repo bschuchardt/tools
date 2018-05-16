@@ -4,9 +4,9 @@ jjobs=`pgrep -u ${me} java`
 if [ x"$1" == xonly ]; then
   shift 1
 else
-  ufjobs=`pgrep -u ${me} untilfail`
-  uhjobs=`pgrep -u ${me} untilhang`
-  ucjobs=`pgrep -u ${me} untilcrash`
+  ufjobs=`pgrep -f -u ${me} untilfail`
+  uhjobs=`pgrep -f -u ${me} untilhang`
+  ucjobs=`pgrep -f -u ${me} untilcrash`
 fi
 kjobs=""
 if [ x"$jjobs" != x ]; then

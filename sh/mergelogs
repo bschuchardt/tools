@@ -12,7 +12,7 @@ fi
 DIRCOUNT=${ML_DIRCOUNT:-1}
 TRIM_NAMES="-Dmergelogs.TRIM_NAMES=true"
 JAR=$HOME/usr/classes/mergelogs.jar
-JAR=$JAR:$HOME/usr/classes/log4j-api-2.1.jar:$HOME/usr/classes/log4j-core-2.1.jar
+JAR=$JAR:$HOME/usr/classes/log4j-api-2.8.jar:$HOME/usr/classes/log4j-core-2.8.jar
 #USE_PIDS="-pids"
 $JAVA_HOME/jre/bin/java -Xmx1500m -Xms750m -server \
   $TRIM $TRIM_NAMES\

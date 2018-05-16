@@ -2,5 +2,5 @@
 
 # print / findCycle / findSubgraphs + filename.ser
 
-java org.apache.geode.distributed.internal.deadlock.DeadlockDetector "$@"
+java com.gemstone.gemfire.distributed.internal.deadlock.DeadlockDetector "$@"
 

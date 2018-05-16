@@ -22,5 +22,5 @@ else
 #  debug="-DPluckStacks.DEBUG=true"
   debug=""
 #  java -cp ~/usr/classes/mergelogs.jar $debug $oneStack com.gemstone.gemfire.internal.util.PluckStacks $files | emx -&
-  java $debug $oneStack org.apache.geode.internal.util.PluckStacks $files | emx -&
+  java $debug $oneStack org.apache.geode.internal.util.PluckStacks $files | $VISUAL -&
 fi

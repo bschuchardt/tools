@@ -1,16 +1,15 @@
 #!/bin/sh
-# concTestFeatureBranch closed-branch open-branch <precheckin-number>
+# concTestFeatureBranch branch <precheckin-number>
 
 LANG=en_US.ISO_8859-1
 export LANG
 
-if [ x"$2" == x ]; then
-  echo "testFeatureBranch closedBranch openBranch <tag-number>"
+if [ x"$1" == x ]; then
+  echo "testFeatureBranch openBranch <tag-number>"
   exit 2
 fi
 
-clbranch=$1
-obranch=$2
+obranch=$1
 
 cd ~/devel/gemfire-deployments
 git pull
@@ -19,6 +18,5 @@ set -v
 set -x
 cd precheckin
 ./deploy_developer_pipeline.sh -e bschuchardt@pivotal.io \
--c $clbranch \
 -g $obranch \
--t bschuchardt-precheckin${3}
+-t bschuchardt-precheckin${2}

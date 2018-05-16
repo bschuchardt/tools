@@ -2,8 +2,10 @@
 
 if [ -r /usr/bin/fgrep ]; then
   FGREP=/usr/bin/fgrep
-else
+elif [ -r /bin/fgrep ]; then
   FGREP=/bin/fgrep
+else
+  FGREP=grep
 fi
 
 if [ x"$2" != x ]; then

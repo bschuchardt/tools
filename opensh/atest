@@ -8,6 +8,5 @@ if [ $1 == -cover ]; then
 fi
 test=$1
 shift
-#rm -rf build/distributedTest build/test-results
-gr $COVER -x javadoc -DdistributedTest.single=$test  distributedTest "$@"
+gr $COVER -x javadoc -x docs -DacceptanceTest.single=$test  acceptanceTest "$@"
 

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+LANG=en_US.ISO_8859-1
+export LANG
+
+
+cd ~/devel/gemfire-deployments
+git pull
+
+set -v
+cd precheckin
+./list_developer_pipelines.sh | grep bschuchardt
