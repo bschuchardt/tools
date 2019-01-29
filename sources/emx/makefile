@@ -138,7 +138,7 @@ mac:		version
 		TARGET="emxr64" \
 		OBJECTS="$(EMX) $(OBJS)" \
 		INCLUDES="$(INC) $(WINC) -I/usr/X11/include" \
-		CFLAGS="-g -I/usr/X11/include -DSTANDALONE -DUNIX -DFLG_PROTOTYPE -DLINUX -DMACOS" \
+		CFLAGS="-g -w -I/usr/X11/include -DSTANDALONE -DUNIX -DFLG_PROTOTYPE -DLINUX -DMACOS" \
 		FLAGS="" \
 		LIBS="-Bstatic -L/usr/X11/lib -lXt -lX11 -lz"
 

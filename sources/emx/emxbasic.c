@@ -28,6 +28,13 @@
 #include "emx.h"
 
 
+#if defined(STANDALONE)
+/* the clipboard atom isn't defined by XAtom.h and has to be established */
+static Atom XA_CLIPBOARD;
+static int clipboardDefined = 0;
+#endif
+
+
 static int makelist _ARGS0();
 static int pickone _ARGS0();
 
@@ -2541,6 +2548,15 @@ int emxquickunselectall _ARGS0()
     return TRUE;
 }
 
+#ifdef STANDALONE
+int defineClipboard _ARGS0()
+{
+  if (!clipboardDefined) {
+    XA_CLIPBOARD = XInternAtom(g_display, "CLIPBOARD", 1);
+    clipboardDefined = 1;
+  }
+}
+#endif
 
 int emxunselectall _ARGS0()
 
@@ -2553,6 +2569,11 @@ int emxunselectall _ARGS0()
       Sown = XGetSelectionOwner(g_display, XA_PRIMARY);
       if (Sown == g_mainwin) {
         XSetSelectionOwner(g_display, XA_PRIMARY, None, CurrentTime);
+      }
+      defineClipboard();
+      Sown = XGetSelectionOwner(g_display, XA_CLIPBOARD);
+      if (Sown == g_mainwin) {
+        XSetSelectionOwner(g_display, XA_CLIPBOARD, None, CurrentTime);
       }
 #else
       /* Disown the selection, if ours */
@@ -2583,6 +2604,11 @@ void emxunselectbuf _ARGS1(BUFFER *, bp)
       Sown = XGetSelectionOwner(g_display, XA_PRIMARY);
       if (Sown == g_mainwin) {
         XSetSelectionOwner(g_display, XA_PRIMARY, None, CurrentTime);
+      }
+      defineClipboard();
+      Sown = XGetSelectionOwner(g_display, XA_CLIPBOARD);
+      if (Sown == g_mainwin) {
+        XSetSelectionOwner(g_display, XA_CLIPBOARD, None, CurrentTime);
       }
 #else
       /* Disown the selection, if ours */
@@ -2768,6 +2794,72 @@ int	    *format;
 #endif
 }
 
+void updateClipboard _ARGS0()
+{
+    BUFFER *bp;
+    char *valuep;
+    unsigned long len;
+
+    bp = g_curbp;
+    if (!bp->selectp) {
+      for (bp=g_bheadp; bp; bp=bp->nextp) {
+	if (bp->selectp) {
+	  break;
+	}
+      }
+    }
+    if (bp != 0  &&  !bp->selectp) {
+      bp = 0;
+    }
+	
+    /*
+    if (bp) {
+      printf("selection is in buffer %s\n", bp->bufname);
+    }
+    */
+        
+    if (!bp) {
+      emxmsgprint("no selection available for clipboard");
+    }
+    else if (!emxgetselectstring(bp, &valuep)) {
+      emxmsgprint("unable to get selected string for clipboard");
+    }
+    else {
+      len = strlen(valuep);
+      /*printf("selected text is %d bytes\n", len);*/
+    bp = g_curbp;
+    if (!bp->selectp) {
+      for (bp=g_bheadp; bp; bp=bp->nextp) {
+	if (bp->selectp) {
+	  break;
+	}
+      }
+    }
+    if (bp != 0  &&  !bp->selectp) {
+      bp = 0;
+    }
+	
+    /*
+    if (bp) {
+      printf("selection is in buffer %s\n", bp->bufname);
+    }
+    */
+        
+    if (!bp) {
+      emxmsgprint("no selection available for clipboard");
+    }
+    else if (!emxgetselectstring(bp, &valuep)) {
+      emxmsgprint("unable to get selected string for clipboard");
+    }
+    else {
+      len = strlen(valuep);
+      /*printf("selected text is %d bytes\n", len);*/
+      defineClipboard();
+      XChangeProperty(g_display, g_mainwin, XA_CLIPBOARD,
+        XA_STRING, 8, PropModeReplace, (unsigned char *)valuep, len);
+      XStoreBuffer(g_display, (char *)valuep, (int)len, 0);
+    }
+}      
 #endif /* standalone */
 
 
@@ -2827,6 +2919,8 @@ void emxselectrange _ARGS2(BUFFER *, bp, REGION *, region)
     /*if (Sown != g_mainwin) {*/
       XSetSelectionOwner(g_display, XA_PRIMARY, g_mainwin, CurrentTime);
     /*}*/
+    /* bjs - new 08/31/2018 */
+    updateClipboard();
 #else
     /* Take ownership of the primary selection */
     XtOwnSelection((Widget) emx, XA_PRIMARY, XtLastTimestampProcessed(g_display),

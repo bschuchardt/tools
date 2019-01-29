@@ -47,7 +47,7 @@ export GCMDIR=/export/gcm
 if [ $un = "Darwin" ]; then
   export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
 elif [ $un = "Linux" ]; then
-  export JAVA_HOME=/gcm/where/jdk/1.8.0_171/x86_64.linux
+  export JAVA_HOME=/gcm/where/jdk/1.8.0_181/x86_64.linux
 else
   export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_45/sparc.Solaris
 fi

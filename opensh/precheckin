@@ -20,7 +20,8 @@ fi
 if [ -d closed ]; then
   cd closed
 fi
-skip="-x extensions/geode-modules-tomcat8:distributedTest"
+skip=
+#skip="-x extensions/geode-modules-tomcat8:distributedTest"
 if [ x"$@" != x ]; then
   gr precheckin --continue $skip "$@"
 else

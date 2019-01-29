@@ -20,7 +20,7 @@ function showmem {
 }
 else
 function showmem {
-  freepgm="free | head -2"
+  $freepgm | head -2
 }
 fi
 trap "color fg default bg default" EXIT

@@ -1,6 +1,19 @@
 #!/bin/bash
 cd $layer/closed
-gr -x javadoc -x regressionDistTar -x regressionDistZip -x srcDistTar \
- -x srcDistZip -x distZip -x distTar -Dskip.tests=true \
- assemble installDist testClasses createHydraClassesDir
+#rm -rf gemfire-test/build/classes/hydraClasses
+
+gr --stacktrace --parallel -x javadoc -x docs -x checkpom \
+ -x spotlessJavaCheck -x rat -Dskip.tests=true build installDist
+
+#gr --stacktrace --parallel -x javadoc -x regressionDistTar -x regressionDistZip -x srcDistTar \
+# -x srcDistZip -x distZip -x distTar -Dskip.tests=true \
+# assemble installDist testClasses createHydraClassesDir
+
+#rm -f pivotalgf-assembly/gemfire-test/hydraAdditionalJars
+
+#mkdir -p pivotalgf-assembly/gemfire-test
+
+#ln -s gemfire-test/build/hydraAdditionalJars \
+# pivotalgf-assembly/gemfire-test/
+
 

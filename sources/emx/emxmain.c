@@ -2409,10 +2409,6 @@ XAnyEvent   *event;
 	windowprocess(g_event);
 #ifdef STANDALONE
     else if (event->type == SelectionRequest) {
-      if (!clipboardDefined) {
-        XA_CLIPBOARD = XInternAtom(g_display, "CLIPBOARD", 0);
-        clipboardDefined = 1;
-      }
       /*printf("processing SelectionRequest\n");*/
       req = (XSelectionRequestEvent *)(event);
       response.xselection.property = None;
@@ -2458,12 +2454,14 @@ XAnyEvent   *event;
           /*printf("setting property in %d from %d\n", req->requestor, g_mainwin);*/
 	  XChangeProperty(g_display, req->requestor, req->property,
 	    XA_STRING, 8, PropModeReplace, (unsigned char *)valuep, len);
-          /* put the selection in the clipboard, too, if it's not there already */
-          if (req->property != XA_CLIPBOARD) {
+//          if (req->property != XA_CLIPBOARD) {
+// was commented out:
+//            XSetSelectionOwner(g_display, g_mainwin, XA_CLIPBOARD, CurrentTime);
 //	    XChangeProperty(g_display, req->requestor, XA_CLIPBOARD,
 //	      XA_STRING, 8, PropModeReplace, (unsigned char *)valuep, len);
+
             XStoreBuffer(g_display, (char *)valuep, (int)len, 0);
-          }
+//          }
 	  response.xselection.property=req->property;
 	}
       }

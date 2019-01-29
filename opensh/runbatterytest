@@ -27,6 +27,7 @@ GEMFIRE=$buildRoot/$buildType/pivotalgf-assembly/build/install/pivotal-gemfire
 PATH=$JAVA_HOME/bin:$PATH
 
 JTESTS=$buildRoot/closed/gemfire-test/build/resources/test
+JBUILD=$buildRoot/closed/gemfire-test/build
 
 rm -f batterytest.log
 
@@ -48,13 +49,13 @@ fi
 #echo $JTESTS
 #echo $CLASSPATH
 
-REMOVE_PASSES="-DremovePassedTest=true"
+#REMOVE_PASSES="-DremovePassedTest=true"
 
-if [ `hostname` != "bruces-mbpro" ]; then
-  OLD_RELEASE_DIR="-DRELEASE_DIR=/export/trout1/users/bschuchardt/devel/gemfire-releases"
-else
+#if [ `hostname` != "bruces-mbpro" ]; then
+#  OLD_RELEASE_DIR="-DRELEASE_DIR=/export/trout1/users/bschuchardt/devel/gemfire-releases"
+#else
   OLD_RELEASE_DIR="-DRELEASE_DIR=/export/gcm/where/gemfire/releases"
-fi
+#fi
 
 set -x
 java -server -d64 \

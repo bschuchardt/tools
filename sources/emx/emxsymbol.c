@@ -1083,7 +1083,7 @@ void emxkeymapinit _ARGS0()
 	if (fp == functions)
 	    g_flistp = newfp;
 
-	if (newfp->prevp = pfp)
+	if ((newfp->prevp = pfp))
 	    pfp->nextp = newfp;
 
 	pfp = newfp;
@@ -1788,7 +1788,7 @@ static int gettok _ARGS0()
 	/* String? */
 	if (cp = g_execstr)
 	    {
-	    if (c = *cp++)
+	    if ((c = *cp++))
 		g_execstr = cp;
 	    }
 
@@ -1907,7 +1907,7 @@ KEY *emxgetbufkey _ARGS0()
     /* See if we're working on a normal word. End of word is flagged by a 0. */
     keyp = &g_keycurrent;
     keyp->modifier = 0;
-    if (keyp->keysym = *g_tokp++)
+    if ((keyp->keysym = *g_tokp++))
 	return keyp;
 
     /* End of buffer? */
@@ -2011,7 +2011,7 @@ KEY *emxgetbufkey _ARGS0()
 	    continue;
 
 	namep++;
-	for (tokp = g_tokp + 1; ch1 = *namep; namep++, tokp++)
+	for (tokp = g_tokp + 1; (ch1 = *namep); namep++, tokp++)
 	    {
 	    if (ch1 != *tokp)
 		{
@@ -2243,7 +2243,7 @@ static FUNCTION *findmacro _ARGS1(char *, mname)
     char	*cp1;
     char	*cp2;
 
-    if (fp = funclookup(mname))
+    if ((fp = funclookup(mname)))
 	{
 	if (fp->type & SYMFUNC)
 	    {

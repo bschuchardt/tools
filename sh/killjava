@@ -11,19 +11,19 @@ fi
 kjobs=""
 if [ x"$jjobs" != x ]; then
   # weed out eclipse processes
-  for x in $jjobs; do
-    ecl=`ps ww $x | grep -i eclipse`
-    if [ x"$ecl" == x ]; then
-      if [ x"$kjobs" == x ]; then
-        kjobs="$x"
-      else
-        kjobs="$kjobs $x"
-      fi
-    fi
-  done
-  if [ x"$kjobs" != x ]; then
+#  for x in $jjobs; do
+#    ecl=`ps ww $x | grep -i eclipse`
+#    if [ x"$ecl" == x ]; then
+#      if [ x"$kjobs" == x ]; then
+#        kjobs="$x"
+#      else
+#        kjobs="$kjobs $x"
+#      fi
+#    fi
+#  done
+  if [ x"$jjobs" != x ]; then
     set -x
-    kill ${1:-"-9"} $kjobs $ufjobs $uhjobs $ucjobs
+    kill ${1:-"-9"} $jjobs $ufjobs $uhjobs $ucjobs
   fi
 fi
 jjobs=`pgrep -u ${me} rmiregistry`
