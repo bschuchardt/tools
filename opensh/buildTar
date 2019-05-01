@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ -r $layer/closed ]; then
+  closed=$layer/closed
+else
+  closed=$layer/gemfire/closed
+fi
+cd $closed
+gr -x rat -x spotlessApply regressionDistTar -Dcomposite

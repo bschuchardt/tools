@@ -1,0 +1,6 @@
+#!/bin/sh
+jjobs=`jps | grep ChildVM | cut -f 1 -d " "`
+if [ x"$jjobs" != x ]; then
+    set -x
+    kill -9 $jjobs
+fi

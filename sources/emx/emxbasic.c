@@ -2909,6 +2909,7 @@ void emxselectrange _ARGS2(BUFFER *, bp, REGION *, region)
     emxbupdate(bp, WFHARD);
 
 #ifdef STANDALONE
+    
     /* Take ownership of the primary selection.  selection events will
      * be delivered to the window [bjs 8/8/07]*/
     /*printf("emxselectrange calling XSetSelectionOwner\n");*/

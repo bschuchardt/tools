@@ -34,6 +34,12 @@ if [ ! -d $layer ]; then
   echo "warning: directory doesn't exist '$layer'"
 else
   echo "build root is $layer"
+  if [ -r $layer/gemfire-assembly ]; then
+    closedDir=$layer/gemfire/closed
+  else
+    closedDir=$layer/closed
+  fi
+  export closedDir
 fi
 
 if [ x"$USER" = x -a -e /usr/ucb/whoami ]; then
@@ -53,9 +59,9 @@ else
 fi
 
 
-if [ -d $layer/open ]; then
-  export CDPATH=$CDPATH:$layer/closed:$layer/open
-fi
+#if [ -d $layer/open ]; then
+#  export CDPATH=$CDPATH:$layer/closed:$layer/open
+#fi
 
 export PATH=$cmds:$JAVA_HOME/bin:$PATH
 export JTESTS=${layer}/closed/gemfire-test/build/resources/test

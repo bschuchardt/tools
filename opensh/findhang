@@ -1,0 +1,6 @@
+#!/bin/sh
+# find a hang in a concourse run
+cat `ff *progress.txt` | sort >all.txt
+grep Starting all.txt | cut -f 6-7 -d " " | sort > starting.txt
+grep Completed all.txt | cut -f 6-7 -d " " | sort > completed.txt
+diff completed.txt starting.txt | $VISUAL -

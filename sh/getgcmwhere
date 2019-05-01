@@ -6,10 +6,18 @@ function mkdh {
   fi
 }
 there=`pwd`
-thedir=`dirname where/${1}`
-cd /c/gcm
+recursive=""
+if [ x"$1" == "-r" ]; then
+  recursive="-r"
+  thedir=${2}
+  thefile=""
+else
+  thedir=`dirname ${1}`
+  thefile=`basename ${1}`
+fi
+cd /
 mkdh $thedir
 cd $there
 set -x
 set -v
-scp -r india.gemstone.com:/gcm/where/${1} /gcm/where/${1}
+scp $recursive trout.gemstone.com:$thedir/$thefile $thedir/$thefile

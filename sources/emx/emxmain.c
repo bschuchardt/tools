@@ -37,6 +37,7 @@ static Atom XA_CLIPBOARD;
 static int clipboardDefined = 0;
 #endif
 
+
 /* Externs for comparison */
 
 
@@ -2409,8 +2410,13 @@ XAnyEvent   *event;
 	windowprocess(g_event);
 #ifdef STANDALONE
     else if (event->type == SelectionRequest) {
+      if (!clipboardDefined) {
+        XA_CLIPBOARD = XInternAtom(g_display, "CLIPBOARD", 0);
+        clipboardDefined = 1;
+      }
       /*printf("processing SelectionRequest\n");*/
       req = (XSelectionRequestEvent *)(event);
+      /*printf("processing SelectionRequest for target %d xa_string is %d\n", req->target, XA_STRING);*/
       response.xselection.property = None;
       response.xselection.type = SelectionNotify;
       response.xselection.display = req->display;
@@ -2451,7 +2457,8 @@ XAnyEvent   *event;
 	    req->property = XA_PRIMARY;
 	  }
           /*printf("copying to clipboard '%s'\n", valuep);*/
-          /*printf("setting property in %d from %d\n", req->requestor, g_mainwin);*/
+          printf("setting property %s in %d from %d\n", XGetAtomName(g_display, req->property),
+            req->requestor, g_mainwin);
 	  XChangeProperty(g_display, req->requestor, req->property,
 	    XA_STRING, 8, PropModeReplace, (unsigned char *)valuep, len);
 //          if (req->property != XA_CLIPBOARD) {

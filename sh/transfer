@@ -32,7 +32,9 @@ if [ x"$1" != x ]; then
 fi
 
 if [ ! -r open ]; then
-  if [ ! -r build.sh ]; then
+  if [ -r ../open ]; then
+    cd ..
+  elif [ ! -r build.sh ]; then
     echo "$PWD is not a checkout directory"
     exit 2
   fi

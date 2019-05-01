@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for x in "$@"; do
+  echo "merging cluster $x"
+  mergelogs *r_$x_*/system.log vm*r_$x_*.log >cluster${x}.txt
+done

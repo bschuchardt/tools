@@ -16,11 +16,18 @@ else
   tdir=~/devel/testing
 fi
 
-
 if [ ! -r $layer/build.sh ]; then
-open=$layer/open
+if [ -r $layer/open ]; then
+  open=$layer/open
+else
+  open=$layer/geode
+fi
 coresrc=$open/geode-core/src/main/java
-closed=$layer/closed
+if [ -r $layer/closed ]; then
+  closed=$layer/closed
+else
+  closed=$layer/gemfire/closed
+fi
 testsrc=$open/geode-core/src
 utestsrc=$testsrc/test/java
 case $1 in
@@ -36,8 +43,7 @@ case $1 in
     d )   echo `dirname $layer` ;;
     di )  echo $coresrc/org/apache/geode/distributed/internal ;;
     dt )  echo ${tdir} ;;
-    du )  echo $layer/open/geode-core/build/distributedTest ;;
-    duo ) echo $layer/open/geode-core/build/test-results/binary/distributedTest ;;
+    du )  echo $layer/open/geode-core/src/distributedTest/java/org/apache/geode ;;
     g )   echo $coresrc/org/apache/geode ;;
     gr )  echo $layer/open/geode-core/src/main/resources/org/apache/geode ;;
     hr )  echo $layer/closed/gemfire-test/src/test/resources ;;
@@ -48,8 +54,8 @@ case $1 in
     it )  echo $coresrc/org/apache/geode/internal/tcp ;;
     l )   echo $layer ;;
     mi )  echo $coresrc/org/apache/geode/distributed/internal/membership/gms ;;
-    o )   echo $layer/open ;;
-    p )  echo $layer/open/geode-protobuf/src/main/java/org/apache/geode/protocol ;;
+    o )   echo $open ;;
+    p )  echo $open/geode-protobuf/src/main/java/org/apache/geode/protocol ;;
     r ) ls -tF | grep / | head -1 ;;
     rt ) dir=`ls -tF $tdir | grep / | head -1`; echo $tdir/$dir ;;
     smoke ) echo $layer/closed/pivotalgf-assembly/build/smokeTest ;;

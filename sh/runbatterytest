@@ -1,5 +1,10 @@
 #!/bin/bash
 
+JAVA_HOME=/gcm/where/jdk/jdk1.7.0_80.jdk/Contents/Home
+export ALT_JAVA_HOME=$JAVA_HOME
+PATH=$JAVA_HOME/bin:$PATH
+#export _JAVA_OPTIONS=-Xmx3g
+
 blcl=$build/tests/classes
 
 defns=""

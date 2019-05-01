@@ -1,0 +1,5 @@
+#!/bin/sh
+docker run -it \
+ -v $(pwd):/gemfire \
+ gcr.io/gemfire-toolsmiths/gemfire-builder-modern \
+ sh -c "cd /gemfire && $@"
