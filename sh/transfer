@@ -31,8 +31,8 @@ if [ x"$1" != x ]; then
   shift 1
 fi
 
-if [ ! -r open ]; then
-  if [ -r ../open ]; then
+if [ ! -r geode ]; then
+  if [ -r ../geode ]; then
     cd ..
   elif [ ! -r build.sh ]; then
     echo "$PWD is not a checkout directory"
@@ -94,14 +94,17 @@ function archive {
     cd $localdir
 }
 
+there=$PWD
 echo "synching closed-source"
-archive . closed-source
+archive gemfire closed-source
 
-if [ -d open ]; then
+cd $there
+if [ -d geode ]; then
   echo "synching open-source"
-  archive open open-source
+  archive geode open-source
 fi
 
+cd $there
 if [ x"$pause" == xtrue ]; then
   echo -n "press Enter to continue"
   read aline

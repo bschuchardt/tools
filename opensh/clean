@@ -1,4 +1,4 @@
 #!/bin/bash
-cd $layer/closed
+cd $layer/gemfire-assembly
 gr clean
 rm -f ~/PULSE*

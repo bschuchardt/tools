@@ -1,13 +1,20 @@
 #!/bin/sh
-git pull
-if [ -d open ]; then
-  cd open
-  if [ -r pull.sh ]; then
-    ./pull.sh
-  else
-    git pull
-  fi
-elif [ -d ../closed ]; then
+if [ -r ../gemfire-assembly ]; then
   cd ..
-  git pull
 fi
+if [ -r gemfire ]; then
+  cd gemfire
+  git pull
+  cd ..
+fi
+if [ -r geode ]; then
+  cd geode
+  git pull
+  cd ..
+fi
+if [ -r gemfire-assembly ]; then
+  cd gemfire-assembly
+  git pull
+  cd ..
+fi
+

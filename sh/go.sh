@@ -46,8 +46,8 @@ case $1 in
     du )  echo $layer/open/geode-core/src/distributedTest/java/org/apache/geode ;;
     g )   echo $coresrc/org/apache/geode ;;
     gr )  echo $layer/open/geode-core/src/main/resources/org/apache/geode ;;
-    hr )  echo $layer/closed/gemfire-test/src/test/resources ;;
-    ht )  echo $layer/closed/gemfire-test/src/test/java ;;
+    hr )  echo $closed/gemfire-test/src/test/resources ;;
+    ht )  echo $closed/gemfire-test/src/test/java ;;
     i )   echo $coresrc/org/apache/geode/internal ;;
     ic )  echo $coresrc/org/apache/geode/internal/cache ;;
     icp ) echo $coresrc/org/apache/geode/internal/cache/partitioned ;;
