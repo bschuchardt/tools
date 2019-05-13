@@ -94,7 +94,11 @@ fi
 export ocmds=~/usr/opensh
 PATH=$ocmds:$PATH
 
-export GEMFIRE=$layer/closed/pivotalgf-assembly/build/install/pivotal-gemfire
+if [ -r $layer/gemfire-assembly ]; then
+  GEMFIRE=$layer/gemfire-assembly/build/install/pivotal-gemfire/apache-geode*
+else
+  GEMFIRE=$closedDir/pivotalgf-assembly/build/install/pivotal-gemfire
+fi
 PATH=$PATH:$GEMFIRE/bin
 
 CLASSPATH=$GEMFIRE/lib/geode-dependencies.jar:$CLASSPATH

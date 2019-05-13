@@ -1,18 +1,11 @@
 #!/bin/bash
-cd $closedDir
-#rm -rf gemfire-test/build/classes/hydraClasses
+if [ -r $layer/gemfire-assembly ]; then
+  cd $layer/gemfire-assembly
+else
+  cd $closedDir
+fi
 
-gr --stacktrace --parallel -x javadoc -x docs -x checkpom -x pmdMain \
- -x spotlessJavaCheck -x rat -Dskip.tests=true build installDist
+gr --parallel -Dcomposite \
+ -Dskip.tests=true build installDist
 
-#gr --stacktrace --parallel -x javadoc -x regressionDistTar -x regressionDistZip -x srcDistTar \
-# -x srcDistZip -x distZip -x distTar -Dskip.tests=true \
-# assemble installDist testClasses createHydraClassesDir
-
-#rm -f pivotalgf-assembly/gemfire-test/hydraAdditionalJars
-
-#mkdir -p pivotalgf-assembly/gemfire-test
-
-#ln -s gemfire-test/build/hydraAdditionalJars \
-# pivotalgf-assembly/gemfire-test/
 
