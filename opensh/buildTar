@@ -5,5 +5,5 @@ else
   closed=$layer/gemfire/closed
 fi
 cd $closed
-gr -Dcomposite -x rat -x spotlessApply regressionDistTar
+gr -Pversion=0.0.0 -Dcomposite -x rat -x spotlessApply regressionDistTar
 

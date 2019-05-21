@@ -10,11 +10,12 @@
 if [ -d $build/tests/classes ]; then
   blcl=$build/tests/classes
 else
-  blcl=$layer/closed/gemfire-test/build/classes/test:$layer/closed/gemfire-test/build/classes/hydraClasses
+  blcl=$layer/gemfire/closed/gemfire-test/build/classes/test:\
+$layer/gemfire/closed/gemfire-test/build/classes/hydraClasses
 fi
 
 if [ x"$1" = x ]; then
-  java -server -cp $blcl batterytest.greplogs.GrepLogs .
+  java -server -cp $blcl:$CLASSPATH batterytest.greplogs.GrepLogs .
 else
-  java -server -cp $blcl batterytest.greplogs.GrepLogs "$@"
+  java -server -cp $blcl:$CLASSPATH batterytest.greplogs.GrepLogs "$@"
 fi

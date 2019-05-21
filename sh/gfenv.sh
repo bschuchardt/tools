@@ -95,10 +95,11 @@ export ocmds=~/usr/opensh
 PATH=$ocmds:$PATH
 
 if [ -r $layer/gemfire-assembly ]; then
-  GEMFIRE=$layer/gemfire-assembly/build/install/pivotal-gemfire/apache-geode*
+  GEMFIRE=`ls -d $layer/gemfire-assembly/build/install/pivotal-gemfire/apache-geode*`
 else
   GEMFIRE=$closedDir/pivotalgf-assembly/build/install/pivotal-gemfire
 fi
+export GEMFIRE
 PATH=$PATH:$GEMFIRE/bin
 
 CLASSPATH=$GEMFIRE/lib/geode-dependencies.jar:$CLASSPATH

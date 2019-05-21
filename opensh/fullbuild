@@ -5,7 +5,7 @@ else
   cd $closedDir
 fi
 
-gr --parallel -Dcomposite \
+gr --parallel -Pversion=0.0.0 -Dcomposite \
  -Dskip.tests=true build installDist
 
 
