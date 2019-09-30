@@ -20,7 +20,7 @@ buildRoot=$layer # $GEMFIRE_BUILD
 
 # closed
 buildType=closed
-GEMFIRE=$buildRoot/$buildType/pivotalgf-assembly/build/install/pivotal-gemfire
+#GEMFIRE=$buildRoot/$buildType/pivotalgf-assembly/build/install/pivotal-gemfire
 
 ################################################################################
 
@@ -37,7 +37,7 @@ $JTESTS:$JTESTS/../../classes/hydraClasses:\
 $JTESTS/../extraJars/groovy-all-2.4.3.jar:\
 $JTESTS/../extraJars/rest-client-dependencies.jar:\
 $layer/closed/gemfire-test/build/classes/main:\
-$layer/open/geode-test/build/classes/main;
+$layer/open/geode-dunit/build/classes/main:\ 
 $layer/open/geode-core/build/classes/test
 
 if [ x"$WINDIR" != x ]; then

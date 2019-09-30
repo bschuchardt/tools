@@ -5,7 +5,8 @@ if [ x"$jjobs" != x ]; then
   for x in $jjobs; do
 #    set -x
     echo "--- pid $x -----------------------------------------------------------------"
-    jstack -F -l $x
+#    jstack -F -l $x
+    jstack -l $x
     set +x
   done
 fi

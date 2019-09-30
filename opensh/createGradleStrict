@@ -1,0 +1,6 @@
+#!/bin/bash
+JDK11=/gcm/where/jdk/jdk-11.0.1.jdk/Contents/Home/
+export JDK11
+cp gradlew gradlewStrict
+sed -e 's/JAVA_HOME/GRADLE_JVM/g' -i.bak gradlewStrict
+mv gradlewStrict $ocmds/

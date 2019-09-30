@@ -39,6 +39,9 @@ case $1 in
     cl ) echo $closed ;;
     ct ) echo $closed/gemfire-test ;;
     core ) echo $open/geode-core ;;
+    ch ) if [ ! -r $HOME/devel/concourse/hydra ]; then
+            mkdir -p $HOME/devel/concourse/hydra
+         fi && echo $HOME/devel/concourse/hydra ;;
     ct ) echo $closed/gemfire-test/src/test/java ;;
     d )   echo `dirname $layer` ;;
     di )  echo $coresrc/org/apache/geode/distributed/internal ;;

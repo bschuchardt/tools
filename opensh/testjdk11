@@ -1,0 +1,7 @@
+#!/bin/bash
+JDK11=/gcm/where/jdk/jdk-11.0.1.jdk/Contents/Home/
+export JDK11
+export GRADLE_JVM=$JDK_HOME
+$ocmds/gradlewStrict -PcompileJVM=$JAVA_HOME -PcompileJVMVer=8 -PtestJVM=$JDK11 \
+ -PtestJVMVer=11 --parallel --console=plain --no-daemon -x javadoc \
+-x spotlessCheck -x rat test 

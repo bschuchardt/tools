@@ -1,0 +1,14 @@
+#!/bin/sh
+exec 2>&1
+set -x
+set -v
+there=$PWD
+cd $there/geode-core && gr integrationTest --tests AnalyzeSerializablesJUnitTest 
+cd $there/geode-wan && gr integrationTest --tests AnalyzeWANSerializablesJUnitTest
+cd $there/geode-cq && gr integrationTest --tests AnalyzeCQSerializablesJUnitTest 
+cd $there/geode-lucene && gr integrationTest --tests AnalyzeLuceneSerializablesJUnitTest 
+cd $there/geode-redis && gr integrationTest --tests AnalyzeRedisSerializablesJUnitTest 
+cd $there/geode-memcached && gr integrationTest --tests AnalyzeMemcachedSerializablesJUnitTest 
+cd $there/geode-web-api && gr integrationTest --tests AnalyzeWebApiSerializablesJUnitTest 
+cd $there/geode-core && gr integrationTest --tests AnalyzeManagementSerializablesJUnitTest 
+cd $there/geode-connectors && gr integrationTest --tests AnalyzeConnectorsSerializablesJUnitTest

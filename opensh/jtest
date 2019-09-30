@@ -1,2 +1,7 @@
 #!/bin/bash
-gr -Dtest.single=$1 test
+jTest=""
+for x in "$@"; do
+  jTest="$jTest --tests $x"
+done
+gr -x javadoc test $jTest
+

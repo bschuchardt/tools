@@ -4,6 +4,7 @@ rm -f unfinishedTests.txt
 for x in `ff *-progress.txt`; do
   pushd `dirname $x` >/dev/null
   echo $PWD >>$here/unfinishedTests.txt
+  d2u *progress.txt
   grep "Starting test" *progress.txt | cut -d " " -f 6-7 | sort >starting.srt
   grep "Completed test" *progress.txt | cut -d " " -f 6-7 | sort >completed.srt
   diff starting.srt completed.srt >>$here/unfinishedTests.txt
