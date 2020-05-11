@@ -1,15 +1,27 @@
 #!/bin/bash
-if [ -d geode-assembly ]; then
-  echo "resetting only open-source"
-  sleep 2
-else
-  echo "resetting closed-source"
-  sleep 2
-fi
-git reset --hard HEAD
-if [ -d open ]; then
-  echo "resetting open-source"
-  sleep 2
-  cd open
+if [ -d gemfire-assembly ]; then
+  echo "resetting geode-assembly"
+  sleep 1
+  cd gemfire-assembly
   git reset --hard HEAD
+  cd ..
 fi
+if [ -d geode ]; then
+  echo "resetting open source"
+  sleep 1
+  cd geode
+  git reset --hard HEAD
+  cd ..
+fi
+if [ -d gemfire ]; then
+  echo "resetting gemfire"
+  cd gemfire
+  git reset --hard HEAD
+  cd ..
+fi
+if [ -d .git ]; then
+  echo "resetting $PWD"
+  git reset --hard HEAD
+  done
+fi
+

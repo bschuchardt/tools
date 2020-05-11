@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #jjobs=`/usr/ucb/ps -xwww | grep java | cut -c 1-6`
 me=`whoami`
 jjobs=`pgrep -u ${me} java`
@@ -11,20 +11,19 @@ else
 fi
 kjobs=""
 if [ x"$jjobs" != x ]; then
-  # weed out eclipse processes
-#  for x in $jjobs; do
-#    ecl=`ps ww $x | grep -i eclipse`
-#    if [ x"$ecl" == x ]; then
-#      if [ x"$kjobs" == x ]; then
-#        kjobs="$x"
-#      else
-#        kjobs="$kjobs $x"
-#      fi
-#    fi
-#  done
-  if [ x"$jjobs" != x ]; then
+  for x in $jjobs; do
+    ecl=`ps ww $x | grep -i killjava`
+    if [ x"$ecl" == x ]; then
+      if [ x"$kjobs" == x ]; then
+        kjobs="$x"
+      else
+        kjobs="$kjobs $x"
+      fi
+    fi
+  done
+  if [ x"$kjobs" != x ]; then
     set -x
-    kill ${1:-"-9"} $jjobs $ufjobs $uhjobs $ucjobs
+    kill ${1:-"-9"} $kjobs $ufjobs $uhjobs $ucjobs
   fi
 fi
 jjobs=`pgrep -u ${me} rmiregistry`

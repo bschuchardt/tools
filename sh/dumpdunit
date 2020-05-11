@@ -1,0 +1,3 @@
+#!/bin/sh
+# force dunit jvms to dump stack - can help flush gradle to output.bin
+kill -QUIT `jps | grep ChildVM | cut -f 1 -d " "

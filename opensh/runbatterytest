@@ -4,4 +4,7 @@ if [ ! -r $btfile ]; then
   echo $btfile not found
   exit 2
 fi
-./gradlew runHydraTest -PhydraTestFileName=$btfile
+there=$PWD
+cd $layer/gemfire/closed
+./gradlew runHydraTest -PhydraResultDir=$there -PhydraTestFileName=$btfile
+cd $there
