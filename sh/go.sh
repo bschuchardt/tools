@@ -48,7 +48,7 @@ case $1 in
     dt )  echo ${tdir} ;;
     du )  echo $layer/open/geode-core/src/distributedTest/java/org/apache/geode ;;
     g )   echo $coresrc/org/apache/geode ;;
-    gr )  echo $layer/open/geode-core/src/main/resources/org/apache/geode ;;
+    gr )  echo $layer/geode/geode-core/src/main/resources/org/apache/geode ;;
     hr )  echo $closed/gemfire-test/src/test/resources ;;
     ht )  echo $closed/gemfire-test/src/test/java ;;
     i )   echo $coresrc/org/apache/geode/internal ;;
@@ -56,7 +56,7 @@ case $1 in
     icp ) echo $coresrc/org/apache/geode/internal/cache/partitioned ;;
     it )  echo $coresrc/org/apache/geode/internal/tcp ;;
     l )   echo $layer ;;
-    mi )  echo $coresrc/org/apache/geode/distributed/internal/membership/gms ;;
+    mi )  echo $open/geode-membership/src/main/java/org/apache/geode/distributed/internal/membership/gms ;;
     o )   echo $open ;;
     p )  echo $open/geode-protobuf/src/main/java/org/apache/geode/protocol ;;
     r ) ls -tF | grep / | head -1 ;;

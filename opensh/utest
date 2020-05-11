@@ -8,5 +8,5 @@ if [ $1 == -cover ]; then
 fi
 test=$1
 shift
-gr $COVER -x javadoc acceptanceTest --tests $test
+gr $COVER -x :rat -x javadoc  upgradeTest --tests $test
 

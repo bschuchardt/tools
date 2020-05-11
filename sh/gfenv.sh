@@ -67,7 +67,7 @@ fi
 export PATH=$cmds:$JAVA_HOME/bin:$PATH
 export JTESTS=${layer}/closed/gemfire-test/build/resources/test
 
-function go {
+function gg {
   while [ x"$1" != x ]; do
     dir=`go.sh $1`
     export LPWD=$PWD
@@ -81,7 +81,7 @@ function go {
   done
 }
 
-export go
+export g
 
 if [ ! -r $layer/build.sh ]; then
 
@@ -106,7 +106,7 @@ PATH=$PATH:$GEMFIRE/bin
 
 CLASSPATH=$GEMFIRE/lib/geode-dependencies.jar:$CLASSPATH
 
-export gdir=$layer/open/geode-core/src/main/java/org/apache/geode
+export gdir=$layer/geode/geode-core/src/main/java/org/apache/geode
 export intdir=$gdir/internal
 export icdir=$gdir/internal/cache
 export didir=$gdir/distributed/internal

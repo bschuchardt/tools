@@ -6,4 +6,4 @@ shift
 for x in "$@"; do
   archives="$archives -archive=$x"
 done
-gemfire stats ++:$stat -nofilter -details $archives
+java org.apache.geode.internal.SystemAdmin stats ++:$stat -nofilter -details $archives
