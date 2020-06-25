@@ -10,7 +10,7 @@
 # Change the "rpt" variable below to a different filename if you
 # don't want results to go into "performance.txt"
 
-dirs="baseline_2hosts rerun_baseline nofilter_2hosts rerun_2hosts withfilter rerun_withfilter"
+dirs="gf98 devel notsettingsni"
 
 function gfe
 {
@@ -30,11 +30,15 @@ function getreport {
 
     #statspec="-DstatSpecFile=${layer}/closed/gemfire-test/build/resources/test/cacheperf/specs/ops.spec"
 
-    classpath=${layer}/closed/pivotalgf-assembly/build/install/pivotal-gemfire/lib/geode-dependencies.jar:${layer}/closed/gemfire-test/build/classes/hydraClasses:${layer}/closed/gemfire-test/build/resources/extraJars/groovy-all-2.4.3.jar
+    closeddir=${layer}/gemfire/closed
+    classpath=${GEMFIRE}/lib/geode-dependencies.jar:\
+${closeddir}/gemfire-test/build/classes/hydraClasses:\
+${closeddir}/gemfire-test/build/resources/extraJars/groovy-all-2.4.3.jar
+
     $JAVA_HOME/bin/java -cp $classpath \
     -Xmx1024M \
-    -DJTESTS=${layer}/closed/gemfire-test/build/resources/test \
-    -Dgemfire.home=${layer}/closed/pivotalgf-assembly \
+    -DJTESTS=${closeddir}/gemfire-test/build/resources/test \
+    -Dgemfire.home=${layer}/gemfire-assembly \
     -DrespectArgOrder=true \
     -DcompareByKey=true \
     -DomitFailedTests=true \

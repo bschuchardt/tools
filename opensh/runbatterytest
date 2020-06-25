@@ -5,6 +5,15 @@ if [ ! -r $btfile ]; then
   exit 2
 fi
 there=$PWD
+if [ -r local.conf ]; then
+  echo "Using provided local.conf"
+  LOCALCONF="-PhydraLocalConf=$there/local.conf"
+else
+  LOCALCONF=""
+fi
 cd $layer/gemfire/closed
-./gradlew runHydraTest -PhydraResultDir=$there -PhydraTestFileName=$btfile
+./gradlew --no-daemon \
+ -Dcomposite \
+ runHydraTest -PhydraResultDir=$there/build \
+-PhydraTestFileName=$there/$btfile $LOCALCONF
 cd $there

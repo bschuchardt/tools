@@ -54,7 +54,8 @@ if [ $un = "Darwin" ]; then
 #  export JAVA_HOME=/gcm/where/jdk/jdk-11.0.1.jdk/Contents/Home
   export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
 elif [ $un = "Linux" ]; then
-  export JAVA_HOME=/gcm/where/jdk/1.8.0_181/x86_64.linux
+#  export JAVA_HOME=/gcm/where/jdk/1.8.0_181/x86_64.linux
+  export JAVA_HOME=/home/bschuchardt/usr/jdk/openjdk8_252
 else
   export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_45/sparc.Solaris
 fi
@@ -67,7 +68,7 @@ fi
 export PATH=$cmds:$JAVA_HOME/bin:$PATH
 export JTESTS=${layer}/closed/gemfire-test/build/resources/test
 
-function gg {
+function g {
   while [ x"$1" != x ]; do
     dir=`go.sh $1`
     export LPWD=$PWD
