@@ -33,7 +33,7 @@ utestsrc=$testsrc/test/java
 case $1 in
     ai ) echo $coresrc/org/apache/geode/admin/internal ;;
     back ) echo $LPWD ;;  # set in the function 'go'
-    bl ) echo $buildlayer ;;
+    bm ) echo $HOME/devel/geode-benchmarks/infrastructure/scripts/aws ;;
     c ) echo $coresrc/org/apache/geode/cache ;;
     ci ) echo $coresrc/org/apache/geode/cache/client/internal ;;
     cl ) echo $closed ;;
@@ -64,8 +64,6 @@ case $1 in
     smoke ) echo $layer/closed/pivotalgf-assembly/build/smokeTest ;;
     t )   echo $utestsrc ;;
     tg )  echo $utestsrc/org/apache/geode ;;
-    tc )  echo $utestsrc/org/apache/geode/cache30 ;;
-    tic ) echo $utestsrc/org/apache/geode/internal/cache ;;
     tr )  echo $layer/open/geode-core/src/test/resources/org/apache/geode ;;
     ts )  echo $coresrc/org/apache/geode/internal/cache/tier/sockets ;;
     tt )  echo $HOME/sdevel/caches/gfcache ;;
