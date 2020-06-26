@@ -1,0 +1,11 @@
+#!/bin/sh
+btfile=$1
+if [ ! -r $btfile ]; then
+  echo $btfile not found
+  exit 2
+fi
+there=$PWD
+cd $layer/closed
+./gradlew --no-daemon \
+ runHydraTest -PhydraResultDir=$there/build -PhydraTestFileName=$there/$btfile
+cd $there
