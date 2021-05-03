@@ -28,7 +28,7 @@ elif [ -d /${hn}1/users/bschuchardt/devel/gf$buildnum ]; then
 #elif [ $hn == "w1-gst-dev01" ]; then
 #    export layer=/export/w1-gst-dev01d/users/bschuchardt/devel/gf$buildnum
 else
-    export layer=/home/bschuchardt/devel/gf$buildnum
+    export layer=$HOME/devel/gf$buildnum
 fi
 if [ ! -d $layer ]; then
   echo "warning: directory doesn't exist '$layer'"
@@ -41,6 +41,7 @@ else
   fi
   export closedDir
 fi
+export openDir=$layer/geode
 
 if [ x"$USER" = x -a -e /usr/ucb/whoami ]; then
   export USER=`/usr/ucb/whoami`
@@ -53,11 +54,9 @@ export GCMDIR=/export/gcm
 if [ $un = "Darwin" ]; then
 #  export JAVA_HOME=/gcm/where/jdk/jdk-11.0.1.jdk/Contents/Home
   export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
-elif [ $un = "Linux" ]; then
-#  export JAVA_HOME=/gcm/where/jdk/1.8.0_181/x86_64.linux
-  export JAVA_HOME=/home/bschuchardt/usr/jdk/openjdk8_252
 else
-  export JAVA_HOME=$GCMDIR/where/jdk/1.8.0_45/sparc.Solaris
+#  export JAVA_HOME=/gcm/where/jdk/1.8.0_181/x86_64.linux
+  export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 fi
 
 
@@ -100,7 +99,7 @@ if [ -r $layer/gemfire-assembly ]; then
 #  GEMFIRE=`ls -d $layer/gemfire-assembly/build/install/pivotal-gemfire/apache-geode*`
   GEMFIRE=`ls -d $layer/gemfire-assembly/build/install/pivotal-gemfire/`
 else
-  GEMFIRE=$closedDir/pivotalgf-assembly/build/install/pivotal-gemfire
+  GEMFIRE=$openDir/geode-assembly/build/install/apache-geode
 fi
 export GEMFIRE
 PATH=$PATH:$GEMFIRE/bin

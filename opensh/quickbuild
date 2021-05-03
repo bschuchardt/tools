@@ -1,4 +1,4 @@
 #!/bin/bash
-cd $layer/open
+cd $layer/geode
 gr geode-assembly:installDist
 

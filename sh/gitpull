@@ -9,12 +9,7 @@ if [ -r gemfire ]; then
 fi
 if [ -r geode ]; then
   cd geode
-  git pull
-  cd ..
-fi
-if [ -r gemfire-assembly ]; then
-  cd gemfire-assembly
-  git pull
+  git pull geode `git branch --show-current`
   cd ..
 fi
 

@@ -1,9 +1,9 @@
 #!/bin/bash
-if [ -r $layer/gemfire-assembly ]; then
-  cd $layer/gemfire-assembly
-else
+#if [ -r $layer/gemfire-assembly ]; then
+#  cd $layer/gemfire-assembly
+#else
   cd $closedDir
-fi
+#fi
 
 gr --parallel -Pversion=0.0.0 -Dcomposite \
  -Dskip.tests=true build installDist

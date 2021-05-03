@@ -86,7 +86,6 @@ case $1 in
     du )  ls -td $unittestdir/dunit/dunit-tests-* | head -1 ;;
     dur ) ls -td $unittestdir/dunit-rerun/dunit-tests-* | head -1 ;;
     cdu ) echo ./dunit/dunit-tests-* ;;
-    ct )  echo /home/bschuchardt/sdevel/caches/tangosol ;;
     g )   echo $layer/src/com/gemstone/gemfire ;;
     i )   echo $layer/src/com/gemstone/gemfire/internal ;;
     ic )  echo $layer/src/com/gemstone/gemfire/internal/cache ;;

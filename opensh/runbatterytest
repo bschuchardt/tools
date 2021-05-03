@@ -11,9 +11,12 @@ if [ -r local.conf ]; then
 else
   LOCALCONF=""
 fi
+if [ -d ./build ]; then
+  rm -rf ./build
+fi
 cd $layer/gemfire/closed
 ./gradlew --no-daemon \
  -Dcomposite \
  runHydraTest -PhydraResultDir=$there/build \
 -PhydraTestFileName=$there/$btfile $LOCALCONF
-cd $there
+

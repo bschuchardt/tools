@@ -29,10 +29,10 @@ scp ${archive} bschuchardt@${remotehost}:$destdir/$archive
 
 echo "unpacking archive on ${remotehost}"
 ssh bschuchardt@${remotehost} cd ${destdir}\; svn -Rq revert .\; unzip -o ${archive}\; \
-cp ${archive} /home/bschuchardt/backup/${thedir}${thedate}${srcname}.zip
+cp ${archive} $HOME/backup/${thedir}${thedate}${srcname}.zip
 now=`date`
 echo "${count} files transfered to ${destdir} on ${remotehost} at ${now}"
-echo "archive file backed up to /home/bschuchardt/backup/${thedir}${thedate}${srcname}.zip"
+echo "archive file backed up to $HOME/backup/${thedir}${thedate}${srcname}.zip"
 if [ x"$pause" == xtrue ]; then
   echo -n "press Enter to continue"
   read aline
